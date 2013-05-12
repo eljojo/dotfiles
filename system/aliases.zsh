@@ -28,6 +28,7 @@ alias mv='mv -i'
 alias ln='ln -i'
 
 alias sshhomer='ssh homer.eljojo.net -p123'
+alias sshelmo='ssh elmo.eljojo.net'
 alias psql_start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 alias psql_stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 alias redis.server='redis-server /usr/local/etc/redis.conf'
