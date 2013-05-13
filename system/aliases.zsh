@@ -29,6 +29,12 @@ alias ln='ln -i'
 
 alias sshhomer='ssh homer.eljojo.net -p123'
 alias sshelmo='ssh elmo.eljojo.net'
+
+alias deploy='git push origin && cap deploy'
+alias deploy_and_migrate='deploy && sleep 3 && cap deploy:stop && sleep 3 && cap deploy:migrate && sleep 3 && cap deploy:start && say "deployed and migrated"'
 alias psql_start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 alias psql_stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
-alias redis.server='redis-server /usr/local/etc/redis.conf'
+
+alias redis.start='redis-server /usr/local/etc/redis.conf'
+
+alias simple_server='python -m SimpleHTTPServer'
