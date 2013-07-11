@@ -310,3 +310,5 @@ autocmd BufReadPost fugitive://*
 set colorcolumn=80
 "colorscheme railscasts
 
+set wildignore+=tmp,storage
+
