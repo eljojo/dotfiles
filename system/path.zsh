@@ -7,3 +7,10 @@ if [[ -a /usr/local/opt/ruby/bin ]]
 then
   export PATH="/usr/local/opt/ruby/bin:$PATH"
 fi
+
+if [[ -a /usr/local/go ]]
+then
+  export GOROOT=/usr/local/go
+  export GOPATH=$HOME/.go
+  export PATH=$PATH:$GOROOT/bin
+fi
