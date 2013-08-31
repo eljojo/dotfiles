@@ -8,7 +8,7 @@ then
   export PATH="/usr/local/opt/ruby/bin:$PATH"
 fi
 
-if [[ -a /usr/local/go ]]
+if [[ -a /usr/local/go || -a /usr/local/Cellar/go ]]
 then
   export GOROOT=/usr/local/go
   export GOPATH=$HOME/.go
