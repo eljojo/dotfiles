@@ -11,6 +11,13 @@ fi
 if [[ -a /usr/local/go || -a /usr/local/Cellar/go ]]
 then
   export GOROOT=/usr/local/go
+
+  if [[ -a /usr/local/Cellar/go/1.1.2 ]]
+  then
+    export GOROOT=/usr/local/Cellar/go/1.1.2
+  fi
+
   export GOPATH=$HOME/.go
-  export PATH=$PATH:$GOROOT/bin
+  export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi
+
