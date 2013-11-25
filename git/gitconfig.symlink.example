@@ -22,6 +22,8 @@
 [core]
         excludesfile = ~/.gitignore
         editor = vim
+        # http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/
+        trustctime = false
 [apply]
         whitespace = nowarn
 [mergetool]
