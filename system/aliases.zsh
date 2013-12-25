@@ -27,7 +27,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias ln='ln -i'
 
-alias sshhomer='ssh homer.eljojo.net -p123'
+alias sshhomer='ssh homer.eljojo.net'
 alias sshelmo='ssh elmo.eljojo.net'
 
 alias deploy='git push origin && cap deploy'
