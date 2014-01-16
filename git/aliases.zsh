@@ -23,3 +23,7 @@ alias push='git push origin'
 alias pull='git pull origin master'
 alias status='git status'
 alias gwc='git whatchanged -p --abbrev-commit --pretty=medium'
+
+alias such=git
+alias very=git
+alias wow='git status'
