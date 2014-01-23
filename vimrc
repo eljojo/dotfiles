@@ -57,6 +57,9 @@ set scrolloff=3
 set sidescrolloff=7
 set sidescroll=1
 
+" load go plugins
+set runtimepath+=$GOROOT/misc/vim
+
 "load ftplugins and indent files
 filetype plugin on
 filetype indent on
