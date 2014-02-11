@@ -13,6 +13,9 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/nerdtree'
+Bundle 'tpope/vim-rails'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'tpope/vim-markdown'
 
 filetype plugin indent on
 
@@ -36,6 +39,9 @@ set hlsearch    "hilight searches by default
 
 set wrap        "dont wrap lines
 set linebreak   "wrap lines at convenient points
+
+" remap leader to ,
+let mapleader = ","
 
 if v:version >= 703
     "undo settings
@@ -73,6 +79,18 @@ function! SetCursorPosition()
     end
 endfunction
 
+"make <c-l> clear the highlight as well as redraw
+nnoremap <C-L> :nohls<CR><C-L>
+inoremap <C-L> <C-O>:nohls<CR>
+
+" split windows
+nnoremap <leader>w <C-w>v<C-w>l
+nnoremap <leader>W :split<CR><C-w>j
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
 "spell check when writing commit logs
 autocmd filetype svn,*commit* setlocal spell
 
@@ -80,6 +98,12 @@ autocmd filetype svn,*commit* setlocal spell
 set colorcolumn=80
 
 set wildignore+=tmp,storage
+
+set encoding=utf-8
+set ttyfast
+
+set backupdir=~/.vim/backup
+set directory=~/.vim/backup
 
 " load NERDTree with ctrl+n
 map <C-n> :NERDTreeToggle<CR>
