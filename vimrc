@@ -12,6 +12,7 @@ Bundle 'tpope/vim-sensible'
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'Lokaltog/vim-easymotion'
+Bundle 'scrooloose/nerdtree'
 
 filetype plugin indent on
 
@@ -60,7 +61,6 @@ set t_Co=256
 "hide buffers when not displayed
 set hidden
 
-
 "jump to last cursor position when opening a file
 "dont do it when writing a commit log entry
 autocmd BufReadPost * call SetCursorPosition()
@@ -76,8 +76,10 @@ endfunction
 "spell check when writing commit logs
 autocmd filetype svn,*commit* setlocal spell
 
+" red column at 80 characters
 set colorcolumn=80
-"colorscheme railscasts
 
 set wildignore+=tmp,storage
 
+" load NERDTree with ctrl+n
+map <C-n> :NERDTreeToggle<CR>
