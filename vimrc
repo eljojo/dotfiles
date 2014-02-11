@@ -11,6 +11,7 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-sensible'
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/syntastic'
+Bundle 'Lokaltog/vim-easymotion'
 
 filetype plugin indent on
 
