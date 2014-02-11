@@ -9,6 +9,8 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-sensible'
+Bundle 'kien/ctrlp.vim'
+Bundle 'scrooloose/syntastic'
 
 filetype plugin indent on
 
