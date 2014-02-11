@@ -9,6 +9,7 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-sensible'
+Bundle 'vim-ruby/vim-ruby'
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'Lokaltog/vim-easymotion'
@@ -16,6 +17,9 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-rails'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-endwise'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'vim-scripts/delimitMate.vim'
 
 filetype plugin indent on
 
