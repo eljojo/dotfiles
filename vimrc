@@ -2,8 +2,15 @@
 "This must be first, because it changes other options as a side effect.
 set nocompatible
 
-"activate pathogen
-call pathogen#infect()
+filetype off " required for Vundle
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'tpope/vim-sensible'
+
+filetype plugin indent on
 
 "allow backspacing over everything in insert mode
 set backspace=indent,eol,start
