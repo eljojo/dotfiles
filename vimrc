@@ -44,6 +44,9 @@ set hlsearch    "hilight searches by default
 set wrap        "dont wrap lines
 set linebreak   "wrap lines at convenient points
 
+" using bash as shell so the PATH is set correctly
+set shell=/bin/bash
+
 " remap leader to ,
 let mapleader = ","
 
