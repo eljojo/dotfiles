@@ -20,6 +20,7 @@ Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-endwise'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'vim-scripts/delimitMate.vim'
+Bundle 'tpope/vim-haml'
 
 filetype plugin indent on
 
@@ -114,3 +115,4 @@ set directory=~/.vim/backup
 
 " load NERDTree with ctrl+n
 map <C-n> :NERDTreeToggle<CR>
+
