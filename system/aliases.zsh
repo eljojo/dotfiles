@@ -37,5 +37,4 @@ alias psql_stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 
 alias redis.start='redis-server /usr/local/etc/redis.conf'
 alias mongo.start='/usr/local/opt/mongodb/bin/mongod --config /usr/local/etc/mongod.conf --fork'
-
-alias simple_server='python -m SimpleHTTPServer'
+alias es.start='elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml'
