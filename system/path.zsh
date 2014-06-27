@@ -8,13 +8,13 @@ then
   export PATH="/usr/local/opt/ruby/bin:$PATH"
 fi
 
-if [[ -a /usr/local/go || -a /usr/local/Cellar/go ]]
+if [[ -a /usr/local/go || -a /usr/local/opt/go/libexec ]]
 then
   export GOROOT=/usr/local/go
 
-  if [[ -a /usr/local/Cellar/go/1.1.2 ]]
+  if [[ -a /usr/local/opt/go/libexec ]]
   then
-    export GOROOT=/usr/local/Cellar/go/1.1.2
+    export GOROOT=/usr/local/opt/go/libexec
   fi
 
   export GOPATH=$HOME/.go
