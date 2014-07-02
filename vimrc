@@ -1,29 +1,31 @@
 "Use Vim settings, rather then Vi settings (much better!).
 "This must be first, because it changes other options as a side effect.
 set nocompatible
-
 filetype off " required for Vundle
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-sensible'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'scrooloose/nerdtree'
-Bundle 'tpope/vim-rails'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-endwise'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'vim-scripts/delimitMate.vim'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-bundler'
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
 
+Plugin 'tpope/vim-sensible'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-rails'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-endwise'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'vim-scripts/delimitMate.vim'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-bundler'
+
+call vundle#end()
 filetype plugin indent on
 
 "allow backspacing over everything in insert mode
