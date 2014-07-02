@@ -21,6 +21,8 @@ Bundle 'tpope/vim-endwise'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'vim-scripts/delimitMate.vim'
 Bundle 'tpope/vim-haml'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-bundler'
 
 filetype plugin indent on
 
