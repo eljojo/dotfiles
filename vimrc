@@ -24,6 +24,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-scripts/delimitMate.vim'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-bundler'
+Plugin 'rking/ag.vim'
 
 call vundle#end()
 filetype plugin indent on
