@@ -26,6 +26,7 @@ Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-bundler'
 Plugin 'rking/ag.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'fatih/vim-go'
 
 call vundle#end()
 filetype plugin indent on
