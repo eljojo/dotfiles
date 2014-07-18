@@ -25,6 +25,7 @@ Plugin 'vim-scripts/delimitMate.vim'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-bundler'
 Plugin 'rking/ag.vim'
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()
 filetype plugin indent on
