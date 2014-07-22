@@ -1,5 +1,9 @@
 set guifont=Menlo:h12
 
+" Solarized
+set background=light
+colorscheme solarized
+
 if has("gui_macvim")
   map <D-1> 1gt
   map <D-2> 2gt
