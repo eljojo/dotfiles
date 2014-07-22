@@ -27,6 +27,7 @@ Plugin 'tpope/vim-bundler'
 Plugin 'rking/ag.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'fatih/vim-go'
+Plugin 'altercation/vim-colors-solarized'
 
 call vundle#end()
 filetype plugin indent on
@@ -78,6 +79,10 @@ syntax on
 
 "tell the term has 256 colors
 set t_Co=256
+
+" Solarized
+set background=dark
+colorscheme solarized
 
 "hide buffers when not displayed
 set hidden

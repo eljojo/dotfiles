@@ -1,4 +1,3 @@
-colorscheme railscasts
 set guifont=Menlo:h12
 
 if has("gui_macvim")
