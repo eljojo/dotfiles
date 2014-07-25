@@ -3,6 +3,7 @@ tags
 *.swp
 .VimballRecord
 undofiles/*
+backup/*
 projects/*
 .netrwhist
 UltiSnips/*
