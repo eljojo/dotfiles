@@ -20,7 +20,6 @@ Plugin 'tpope/vim-rails'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-endwise'
-Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-scripts/delimitMate.vim'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-bundler'
@@ -28,6 +27,7 @@ Plugin 'rking/ag.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'fatih/vim-go'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'tpope/vim-commentary'
 
 call vundle#end()
 filetype plugin indent on
