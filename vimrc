@@ -124,3 +124,6 @@ set directory=~/.vim/backup
 " load NERDTree with ctrl+n
 map <C-n> :NERDTreeToggle<CR>
 
+" fixes editing the crontab
+au BufEnter /private/tmp/crontab.* setl backupcopy=yes
+
