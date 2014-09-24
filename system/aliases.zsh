@@ -27,11 +27,8 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias ln='ln -i'
 
-alias sshhomer='ssh homer.eljojo.net'
-alias sshelmo='ssh elmo.eljojo.net'
-
-alias deploy='git push origin && cap deploy'
-alias deploy_and_migrate='deploy && sleep 3 && cap deploy:stop && sleep 3 && cap deploy:migrate && sleep 3 && cap deploy:start && say "deployed and migrated"'
+alias deploy='git push origin && git push dokku'
+alias deploy_and_migrate='deploy && dokku run rake db:migrate'
 alias psql_start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 alias psql_stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 
