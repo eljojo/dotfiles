@@ -30,7 +30,6 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'tpope/vim-commentary'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'elixir-lang/vim-elixir'
-Plugin 'wting/rust.vim'
 
 call vundle#end()
 filetype plugin indent on
