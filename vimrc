@@ -29,7 +29,6 @@ Plugin 'fatih/vim-go'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tpope/vim-commentary'
 Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'heartsentwined/vim-emblem'
 Plugin 'elixir-lang/vim-elixir'
 
 call vundle#end()
