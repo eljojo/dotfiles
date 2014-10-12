@@ -7,4 +7,5 @@ export LC_ALL=en_US.UTF-8
 # export EC2_CERT="$(/bin/ls "$HOME"/.ec2/cert-*.pem | /usr/bin/head -1)"
 # export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
 
-export SSL_CERT_FILE=/usr/local/etc/cacert.pem
+# at some point I enabled this line and I don't know why :(
+# export SSL_CERT_FILE=/usr/local/etc/cacert.pem
