@@ -5,8 +5,3 @@ then
   export RUBY_GC_HEAP_FREE_SLOTS=200000
 fi
 
-# init according to man page
-if (( $+commands[rbenv] ))
-then
-  eval "$(rbenv init -)"
-fi
