@@ -8,3 +8,5 @@ fi
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
 
+# loading the latest ruby
+chruby ruby
