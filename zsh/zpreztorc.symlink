@@ -32,7 +32,13 @@ zstyle ':prezto:load' pmodule \
   'spectrum' \
   'utility' \
   'completion' \
-  'prompt'
+  'prompt' \
+  'ruby' \
+  'rails' \
+  'osx' \
+  'ssh' \
+  'git' \
+  'homebrew'
 
 #
 # Editor
