@@ -45,6 +45,7 @@ brew install node
 brew install the_silver_searcher
 brew install tree
 brew install go
+brew install namebench
 
 
 # install prezto
