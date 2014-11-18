@@ -50,6 +50,7 @@ brew install go
 brew install namebench
 brew install ansible
 brew install imagemagick
+brew install mitmproxy
 
 # install prezto
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
