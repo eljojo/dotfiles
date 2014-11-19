@@ -51,6 +51,7 @@ brew install namebench
 brew install ansible
 brew install imagemagick
 brew install mitmproxy
+brew tap beeftornado/rmtree && brew install beeftornado/rmtree/brew-rmtree
 
 # install prezto
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
