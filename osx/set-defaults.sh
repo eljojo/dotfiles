@@ -43,9 +43,9 @@ defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 # from here on, it was gotten from: https://gist.github.com/brandonb927/3195465
 
 # Expanding the save panel by default
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
-defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
-defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
+# defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+# defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
+# defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
 # "Automatically quit printer app once the print jobs complete"
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
@@ -118,7 +118,7 @@ defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 # "Disable smart quotes as it's annoying for messages that contain code"
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false
 
-# "Speeding up wake from sleep from 1 hour to 6 hours"
+# "Speeding up wake from sleep from 1 hour to 8 hours"
 # http://www.cultofmac.com/221392/quick-hack-speeds-up-retina-macbooks-wake-from-sleep-os-x-tips/
-sudo pmset -a standbydelay 21600
+sudo pmset -a standbydelay 28800
 
