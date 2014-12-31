@@ -33,6 +33,7 @@ brew cask install itunes-volume-control
 brew cask install textmate
 brew cask install handbrake
 brew cask install bittorrent-sync
+brew cask install xld
 
 # chrome we don't install through cask, because the 1password extension
 # breaks if it's not directly in /Applications
