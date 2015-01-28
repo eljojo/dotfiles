@@ -31,6 +31,7 @@ Plugin 'tpope/vim-commentary'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'tpope/vim-surround'
+Plugin 'bkad/CamelCaseMotion'
 
 call vundle#end()
 filetype plugin indent on
