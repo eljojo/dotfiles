@@ -39,7 +39,7 @@ done
 
 unset config_files
 
-source "$HOME/google-cloud-sdk/path.zsh.inc"
+# source "$HOME/google-cloud-sdk/path.zsh.inc"
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
