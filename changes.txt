@@ -55,6 +55,7 @@ brew install mitmproxy
 brew tap beeftornado/rmtree && brew install beeftornado/rmtree/brew-rmtree
 brew install iperf
 brew install gpg
+brew install gpg-agent
 brew install scala
 brew install awscli
 
