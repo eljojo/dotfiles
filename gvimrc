@@ -1,7 +1,7 @@
 set guifont=Menlo:h12
 
 " Solarized
-set background=light
+set background=dark
 colorscheme solarized
 
 if has("gui_macvim")
