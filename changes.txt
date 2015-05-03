@@ -58,6 +58,7 @@ brew install gpg
 brew install gpg-agent
 brew install scala
 brew install awscli
+brew install cmake # needed for Vim's YouCompleteMe
 
 # install prezto
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
