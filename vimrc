@@ -33,6 +33,7 @@ Plugin 'elixir-lang/vim-elixir'
 Plugin 'tpope/vim-surround'
 Plugin 'bkad/CamelCaseMotion'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'derekwyatt/vim-scala'
 
 call vundle#end()
 filetype plugin indent on
