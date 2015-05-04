@@ -32,7 +32,6 @@ Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'tpope/vim-surround'
 Plugin 'bkad/CamelCaseMotion'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'derekwyatt/vim-scala'
 
 call vundle#end()
