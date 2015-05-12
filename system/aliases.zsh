@@ -28,6 +28,7 @@ alias mv='mv -i'
 alias ln='ln -i'
 
 alias deploy='git push origin && git push dokku'
+alias stage='git push --force staging HEAD:master'
 alias deploy_and_migrate='deploy && dokku run rake db:migrate'
 alias psql_start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 alias psql_stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
