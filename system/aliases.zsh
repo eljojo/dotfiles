@@ -35,6 +35,6 @@ alias psql_stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 
 alias redis.start='redis-server /usr/local/etc/redis.conf'
 alias mongo.start='/usr/local/opt/mongodb/bin/mongod --config /usr/local/etc/mongod.conf --fork'
-alias es.start='elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml'
+alias es.start='launchctl load /usr/local/opt/elasticsearch/homebrew.mxcl.elasticsearch.plist'
 alias etcd.start='launchctl load /usr/local/opt/etcd/homebrew.mxcl.etcd.plist'
 alias rmq.start='launchctl load /usr/local/opt/rabbitmq/homebrew.mxcl.rabbitmq.plist'
