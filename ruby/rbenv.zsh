@@ -5,8 +5,3 @@ then
   export RUBY_GC_HEAP_FREE_SLOTS=200000
 fi
 
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-source /usr/local/opt/chruby/share/chruby/auto.sh
-
-# loading the latest ruby
-chruby ruby
