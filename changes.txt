@@ -69,3 +69,6 @@ wget https://raw.githubusercontent.com/altercation/solarized/master/iterm2-color
 wget https://raw.githubusercontent.com/altercation/solarized/master/iterm2-colors-solarized/Solarized%20Dark.itermcolors
 open *.itermcolors
 rm -f *.itermcolors
+
+# install this:
+https://github.com/BrianGilbert/QLColorCode-extra
