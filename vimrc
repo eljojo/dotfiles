@@ -33,6 +33,7 @@ Plugin 'elixir-lang/vim-elixir'
 Plugin 'tpope/vim-surround'
 Plugin 'bkad/CamelCaseMotion'
 Plugin 'derekwyatt/vim-scala'
+Plugin 'ngmy/vim-rubocop'
 
 call vundle#end()
 filetype plugin indent on
@@ -132,3 +133,6 @@ map <C-n> :NERDTreeToggle<CR>
 " fixes editing the crontab
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
 
+" Run Rubocop with Leader+r
+let g:vimrubocop_keymap = 0
+nmap <Leader>r :RuboCop<CR>
