@@ -19,10 +19,9 @@ alias gb='git branch'
 alias gs='git status -sb' # upgrade your git if -sb breaks for you. it's fun.
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 
-alias commit='git add . && git commit -a -m '
 alias push='git push origin'
-alias pull='git pull origin master'
-alias status='git status'
+alias pull='git pull'
+alias st='git status'
 alias gwc='git whatchanged -p --abbrev-commit --pretty=medium'
 
 alias such=git
