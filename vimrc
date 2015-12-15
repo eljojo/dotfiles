@@ -35,7 +35,6 @@ Plugin 'bkad/CamelCaseMotion'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'ngmy/vim-rubocop'
 Plugin 'eapache/rainbow_parentheses.vim'
-Plugin 'vim-scripts/YankRing.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -148,11 +147,6 @@ au Syntax * RainbowParenthesesLoadBraces
 " Enable CamelCaseMotion
 call camelcasemotion#CreateMotionMappings('<Leader>')
 
-" F13 for YankRing
-nnoremap <silent> <F13> :YRShow<CR>
-
-" YankRing settings
-let g:yankring_persist = 0
-let g:yankring_ignore_duplicate = 0
-let g:yankring_clipboard_monitor = 0
+" F13 for CtrlP
+nnoremap <silent> <F13> :CtrlP<CR>
 
