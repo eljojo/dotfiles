@@ -35,6 +35,7 @@ Plugin 'bkad/CamelCaseMotion'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'ngmy/vim-rubocop'
 Plugin 'eapache/rainbow_parentheses.vim'
+Plugin 'vim-scripts/YankRing.vim'
 
 call vundle#end()
 filetype plugin indent on
