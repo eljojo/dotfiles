@@ -35,6 +35,7 @@ Plugin 'bkad/CamelCaseMotion'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'ngmy/vim-rubocop'
 Plugin 'eapache/rainbow_parentheses.vim'
+Plugin 'maxbrunsfeld/vim-yankstack'
 
 call vundle#end()
 filetype plugin indent on
@@ -149,4 +150,3 @@ call camelcasemotion#CreateMotionMappings('<Leader>')
 
 " F13 for CtrlP
 nnoremap <silent> <F13> :CtrlP<CR>
-

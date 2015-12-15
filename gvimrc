@@ -16,3 +16,9 @@ if has("gui_macvim")
   map <D-9> 9gt
   map <D-0> 1gt
 endif
+
+
+" vim-yankstack
+if has("gui_macvim")
+  :set macmeta
+endif
