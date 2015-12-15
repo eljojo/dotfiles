@@ -147,3 +147,12 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " Enable CamelCaseMotion
 call camelcasemotion#CreateMotionMappings('<Leader>')
+
+" F13 for YankRing
+nnoremap <silent> <F13> :YRShow<CR>
+
+" YankRing settings
+let g:yankring_persist = 0
+let g:yankring_ignore_duplicate = 0
+let g:yankring_clipboard_monitor = 0
+
