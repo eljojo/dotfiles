@@ -9,7 +9,7 @@ then
   alias la='gls -A --color'
 fi
 
-alias p='ping 8.8.8.8'
+alias pi='ping 8.8.8.8'
 alias n='netstat -a -e -e -p -A inet'
 
 alias chmdo=chmod
