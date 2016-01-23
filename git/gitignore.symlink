@@ -137,3 +137,11 @@ _testmain.go
 *.exe
 *.test
 *.prof
+
+### Elixir ###
+/_build
+/cover
+/deps
+erl_crash.dump
+*.ez
+
