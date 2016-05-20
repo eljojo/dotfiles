@@ -36,6 +36,8 @@ Plugin 'derekwyatt/vim-scala'
 Plugin 'ngmy/vim-rubocop'
 Plugin 'eapache/rainbow_parentheses.vim'
 Plugin 'maxbrunsfeld/vim-yankstack'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 
 call vundle#end()
 filetype plugin indent on
@@ -147,6 +149,12 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " Enable CamelCaseMotion
 call camelcasemotion#CreateMotionMappings('<Leader>')
+
+" load JSX in .js files
+let g:jsx_ext_required = 0
+
+" ignore node_modules with ctrl+p
+set wildignore+=*/node_modules/*
 
 " F13 for CtrlP
 nnoremap <silent> <F13> :CtrlP<CR>
