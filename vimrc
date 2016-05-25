@@ -154,7 +154,7 @@ call camelcasemotion#CreateMotionMappings('<Leader>')
 let g:jsx_ext_required = 0
 
 " ignore node_modules with ctrl+p
-set wildignore+=*/node_modules/*
+set wildignore+=*/node_modules/*,*/deps/*
 
 " F13 for CtrlP
 nnoremap <silent> <F13> :CtrlP<CR>
