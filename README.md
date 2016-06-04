@@ -13,9 +13,6 @@ This are my vim files and this, my dear reader, is a turtle.
                                  ((((-'           ((((-'
 ```
 
-## wait, this sucks
-Yeah, i'm learning vim and stuff so this is far away from being good stuff.
-
 ### How To Install
 ```
 $ git clone https://github.com/eljojo/vimfiles.git ~/.vim
