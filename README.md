@@ -14,6 +14,9 @@ Run this:
 git clone https://github.com/eljojo/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 script/bootstrap
+zsh
+git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+chsh -s /bin/zsh
 ```
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.

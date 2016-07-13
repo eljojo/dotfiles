@@ -13,6 +13,6 @@ then
 fi
 
 # Install homebrew packages
-brew install grc coreutils spark
+brew install grc coreutils spark the_silver_searcher vim git tree axel youtube-dl wget hub
 
 exit 0
