@@ -27,14 +27,17 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias ln='ln -i'
 
-alias deploy='rake deploy'
-alias stage='git push --force staging HEAD:master'
-alias deploy_and_migrate='deploy && dokku run rake db:migrate'
-alias psql_start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
-alias psql_stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
+# alias deploy='rake deploy'
+# alias stage='git push --force staging HEAD:master'
+# alias deploy_and_migrate='deploy && dokku run rake db:migrate'
 
-alias redis.start='redis-server /usr/local/etc/redis.conf'
-alias mongo.start='/usr/local/opt/mongodb/bin/mongod --config /usr/local/etc/mongod.conf --fork'
-alias es.start='launchctl load /usr/local/opt/elasticsearch/homebrew.mxcl.elasticsearch.plist'
-alias etcd.start='launchctl load /usr/local/opt/etcd/homebrew.mxcl.etcd.plist'
-alias rmq.start='launchctl load /usr/local/opt/rabbitmq/homebrew.mxcl.rabbitmq.plist'
+if [[ -d "/usr/local/var/postgres" ]]; then
+  alias psql_start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+  alias psql_stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
+fi
+
+# alias redis.start='redis-server /usr/local/etc/redis.conf'
+# alias mongo.start='/usr/local/opt/mongodb/bin/mongod --config /usr/local/etc/mongod.conf --fork'
+# alias es.start='launchctl load /usr/local/opt/elasticsearch/homebrew.mxcl.elasticsearch.plist'
+# alias etcd.start='launchctl load /usr/local/opt/etcd/homebrew.mxcl.etcd.plist'
+# alias rmq.start='launchctl load /usr/local/opt/rabbitmq/homebrew.mxcl.rabbitmq.plist'

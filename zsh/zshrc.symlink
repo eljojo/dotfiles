@@ -2,7 +2,11 @@
 export ZSH=$HOME/.dotfiles
 
 # your project folder that we can `c [tab]` to
-export PROJECTS=~/code
+if [[ -d ~/code ]]; then
+  export PROJECTS=~/code
+else
+  export PROJECTS=~/src
+fi
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
