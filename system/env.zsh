@@ -10,8 +10,10 @@ export LC_ALL=en_US.UTF-8
 # at some point I enabled this line and I don't know why :(
 # export SSL_CERT_FILE=/usr/local/etc/cacert.pem
 
-# export NVM_DIR="$HOME/.nvm"
-# . "$(brew --prefix nvm)/nvm.sh"
+if [[ -f "$(brew --prefix nvm)/nvm.sh" ]]; then
+  export NVM_DIR="$HOME/.nvm"
+  . "$(brew --prefix nvm)/nvm.sh"
+fi
 
 # https://github.com/Homebrew/brew/blob/master/share/doc/homebrew/Analytics.md
 HOMEBREW_NO_ANALYTICS=1
