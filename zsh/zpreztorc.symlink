@@ -79,6 +79,11 @@ zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 # Set the search globbing flags.
 # zstyle ':prezto:module:history-substring-search' globbing-flags ''
+#
+
+# autocompletions color
+zstyle  ':prezto:module:autosuggestions:color' found 'fg=6'
+
 
 #
 # Pacman
