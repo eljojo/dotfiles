@@ -59,6 +59,9 @@ set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
 
 set incsearch   "find the next match as we type the search
 set hlsearch    "hilight searches by default
+set ignorecase!  " Ignore case in search
+
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$' " Highlight VCS conflict markers
 
 set wrap        "dont wrap lines
 set linebreak   "wrap lines at convenient points
@@ -83,6 +86,8 @@ set softtabstop=2
 set tabstop=2
 set expandtab
 set autoindent
+
+set title                " change the terminal's title
 
 "turn on syntax highlighting
 syntax on
