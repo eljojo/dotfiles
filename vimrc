@@ -38,6 +38,7 @@ Plugin 'eapache/rainbow_parentheses.vim'
 Plugin 'maxbrunsfeld/vim-yankstack'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+Plugin 'janko-m/vim-test'
 
 call vundle#end()
 filetype plugin indent on
@@ -163,3 +164,11 @@ set wildignore+=*/node_modules/*,*/deps/*
 
 " F13 for CtrlP
 nnoremap <silent> <F13> :CtrlP<CR>
+
+" vim-test: https://github.com/janko-m/vim-test
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
+

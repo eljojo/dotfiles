@@ -22,3 +22,8 @@ endif
 if has("gui_macvim")
   :set macmeta
 endif
+
+" https://github.com/janko-m/vim-test
+let test#strategy = "iterm" " make test commands run in iTerm
+let g:test#preserve_screen = 1 " don't clear iTerm's screen
+
