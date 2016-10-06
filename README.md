@@ -11,12 +11,15 @@ This repo is a fork from [zach holman's dotfiles](https://github.com/holman/dotf
 Run this:
 
 ```sh
+brew install zsh
+grep -q -F '/usr/local/bin/zsh' /etc/shells || sudo echo '/usr/local/bin/zsh' >> /etc/shells
+
 git clone https://github.com/eljojo/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 script/bootstrap
 zsh
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-chsh -s /bin/zsh
+chsh -s /usr/local/bin/zsh
 ```
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.
