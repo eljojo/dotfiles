@@ -39,6 +39,7 @@ Plugin 'maxbrunsfeld/vim-yankstack'
 Plugin 'pangloss/vim-javascript'
 " Plugin 'mxw/vim-jsx'
 " Plugin 'janko-m/vim-test'
+Plugin 'Yggdroot/indentLine'
 
 call vundle#end()
 filetype plugin indent on
