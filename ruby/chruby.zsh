@@ -13,3 +13,10 @@ if [[ -f /usr/local/opt/chruby/share/chruby/chruby.sh ]]; then
   chruby ruby
 fi
 
+if [[ -f /usr/local/share/chruby/chruby.sh ]]; then
+  source /usr/local/share/chruby/chruby.sh
+  source /usr/local/share/chruby/auto.sh
+
+  # loading the latest ruby
+  chruby ruby
+fi
