@@ -166,6 +166,9 @@ set wildignore+=*/node_modules/*,*/deps/*
 " F13 for CtrlP
 nnoremap <silent> <F13> :CtrlP<CR>
 
+" Allow ctrl+p to work with Shopify lol
+let g:ctrlp_max_files = 50000
+
 " vim-test: https://github.com/janko-m/vim-test
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
