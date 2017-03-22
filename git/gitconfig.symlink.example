@@ -47,3 +47,5 @@
 	gpgsign = true
 [fetch]
   prune = true
+[branch]
+  autosetuprebase = always
