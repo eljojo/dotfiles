@@ -49,3 +49,5 @@
   prune = true
 [branch]
   autosetuprebase = always
+[diff]
+	indentHeuristic = true
