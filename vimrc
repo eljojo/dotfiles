@@ -12,7 +12,6 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'tpope/vim-sensible'
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'scrooloose/nerdtree'
@@ -40,6 +39,8 @@ Plugin 'pangloss/vim-javascript'
 " Plugin 'mxw/vim-jsx'
 " Plugin 'janko-m/vim-test'
 Plugin 'Yggdroot/indentLine'
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plugin 'junegunn/fzf.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -163,11 +164,8 @@ let g:jsx_ext_required = 0
 " ignore node_modules with ctrl+p
 set wildignore+=*/node_modules/*,*/deps/*
 
-" F13 for CtrlP
-nnoremap <silent> <F13> :CtrlP<CR>
-
-" Allow ctrl+p to work with Shopify lol
-let g:ctrlp_max_files = 50000
+" bind fzf to ctrl+p
+map <C-p> :Files<CR>
 
 " vim-test: https://github.com/janko-m/vim-test
 nmap <silent> <leader>t :TestNearest<CR>
