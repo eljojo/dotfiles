@@ -169,6 +169,9 @@ nnoremap <silent> <F13> :CtrlP<CR>
 " Allow ctrl+p to work with Shopify lol
 let g:ctrlp_max_files = 50000
 
+" gotta go fast
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
 " vim-test: https://github.com/janko-m/vim-test
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
