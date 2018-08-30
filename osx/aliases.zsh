@@ -1,0 +1,1 @@
+alias screenoff="pmset displaysleepnow"
