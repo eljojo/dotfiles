@@ -90,10 +90,10 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
 
 # "Check for software updates daily, not just once per week"
-defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
+# defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
 # Automatically download apps purchased on other Macs
-defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 1
+# defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 1
 
 # "Remove duplicates in the "Open With" menu"
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
@@ -141,7 +141,7 @@ defaults write com.apple.screensaver askForPasswordDelay -int 5
 
 # "Enabling subpixel font rendering on non-Apple LCDs"
 # https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
-defaults write NSGlobalDomain AppleFontSmoothing -int 1
+# defaults write NSGlobalDomain AppleFontSmoothing -int 1
 
 # Enable HiDPI display modes (requires restart)
 sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
@@ -178,11 +178,17 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 # Enabling snap-to-grid for icons on the desktop
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 
+# autohiding dock
+defaults write com.apple.dock autohide -bool true
+
 # "Setting the icon size of Dock items to 36 pixels for optimal size/screen-realestate"
 defaults write com.apple.dock tilesize -int 36
 
-# autohiding dock
-defaults write com.apple.dock autohide -bool true
+# enable dock magnification
+defaults write com.apple.dock magnification -bool true
+
+# magnified size of dock icons
+defaults write com.apple.dock largesize -int 100
 
 # "Setting email addresses to copy as 'foo@example.com' instead of 'Foo Bar <foo@example.com>' in Mail.app"
 defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false

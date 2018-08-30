@@ -1,8 +1,6 @@
 # https://wiki.archlinux.org/index.php/SSH_keys#SSH_agents
 
-if [ -S "/run/user/$UID/ssh-agent.socket" ]; then
-  SSH_AUTH_SOCK=/run/user/$UID/ssh-agent.socket; export SSH_AUTH_SOCK;
-else
+if [[ "$SSH_AUTH_SOCK" == "" ]]; then
   if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent > ~/.ssh-agent-daemon
   fi
