@@ -36,7 +36,10 @@ if [[ -d "/usr/local/var/postgres" ]]; then
   alias psql_stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 fi
 
-# alias redis.start='redis-server /usr/local/etc/redis.conf'
+if [[ -f "/usr/local/etc/redis.conf" ]]; then
+  alias redis.start='redis-server /usr/local/etc/redis.conf'
+fi
+
 # alias mongo.start='/usr/local/opt/mongodb/bin/mongod --config /usr/local/etc/mongod.conf --fork'
 # alias es.start='launchctl load /usr/local/opt/elasticsearch/homebrew.mxcl.elasticsearch.plist'
 # alias etcd.start='launchctl load /usr/local/opt/etcd/homebrew.mxcl.etcd.plist'
