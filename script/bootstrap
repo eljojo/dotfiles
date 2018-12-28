@@ -185,7 +185,12 @@ if [ ! -d "$HOME/.ssh" ]; then
   echo "generating new ssh key"
   ssh-keygen -t ecdsa -b 521 -C "$(whoami)@$(hostname -s)"
   echo "Host *\n AddKeysToAgent yes\n UseKeychain yes\n IdentityFile ~/.ssh/id_ecdsa">~/.ssh/config
-  ssh-add -K ~/.ssh/id_ecdsa
+  if [ "$(uname -s)" == "Darwin" ]
+  then
+    ssh-add -K ~/.ssh/id_ecdsa
+  else
+    ssh-add ~/.ssh/id_ecdsa
+  fi
   echo "your new public key is:"
   cat ~/.ssh/id_ecdsa.pub
   echo ""
@@ -193,4 +198,4 @@ fi
 
 echo ''
 echo '  All installed!'
-echo '  Please restart your computer :)'
+echo '  Please set the terminal to zsh :)'
