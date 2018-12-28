@@ -40,6 +40,18 @@ else
     echo "setting up arch"
     echo "install packages"
     pakku -S google-chrome htop curl axel youtube-dl tmux tar rsync base-devel yay spotify thermald cpupower zsh gnome-nettool gnome-tweaks gnome-usage gnome-weather networkmanager acpid iw dialog network-manager-applet intel-ucode etckeeper git maint fwupd vulkan-intel wpa_supplicant os-prober grub util-linux bluez bluez-utils gnome-bluetooth vim
+    sudo systemctl enable bluetooth.service
+    sudo systemctl start bluetooth.service
+    sudo systemctl stop systemd-tymesyncd.service
+    sudo systemctl disable systemd-timesyncd.service
+    # sudo systemctl enable chronyd.service
+    # sudo systemctl start chronyd.service
+    # sudo systemctl start gdm
+    sudo systemctl enable NetworkManager.service
+    # sudo systemctl enable gdm.service
+    sudo systemctl enable fstrim.timer
+    sudo systemctl enable thermald.service
+    sudo systemctl enable cpupower
   else
     echo "unknown linux"
     echo "OS: $OS"
