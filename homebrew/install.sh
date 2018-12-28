@@ -9,10 +9,16 @@
 if test ! $(which brew)
 then
   echo "  Installing Homebrew for you."
-  ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)" > /tmp/homebrew-install.log
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 # Install homebrew packages
-brew install grc coreutils spark the_silver_searcher vim git tree axel youtube-dl wget hub tmux
+brew install grc coreutils spark the_silver_searcher vim git tree axel youtube-dl wget hub tmux zsh mas
+
+# Upgrade homebrew
+brew update
+
+# no analytics, please
+brew analytics off
 
 exit 0

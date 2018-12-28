@@ -139,13 +139,33 @@ install_dotfiles () {
 setup_gitconfig
 install_dotfiles
 
+touch ~/.env-vars
+
 info "installing dependencies"
-if source bin/dot > /tmp/dotfiles-dot 2>&1
-then
-  success "dependencies installed"
+bin/dot
+
+if [ -d "$HOME/.vim" ]; then
+  echo "upgrading vim plugins"
+  cd ~/.vim/bundle/Vundle.vim
+  git pull origin master
+  echo "TODO"
+  #vim +PluginInstall +qall
 else
-  fail "error installing dependencies"
+  echo "installing vimfiles"
+  git clone https://github.com/eljojo/vimfiles.git ~/.vim
+  ~/.vim/install.sh
 fi
+
+if [ -d "$HOME/.zprezto" ]; then
+  echo "updating prezto"
+  cd ~/.zprezto
+  git pull
+else
+  echo "installing prezto"
+  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+fi
+
+success "dependencies installed"
 
 # @see http://vim.1045645.n5.nabble.com/MacVim-and-PATH-tt3388705.html#a3392363
 # Ensure MacVim has same shell as Terminal
@@ -154,5 +174,11 @@ fi
 #   sudo mv /etc/zshenv /etc/zprofile
 # fi
 
+if [ ! -d "$HOME/.ssh" ]; then
+  echo "generating new ssh key"
+  ssh-keygen -t ecdsa -b 521 -C "$(whoami)@$(hostname -s)"
+fi
+
 echo ''
 echo '  All installed!'
+echo '  Please restart your computer :)'

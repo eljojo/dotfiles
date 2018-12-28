@@ -11,25 +11,24 @@ export ZSH=$HOME/.dotfiles
 if [ "$(uname -s)" == "Darwin" ]
 then
   # Set OS X defaults
+  echo "setting osx defaults"
   $ZSH/osx/set-defaults.sh
 
-  # Upgrade homebrew
-  brew update
-
-  # no analytics, please
-  brew analytics off
-
   # Install homebrew packages
+  echo "installing homebrew and default packages"
   $ZSH/homebrew/install.sh 2>&1
 fi
 
 if [ -d "$HOME/.asdf" ]; then
-  bash "cd ~/.asdf && git pull origin master"
+  echo "updating asdf"
+  cd ~/.asdf
+  git pull origin master
 else
+  echo "installing asdf"
   git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 fi
 
-source ~/.dotfiles/ruby/env.zsh
+. ~/.asdf/asdf.sh
 
 asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
@@ -37,3 +36,5 @@ asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
 asdf plugin-add python https://github.com/tuvistavie/asdf-python.git
 asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
 asdf plugin-add clojure https://github.com/vic/asdf-clojure.git
+
+exit 0

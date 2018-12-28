@@ -122,9 +122,9 @@ defaults write com.apple.dock showAppExposeGestureEnabled -bool true
 defaults write com.apple.dock showDesktopGestureEnabled -bool true
 defaults write com.apple.dock showLaunchpadGestureEnabled -bool true
 
-# Use scroll gesture with the Ctrl (^) modifier key to zoom
-defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
-defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
+# Use scroll gesture with the Ctrl (^) modifier key to zoom (broken 27-dec-2018)
+# defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
+# defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
 
 # "Increasing sound quality for Bluetooth headphones/headsets"
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
@@ -270,9 +270,9 @@ hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x70
 # Week starts on monday
 defaults write com.apple.iCal "first day of week" -int 1
 
-for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
-	"Dock" "Finder" "Google Chrome" "Google Chrome Canary" "Mail" "Messages" \
-	"Opera" "Photos" "Safari" "SystemUIServer" "Terminal" "Tweetbot" "iCal"; do
-	killall "${app}" &> /dev/null
-done
+# for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
+# 	"Dock" "Finder" "Google Chrome" "Google Chrome Canary" "Mail" "Messages" \
+# 	"Opera" "Photos" "Safari" "SystemUIServer" "Tweetbot" "iCal"; do
+# 	killall "${app}" &> /dev/null
+# done
 
