@@ -10,18 +10,23 @@ set -e
 echo ''
 
 info () {
+  echo ''
   printf "  [ \033[00;34m..\033[0m ] $1"
 }
 
 user () {
+  echo ''
   printf "\r  [ \033[0;33m?\033[0m ] $1 "
 }
 
 success () {
+  echo ''
   printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
 }
 
 fail () {
+  echo '!!!!!!!!!!!!!!!!!!'
+  echo ''
   printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
   echo ''
   exit
@@ -136,6 +141,7 @@ install_dotfiles () {
   done
 }
 
+git remote set-url origin git@github.com:eljojo/dotfiles.git
 setup_gitconfig
 install_dotfiles
 
@@ -146,6 +152,8 @@ bin/dot
 
 if [ -d "$HOME/.vim" ]; then
   echo "upgrading vim plugins"
+  cd "$HOME/.vim"
+  git remote set-url origin git@github.com:eljojo/vimfiles.git
   cd ~/.vim/bundle/Vundle.vim
   git pull origin master
   echo "TODO"
@@ -177,6 +185,11 @@ success "dependencies installed"
 if [ ! -d "$HOME/.ssh" ]; then
   echo "generating new ssh key"
   ssh-keygen -t ecdsa -b 521 -C "$(whoami)@$(hostname -s)"
+  echo "Host *\n AddKeysToAgent yes\n UseKeychain yes\n IdentityFile ~/.ssh/id_ecdsa">~/.ssh/config
+  ssh-add -K ~/.ssh/id_ecdsa
+  echo "your new public key is:"
+  cat ~/.ssh/id_ecdsa.pub
+  echo ""
 fi
 
 echo ''
