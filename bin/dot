@@ -39,7 +39,8 @@ else
   then
     echo "setting up arch"
     echo "install packages"
-    pakku -S google-chrome htop curl axel youtube-dl tmux tar rsync base-devel yay spotify thermald cpupower zsh gnome-nettool gnome-tweaks gnome-usage gnome-weather networkmanager acpid iw dialog network-manager-applet intel-ucode etckeeper git maint fwupd vulkan-intel wpa_supplicant os-prober grub util-linux bluez bluez-utils gnome-bluetooth vim the_silver_searcher
+    pakku -S google-chrome htop curl axel youtube-dl tmux tar rsync base-devel yay spotify thermald cpupower zsh gnome-nettool gnome-tweaks gnome-usage gnome-weather networkmanager acpid iw dialog network-manager-applet intel-ucode etckeeper git maint fwupd vulkan-intel wpa_supplicant os-prober grub util-linux bluez bluez-utils gnome-bluetooth vim the_silver_searcher docker
+    sudo usermod -aG docker $USER
     sudo systemctl enable bluetooth.service
     sudo systemctl start bluetooth.service
     sudo systemctl stop systemd-tymesyncd.service
