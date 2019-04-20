@@ -179,3 +179,5 @@ nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 
+" https://www.boost.co.nz/blog/2018/01/improving-ruby-rails-debugging-ctags
+command! MakeTags !ctags -R --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)
