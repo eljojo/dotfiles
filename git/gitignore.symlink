@@ -145,3 +145,5 @@ _testmain.go
 erl_crash.dump
 *.ez
 
+# ctags
+/tags
