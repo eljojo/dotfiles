@@ -25,6 +25,7 @@
         editor = vim
         # http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/
         trustctime = false
+        pager = less -r # wrap lines
 [apply]
         whitespace = nowarn
 [mergetool]

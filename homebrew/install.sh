@@ -15,6 +15,9 @@ fi
 # Install homebrew packages
 brew install grc coreutils spark the_silver_searcher vim git tree axel youtube-dl wget hub tmux zsh mas
 
+# https://www.boost.co.nz/blog/2018/01/improving-ruby-rails-debugging-ctags
+brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+
 # Upgrade homebrew
 brew update
 
