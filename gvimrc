@@ -1,4 +1,8 @@
-set guifont=Menlo:h12
+if has("gui_gtk2") || has("gui_gtk3")
+  set guifont=Meslo\ LG\ S\ 10
+else
+  set guifont=Menlo:h12
+endif
 
 " Solarized
 set background=dark
