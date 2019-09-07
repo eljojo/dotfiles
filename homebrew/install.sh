@@ -13,7 +13,7 @@ then
 fi
 
 # Install homebrew packages
-brew install grc coreutils spark the_silver_searcher git tree axel youtube-dl wget hub tmux zsh mas git-lfs fzf
+brew install grc coreutils spark the_silver_searcher git tree axel youtube-dl wget hub tmux zsh mas git-lfs fzf gpg parallel
 
 # https://www.boost.co.nz/blog/2018/01/improving-ruby-rails-debugging-ctags
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
