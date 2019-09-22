@@ -25,8 +25,8 @@ defaults write NSGlobalDomain KeyRepeat -int 1
 defaults write NSGlobalDomain InitialKeyRepeat -int 25
 
 # Set the Finder prefs for showing a few different volumes on the Desktop.
-defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+# defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+# defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
 # METRIC SYSTEM!
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
@@ -64,7 +64,7 @@ defaults write com.apple.dock wvous-ll-modifier -int 0
 # defaults write com.apple.Safari ShowFavoritesBar -bool false
 
 
-# from here on, it was gotten from: https://gist.github.com/brandonb927/3195465
+# from here on, it was obtained from: https://gist.github.com/brandonb927/3195465
 
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
