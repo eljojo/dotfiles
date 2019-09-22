@@ -47,12 +47,18 @@ defaults write NSGlobalDomain AppleICUForce12HourTime -bool false
 # 10: Put display to sleep
 # 11: Launchpad
 # 12: Notification Center
+
 # Bottom left screen corner → Desktop
 defaults write com.apple.dock wvous-bl-corner -int 4
 defaults write com.apple.dock wvous-bl-modifier -int 0
+
 # Bottom left right corner → put display to sleep
 defaults write com.apple.dock wvous-br-corner -int 10
 defaults write com.apple.dock wvous-br-modifier -int 0
+
+# Top left corner → Mission Control
+defaults write com.apple.dock wvous-tl-corner -int 2
+defaults write com.apple.dock wvous-ll-modifier -int 0
 
 # Hide Safari's bookmark bar.
 # defaults write com.apple.Safari ShowFavoritesBar -bool false
@@ -122,9 +128,10 @@ defaults write com.apple.dock showAppExposeGestureEnabled -bool true
 defaults write com.apple.dock showDesktopGestureEnabled -bool true
 defaults write com.apple.dock showLaunchpadGestureEnabled -bool true
 
-# Use scroll gesture with the Ctrl (^) modifier key to zoom (broken 27-dec-2018)
-# defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
-# defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
+# Use scroll gesture with the Ctrl (^) modifier key to zoom
+defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
+defaults write com.apple.AppleMultitouchTrackpad HIDScrollZoomModifierMask -int 262144
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad HIDScrollZoomModifierMask -int 262144
 
 # "Increasing sound quality for Bluetooth headphones/headsets"
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
@@ -262,7 +269,7 @@ defaults write ~/Library/Preferences/org.gpgtools.gpgmail SignNewEmailsByDefault
 # Tweetbot: Bypass the annoyingly slow t.co URL shortener
 defaults write com.tapbots.TweetbotMac OpenURLsDirectly -bool true
 
-# Map Caps Lock key to Left Control key
+# Map Caps Lock key to Left Control key - seems to be broken
 # https://developer.apple.com/library/content/technotes/tn2450/_index.html
 hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0}]}'
 
