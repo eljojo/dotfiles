@@ -1,12 +1,12 @@
 #!/bin/bash
 
- echo "> installing Google Chrome"
- curl -Lo /tmp/Google\ Chrome.dmg https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg;
- hdiutil attach /tmp/Google\ Chrome.dmg;
- ditto -rsrc /Volumes/Google\ Chrome/Google\ Chrome.app /Applications/Google\ Chrome.app;
- hdiutil detach /Volumes/Google\ Chrome;
- rm /tmp/Google\ Chrome.dmg;
- defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Google Chrome.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+ echo "> installing Firefox"
+ curl -Lo /tmp/Firefox.dmg https://download.mozilla.org/?product=firefox-latest&os=osx&lang=en-US;
+ hdiutil attach /tmp/Firefox.dmg;
+ ditto -rsrc /Volumes/Firefox/Firefox.app /Applications/Firefox.app;
+ hdiutil detach /Volumes/Firefox;
+ rm /tmp/Firefox.dmg;
+ defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Firefox.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
  
  echo "> installing Spotify"
  curl -Lo /tmp/spotify.dmg https://download.scdn.co/Spotify.dmg;
@@ -28,11 +28,11 @@ echo "> installing 1Password from mac app store"
 mas install 1333542190
 defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/1Password 7.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
 
-echo "> installing Tweetbo 3 from mac app store"
+echo "> installing Tweetbot 3 from mac app store"
 mas install 1384080005
 
 echo "> installing iTerm 2"
-curl -Lo /tmp/iterm2.zip https://iterm2.com/downloads/stable/iTerm2-3_2_6.zip;
+curl -Lo /tmp/iterm2.zip https://iterm2.com/downloads/stable/iTerm2-3_3_6.zip;
 unzip /tmp/iterm2.zip -d /tmp/
 mv /tmp/iTerm.app /Applications/iTerm.app
 rm /tmp/iterm2.zip
