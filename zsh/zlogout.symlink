@@ -5,9 +5,17 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-# Print the message.
+# Print a random, hopefully interesting, adage.
+if (( $+commands[fortune] )); then
+  if [[ -t 0 || -t 1 ]]; then
+    fortune -a
+    print
+  fi
+else
+  # Print the message.
 cat <<-EOF
 
 Thank you. Come again!
   -- Dr. Apu Nahasapeemapetilon
 EOF
+fi
