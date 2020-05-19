@@ -50,7 +50,7 @@ Thumbs.db
 /.config
 /coverage/
 /InstalledFiles
-/pkg/
+# /pkg/ # necessary for go
 /spec/reports/
 /test/tmp/
 /test/version_tmp/
