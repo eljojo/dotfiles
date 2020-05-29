@@ -1,7 +1,7 @@
 #!/bin/bash
 
  echo "> installing Firefox"
- curl -Lo /tmp/Firefox.dmg https://download.mozilla.org/?product=firefox-latest&os=osx&lang=en-US;
+ curl -Lo /tmp/Firefox.dmg "https://download.mozilla.org/?product=firefox-latest&os=osx&lang=en-US";
  hdiutil attach /tmp/Firefox.dmg;
  ditto -rsrc /Volumes/Firefox/Firefox.app /Applications/Firefox.app;
  hdiutil detach /Volumes/Firefox;
@@ -38,8 +38,9 @@ mv /tmp/iTerm.app /Applications/iTerm.app
 rm /tmp/iterm2.zip
 defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/iTerm.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
 
+brew cask install flycut
 echo "> installing Flycut"
-curl -Lo /tmp/flycut.zip https://github.com/TermiT/Flycut/releases/download/1.8.2/Flycut.app.1.8.2.zip;
+curl -Lo /tmp/flycut.zip https://github.com/TermiT/Flycut/releases/download/1.9.4/Flycut.app.1.9.4.zip;
 unzip /tmp/flycut.zip -d /tmp/
 mv /tmp/Flycut.app /Applications/Flycut.app
 rm /tmp/flycut.zip
