@@ -5,3 +5,8 @@ then
   export PATH=$PATH:$(go env GOPATH)/bin
 fi
 
+if command -v loon &> /dev/null
+then
+  . "$HOME/loon/shellrc"
+fi
+
