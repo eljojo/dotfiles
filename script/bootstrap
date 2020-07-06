@@ -154,9 +154,7 @@ if [ -d "$HOME/.vim" ]; then
   echo "upgrading vim plugins"
   cd "$HOME/.vim"
   git remote set-url origin git@github.com:eljojo/vimfiles.git
-  vim +PluginUpdate +qall
-  cd ~/.vim/bundle/Vundle.vim
-  git pull origin master
+  vim +PlugInstall +qall
 else
   echo "installing vimfiles"
   git clone https://github.com/eljojo/vimfiles.git ~/.vim
