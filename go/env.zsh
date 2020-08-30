@@ -1,4 +1,4 @@
-if command -v COMMAND &> /dev/null
+if command -v go &> /dev/null
 then
   export GOPATH="$HOME/.go/"
   mkdir -p $GOPATH

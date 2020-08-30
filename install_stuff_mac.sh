@@ -47,7 +47,7 @@ echo "> installing Flycut"
 brew cask install flycut
 
 echo "> installing Syncthing"
-curl -Lo /tmp/Syncthing.dmg "https://github.com/syncthing/syncthing-macos/releases/download/v1.0.0-2/Syncthing-1.0.0-2.dmg";
+curl -Lo /tmp/Syncthing.dmg "https://github.com/syncthing/syncthing-macos/releases/download/v1.8.0-1/Syncthing-1.8.0-1.dmg";
 hdiutil attach /tmp/Syncthing.dmg;
 ditto -rsrc /Volumes/Syncthing/Syncthing.app /Applications/Syncthing.app;
 hdiutil detach /Volumes/Syncthing;
