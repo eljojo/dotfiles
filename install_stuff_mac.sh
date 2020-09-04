@@ -54,3 +54,6 @@ hdiutil detach /Volumes/Syncthing;
 rm /tmp/Syncthing.dmg;
 
 killall Dock
+
+echo "> installing IINA video player"
+brew cask install iina
