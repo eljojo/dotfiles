@@ -15,7 +15,7 @@ else
   # Print the message.
 cat <<-EOF
 
-Thank you. Come again!
-  -- Dr. Apu Nahasapeemapetilon
+“To be calm is the highest achievement of the self.”
+  -- Zen proverb
 EOF
 fi
