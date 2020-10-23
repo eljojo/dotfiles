@@ -36,6 +36,9 @@ echo "> installing Tweetbot 3 from mac app store"
 mas install 1384080005
 defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Tweetbot.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
 
+echo "> installing Telegram"
+mas install 747648890
+
 echo "> installing iTerm 2"
 curl -Lo /tmp/iterm2.zip https://iterm2.com/downloads/stable/iTerm2-3_3_6.zip;
 unzip /tmp/iterm2.zip -d /tmp/
