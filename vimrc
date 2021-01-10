@@ -178,4 +178,4 @@ nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 
 " disable ctags
-set tags=""
+set tags="";
