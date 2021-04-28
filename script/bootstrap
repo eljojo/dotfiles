@@ -148,7 +148,7 @@ install_dotfiles
 touch ~/.env-vars
 
 info "installing dependencies"
-bin/dot
+bin/dotfile-maintenance
 
 if [ -d "$HOME/.vim" ]; then
   echo "upgrading vim plugins"
