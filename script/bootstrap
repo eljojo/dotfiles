@@ -165,6 +165,7 @@ if [ -d "$HOME/.zprezto" ]; then
   echo "updating prezto"
   cd ~/.zprezto
   git pull
+  git submodule update --init --recursive
 else
   echo "installing prezto"
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
