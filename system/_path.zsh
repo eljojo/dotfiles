@@ -9,17 +9,4 @@ export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
 #   export PATH="/usr/local/opt/ruby/bin:$PATH"
 # fi
 
-if [[ -a /usr/local/go || -a /usr/local/opt/go/libexec ]]
-then
-  export GOROOT=/usr/local/go
-
-  if [[ -a /usr/local/opt/go/libexec ]]
-  then
-    export GOROOT=/usr/local/opt/go/libexec
-  fi
-
-  export GOPATH=$HOME/.go
-  export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-  export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.bin
-fi
-
+# export PATH=$PATH:$HOME/.bin
