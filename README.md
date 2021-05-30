@@ -18,6 +18,7 @@ script/bootstrap
 echo /usr/local/bin/zsh | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/zsh
 zsh
+compaudit | xargs chmod g-w # https://github.com/zsh-users/zsh-completions/issues/680#issuecomment-612960481
 ```
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.
