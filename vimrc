@@ -42,6 +42,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'Yggdroot/indentLine'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plugin 'junegunn/fzf.vim'
+Plugin 'LnL7/vim-nix'
 
 call vundle#end()
 filetype plugin indent on
