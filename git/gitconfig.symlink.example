@@ -52,3 +52,5 @@
   autosetuprebase = always
 [diff]
 	indentHeuristic = true
+[init]
+	defaultBranch = main
