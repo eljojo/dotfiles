@@ -6,7 +6,6 @@
 # to make sure you're on the latest and greatest.
 export ZSH=$HOME/.dotfiles
 
-
 echo ""
 # If we're on a Mac, let's install and setup homebrew.
 if [ "$(uname -s)" == "Darwin" ]
@@ -80,5 +79,9 @@ asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
 asdf plugin-add clojure https://github.com/vic/asdf-clojure.git
 asdf plugin-add rust https://github.com/code-lever/asdf-rust.git
 asdf plugin update --all
+
+cd $ZPREZTODIR
+git pull
+git submodule update --init --recursive
 
 exit 0
