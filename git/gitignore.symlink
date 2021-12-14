@@ -147,3 +147,5 @@ erl_crash.dump
 
 # ctags
 /tags
+
+.byebug_history
