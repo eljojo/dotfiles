@@ -15,10 +15,9 @@ Run this:
 git clone https://github.com/eljojo/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 script/bootstrap
-echo /usr/local/bin/zsh | sudo tee -a /etc/shells
-chsh -s /usr/local/bin/zsh
+echo /opt/homebrew/bin/zsh | sudo tee -a /etc/shells
+chsh -s /opt/homebrew/bin/zsh
 zsh
-compaudit | xargs chmod g-w # https://github.com/zsh-users/zsh-completions/issues/680#issuecomment-612960481
 ```
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.
@@ -31,6 +30,11 @@ which sets up a few paths that'll be different on your particular machine.
 defaults, and so on. Tweak this script, and occasionally run `dot` from
 time to time to keep your environment fresh and up-to-date. You can find
 this script in `bin/`.
+
+If a problem with compaudit comes up, it can be fixed with:
+```sh
+compaudit | xargs chmod g-w # https://github.com/zsh-users/zsh-completions/issues/680#issuecomment-612960481
+```
 
 ## topical
 
