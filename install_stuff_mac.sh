@@ -25,7 +25,7 @@ rm /tmp/Roon.dmg;
 defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Roon.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
 
 echo "> installing MacVim"
-brew cask install macvim
+brew install --cask macvim
 defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/MacVim.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
 
 echo "> installing 1Password from mac app store"
@@ -40,23 +40,37 @@ echo "> installing Telegram"
 mas install 747648890
 
 echo "> installing iTerm 2"
-curl -Lo /tmp/iterm2.zip https://iterm2.com/downloads/stable/iTerm2-3_3_6.zip;
-unzip /tmp/iterm2.zip -d /tmp/
-mv /tmp/iTerm.app /Applications/iTerm.app
-rm /tmp/iterm2.zip
+brew install --cask iterm2
 defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/iTerm.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
 
 echo "> installing Flycut"
-brew cask install flycut
+brew install --cask flycut
 
 echo "> installing Syncthing"
-curl -Lo /tmp/Syncthing.dmg "https://github.com/syncthing/syncthing-macos/releases/download/v1.8.0-1/Syncthing-1.8.0-1.dmg";
-hdiutil attach /tmp/Syncthing.dmg;
-ditto -rsrc /Volumes/Syncthing/Syncthing.app /Applications/Syncthing.app;
-hdiutil detach /Volumes/Syncthing;
-rm /tmp/Syncthing.dmg;
+brew install --cask syncthing
 
 killall Dock
 
-echo "> installing IINA video player"
-brew cask install iina
+echo "> installing Day One"
+mas install 1055511498
+
+# echo "> installing IINA video player"
+# brew install --cask iina
+
+echo "> installing VLC"
+brew install --cask vlc
+
+echo "> installing Skype"
+brew install --cask skype
+
+echo "> installing Home Assistant"
+mas install 1099568401
+
+echo "> installing Transmit"
+mas install 1436522307
+
+echo "> installing Tailscale"
+mas install 1475387142
+
+echo "> installing MQTT Explorer"
+mas install 1455214828

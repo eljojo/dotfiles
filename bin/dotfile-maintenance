@@ -76,8 +76,8 @@ asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
 asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
 asdf plugin-add python https://github.com/tuvistavie/asdf-python.git
 asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
-asdf plugin-add clojure https://github.com/vic/asdf-clojure.git
-asdf plugin-add rust https://github.com/code-lever/asdf-rust.git
+#asdf plugin-add clojure https://github.com/vic/asdf-clojure.git
+#asdf plugin-add rust https://github.com/code-lever/asdf-rust.git
 asdf plugin update --all
 
 cd $ZPREZTODIR
