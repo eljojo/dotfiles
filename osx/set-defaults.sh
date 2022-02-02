@@ -20,12 +20,12 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 25
 # defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 # defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
-# Locale: METRIC SYSTEM!
-defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
-defaults write NSGlobalDomain AppleMetricUnits -bool true
+# Locale: METRIC SYSTEM! - broken
+# defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
+# defaults write NSGlobalDomain AppleMetricUnits -bool true
 
-# Locale: 24-hour time
-defaults write NSGlobalDomain AppleICUForce12HourTime -bool false
+# Locale: 24-hour time - broken
+# defaults write NSGlobalDomain AppleICUForce12HourTime -bool false
 
 # Calendar: Week starts on monday
 defaults write com.apple.iCal "first day of week" -int 1
@@ -44,16 +44,16 @@ defaults write com.apple.iCal "first day of week" -int 1
 # 12: Notification Center
 
 # Bottom left screen corner → Desktop
-# defaults write com.apple.dock wvous-bl-corner -int 4
-# defaults write com.apple.dock wvous-bl-modifier -int 0
+defaults write com.apple.dock wvous-bl-corner -int 4
+defaults write com.apple.dock wvous-bl-modifier -int 0
 
-# Bottom left right corner → put display to sleep
+# Bottom right corner → put display to sleep
 # defaults write com.apple.dock wvous-br-corner -int 10
 # defaults write com.apple.dock wvous-br-modifier -int 0
 
 # Top left corner → Mission Control
-# defaults write com.apple.dock wvous-tl-corner -int 2
-# defaults write com.apple.dock wvous-ll-modifier -int 0
+defaults write com.apple.dock wvous-tl-corner -int 2
+defaults write com.apple.dock wvous-ll-modifier -int 0
 
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
@@ -81,6 +81,7 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 # "Disable smart quotes and smart dashes as they're annoying when typing code"
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+# TODO: add this for autofix and autocapitalization
 
 # Trackpad: enable tap to click for this user and for the login screen
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
@@ -103,6 +104,7 @@ defaults write com.apple.dock showDesktopGestureEnabled -bool true
 defaults write com.apple.dock showLaunchpadGestureEnabled -bool true
 
 # Use scroll gesture with the Ctrl (^) modifier key to zoom - https://developer.apple.com/documentation/devicemanagement/accessibility
+# broken?
 sudo defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
 defaults write com.apple.AppleMultitouchTrackpad HIDScrollZoomModifierMask -int 262144
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad HIDScrollZoomModifierMask -int 262144
@@ -129,7 +131,8 @@ defaults write com.apple.finder QLEnableTextSelection -bool true
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
 # Desktop: Enabling snap-to-grid for icons on the desktop
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+# /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+# TODO: use stacks and group by kind
 
 # Dock: autohiding dock
 # defaults write com.apple.dock autohide -bool true
@@ -194,17 +197,9 @@ defaults write com.tapbots.TweetbotMac OpenURLsDirectly -bool true
 # Restart automatically if the computer freezes
 # sudo systemsetup -setrestartfreeze on
 
-# Enable the automatic update check
-# defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
-
 # Finder: Default view for new windows
 # defaults write com.apple.finder FXPreferredViewStyle Clmv # for column view
 # defaults write com.apple.Finder FXPreferredViewStyle Nlsv # for list view
-
-# Finder: "Disabling disk image verification"
-# defaults write com.apple.frameworks.diskimages skip-verify -bool true
-# defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
-# defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 
 # Map Caps Lock key to Left Control key - seems to be broken
 # https://developer.apple.com/library/content/technotes/tn2450/_index.html
