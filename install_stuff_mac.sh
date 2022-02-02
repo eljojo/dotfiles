@@ -74,3 +74,7 @@ mas install 1475387142
 
 echo "> installing MQTT Explorer"
 mas install 1455214828
+
+echo "> installing Vorta and Borg"
+brew install --cask vorta
+brew install borgbackup
