@@ -18,6 +18,9 @@ script/bootstrap
 echo /opt/homebrew/bin/zsh | sudo tee -a /etc/shells
 chsh -s /opt/homebrew/bin/zsh
 zsh
+
+# optional (for Nix)
+darwin-rebuild switch -I darwin-config=$HOME/.dotfiles/nix/darwin-configuration.nix
 ```
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.
