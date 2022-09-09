@@ -178,15 +178,15 @@ success "dependencies installed"
 if [ ! -d "$HOME/.ssh" ]; then
   echo "generating new ssh key"
   ssh-keygen -t ed25519 -a 100 -C "$(whoami)@$(hostname -s)"
-  echo "Host *\n AddKeysToAgent yes\n UseKeychain yes\n IdentityFile ~/.ssh/id_ecdsa">~/.ssh/config
+  echo "Host *\n AddKeysToAgent yes\n UseKeychain yes\n IdentityFile ~/.ssh/id_ed25519">~/.ssh/config
   if [ "$(uname -s)" == "Darwin" ]
   then
-    ssh-add -K ~/.ssh/id_ecdsa
+    ssh-add -K ~/.ssh/id_ed25519
   else
-    ssh-add ~/.ssh/id_ecdsa
+    ssh-add ~/.ssh/id_ed25519
   fi
   echo "your new public key is:"
-  cat ~/.ssh/id_ecdsa.pub
+  cat ~/.ssh/id_ed25519.pub
   echo ""
 fi
 
