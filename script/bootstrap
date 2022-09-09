@@ -6,6 +6,7 @@ cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
 
 set -e
+set -x
 
 echo ''
 
@@ -182,7 +183,7 @@ success "dependencies installed"
 
 if [ ! -d "$HOME/.ssh" ]; then
   echo "generating new ssh key"
-  ssh-keygen -t ecdsa -b 521 -C "$(whoami)@$(hostname -s)"
+  ssh-keygen -t ed25519 -a 100 -C "$(whoami)@$(hostname -s)"
   echo "Host *\n AddKeysToAgent yes\n UseKeychain yes\n IdentityFile ~/.ssh/id_ecdsa">~/.ssh/config
   if [ "$(uname -s)" == "Darwin" ]
   then
