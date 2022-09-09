@@ -10,7 +10,6 @@ if test ! $(which brew)
 then
   echo "  Installing Homebrew for you."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-
 fi
 
 if [ -d /opt/homebrew/bin ]; then
@@ -22,7 +21,7 @@ brew analytics off
 
 # Install homebrew packages
 #brew install grc coreutils spark the_silver_searcher git tree axel youtube-dl wget hub tmux zsh mas git-lfs fzf gpg parallel fortune
-brew install the_silver_searcher git tree wget tmux zsh mas git-lfs fzf gpg fortune
+# brew install the_silver_searcher git tree wget tmux zsh mas git-lfs fzf gpg fortune
 
 # Upgrade homebrew
 brew update
