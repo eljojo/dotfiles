@@ -6,7 +6,6 @@ cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
 
 set -e
-set -x
 
 echo ''
 
@@ -162,12 +161,7 @@ else
   ~/.vim/install.sh
 fi
 
-if [ -d "$HOME/.zprezto" ]; then
-  echo "updating prezto"
-  cd ~/.zprezto
-  git pull
-  git submodule update --init --recursive
-else
+if [ ! -d "$HOME/.zprezto" ]; then
   echo "installing prezto"
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 fi
@@ -197,5 +191,4 @@ if [ ! -d "$HOME/.ssh" ]; then
 fi
 
 echo ''
-echo '  All installed!'
-echo '  Please set the terminal to zsh :)'
+echo '  All installed, enjoy your new computer!'
