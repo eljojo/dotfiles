@@ -14,21 +14,8 @@ Run this:
 # normal dotfiles install
 git clone https://github.com/eljojo/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
+script/setup-nix # experimental
 script/bootstrap
-echo /opt/homebrew/bin/zsh | sudo tee -a /etc/shells
-chsh -s /opt/homebrew/bin/zsh
-zsh
-
-# install nix n stuff
-sh <(curl -L https://nixos.org/nix/install)
-nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
-
-nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
-./result/bin/darwin-installer
-
-darwin-rebuild switch -I darwin-config=$HOME/.dotfiles/nix/darwin-configuration.nix
-
-nix-index # for , tool
 ```
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.

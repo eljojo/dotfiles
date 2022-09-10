@@ -1,6 +1,21 @@
 { config, pkgs, lib, ... }:
 
 {
+  imports = [ <home-manager/nix-darwin> ];
+
+  users.users.jojo = {
+    name = "jojo";
+    home = "/Users/jojo";
+  };
+  home-manager.users.jojo = { pkgs, ... }: {
+    home.packages = [
+      pkgs.iperf3
+      pkgs.go
+    ];
+    home.stateVersion = "22.05";
+    programs.home-manager.enable = true;
+  };
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages =
@@ -16,7 +31,6 @@
       pkgs.fortune
       pkgs.tree
       pkgs.git-lfs
-      pkgs.go
       pkgs.fzf
     ];
 
