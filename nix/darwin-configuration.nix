@@ -15,6 +15,7 @@
     home.stateVersion = "22.05";
     programs.home-manager.enable = true;
   };
+  home-manager.useGlobalPkgs = true; # we may want to move away from unstable in global at some point in the future
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
