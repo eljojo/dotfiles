@@ -27,6 +27,8 @@ nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
 ./result/bin/darwin-installer
 
 darwin-rebuild switch -I darwin-config=$HOME/.dotfiles/nix/darwin-configuration.nix
+
+nix-index # for , tool
 ```
 
 This will symlink the appropriate files in `.dotfiles` to your home directory.
