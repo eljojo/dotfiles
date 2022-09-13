@@ -116,6 +116,7 @@
   fonts.fontDir.enable = true;
   fonts.fonts = with pkgs; [
      meslo-lgs-nf # for iTerm
+    (nerdfonts.override { fonts = [ "Hack" ]; })
    ];
 
   # Auto upgrade nix package and the daemon service.
