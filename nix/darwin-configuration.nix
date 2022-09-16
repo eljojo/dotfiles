@@ -59,6 +59,7 @@
     "notion"
     "discord"
     "signal"
+    "utm"
   ];
 
   # Keyboard
