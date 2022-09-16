@@ -12,6 +12,7 @@
       pkgs.iperf3
       pkgs.go
       pkgs.yt-dlp
+      pkgs.flyctl
     ];
     home.stateVersion = "22.05";
     programs.home-manager.enable = true;
