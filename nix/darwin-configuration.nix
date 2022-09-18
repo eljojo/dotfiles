@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 
-{
+let
+in {
   imports = [ <home-manager/nix-darwin> ];
 
   nixpkgs.config.packageOverrides = pkgs: rec {
@@ -26,6 +27,7 @@
       pkgs.yt-dlp
       pkgs.flyctl
       pkgs.beets-unstable
+      (pkgs.callPackage ./tidal-dl.nix {})
     ];
     home.stateVersion = "22.05";
     programs.home-manager.enable = true;
