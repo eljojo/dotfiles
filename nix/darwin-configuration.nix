@@ -3,6 +3,18 @@
 {
   imports = [ <home-manager/nix-darwin> ];
 
+  nixpkgs.config.packageOverrides = pkgs: rec {
+    aacgain = pkgs.callPackage ./aacgain.nix {};
+    beets-unstable = pkgs.beets-unstable
+    .override({
+       pluginOverrides = {
+         copyartifacts = { enable = true; propagatedBuildInputs = [ pkgs.beetsPackages.copyartifacts ]; };
+         limit = { builtin = true; };
+       };
+     });
+    keyfinder-cli = pkgs.keyfinder-cli.overrideAttrs (_: { meta.platforms = lib.platforms.darwin ++ lib.platforms.linux; });
+  };
+
   users.users.jojo = {
     name = "jojo";
     home = "/Users/jojo";
@@ -13,6 +25,7 @@
       pkgs.go
       pkgs.yt-dlp
       pkgs.flyctl
+      pkgs.beets-unstable
     ];
     home.stateVersion = "22.05";
     programs.home-manager.enable = true;
