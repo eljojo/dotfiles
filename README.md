@@ -14,7 +14,13 @@ Run this:
 # normal dotfiles install
 git clone https://github.com/eljojo/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
+
+# setup nix
 script/setup-nix # experimental
+# setup host in nix/flake.nix or use existing profile
+nix build .#darwinConfigurations.jojo-m2.system
+
+# normal bootstrap
 script/bootstrap
 ```
 

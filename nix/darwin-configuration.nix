@@ -2,14 +2,17 @@
 
 let
 in {
-  imports = [ <home-manager/nix-darwin> ];
+  imports = [  ];
+
+  nixpkgs.config.allowUnsupportedSystem = true; # hehe
+  nixpkgs.config.allowBroken = true; # TODO: remove
 
   nixpkgs.config.packageOverrides = pkgs: rec {
     aacgain = pkgs.callPackage ./aacgain.nix {};
-    beets-unstable = pkgs.beets-unstable
+    beets-unstable = nixpkgs-unstable.beets-unstable
     .override({
        pluginOverrides = {
-         copyartifacts = { enable = true; propagatedBuildInputs = [ pkgs.beetsPackages.copyartifacts ]; };
+         copyartifacts = { enable = true; propagatedBuildInputs = [ nixpkgs-unstable.beetsPackages.copyartifacts ]; };
          limit = { builtin = true; };
        };
      });
@@ -27,7 +30,7 @@ in {
       pkgs.yt-dlp
       pkgs.flyctl
       pkgs.beets-unstable
-      (pkgs.callPackage ./tidal-dl.nix {})
+      # (pkgs.callPackage ./tidal-dl.nix {})
     ];
     home.stateVersion = "22.05";
     programs.home-manager.enable = true;
