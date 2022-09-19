@@ -4,6 +4,10 @@ let
 in {
   imports = [ <home-manager/nix-darwin> ];
 
+  # necessary for beets :(
+  nixpkgs.config.allowUnsupportedSystem = true;
+  nixpkgs.config.allowBroken = true;
+
   nixpkgs.config.packageOverrides = pkgs: rec {
     aacgain = pkgs.callPackage ./aacgain.nix {};
     beets-unstable = pkgs.beets-unstable
