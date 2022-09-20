@@ -68,6 +68,7 @@ in {
     "Consent-O-Matic" = 1606897889;
     StopTheMadness = 1376402589;
     NotionWebClipper = 1559269364;
+    TweaksForTwitter = 1567751529;
   };
   homebrew.casks = [
     "macvim"
