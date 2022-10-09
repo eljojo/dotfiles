@@ -38,6 +38,9 @@ in {
   };
   home-manager.useGlobalPkgs = true; # we may want to move away from unstable in global at some point in the future
 
+  services.postgresql.enable = true;
+  services.postgresql.package = pkgs.postgresql_14;
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages =
