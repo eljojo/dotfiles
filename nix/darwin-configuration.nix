@@ -35,11 +35,20 @@ in {
     ];
     home.stateVersion = "22.05";
     programs.home-manager.enable = true;
+
+    xdg.dataFile."postgresql/.keep".text = ""; # Create ~/.local/share/postgresql/
   };
   home-manager.useGlobalPkgs = true; # we may want to move away from unstable in global at some point in the future
 
   services.postgresql.enable = true;
   services.postgresql.package = pkgs.postgresql_14;
+  services.postgresql.dataDir = "/Users/jojo/.local/share/postgresql/data/";
+  # create default user with `psql -U postgres` and `CREATE USER jojo SUPERUSER;`
+
+  # launchd.user.agents.postgresql.serviceConfig = {
+  #   StandardErrorPath = "/Users/jojo/.local/share/postgresql/postgres.error.log";
+  #   StandardOutPath = "/Users/jojo/.local/share/postgresql/postgres.out.log";
+  # };
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
