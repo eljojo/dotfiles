@@ -37,8 +37,12 @@ in {
     programs.home-manager.enable = true;
 
     xdg.dataFile."postgresql/.keep".text = ""; # Create ~/.local/share/postgresql/
+    xdg.dataFile."redis/.keep".text = ""; # Create ~/.local/share/redis/
   };
   home-manager.useGlobalPkgs = true; # we may want to move away from unstable in global at some point in the future
+
+  services.redis.enable = true;
+  services.redis.dataDir = "/Users/jojo/.local/share/redis/";
 
   services.postgresql.enable = true;
   services.postgresql.package = pkgs.postgresql_14;
