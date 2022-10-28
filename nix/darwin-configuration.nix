@@ -2,45 +2,26 @@
 
 let
 in {
-  imports = [ <home-manager/nix-darwin> ];
-
   # necessary for beets :(
-  nixpkgs.config.allowUnsupportedSystem = true;
-  nixpkgs.config.allowBroken = true;
+  # nixpkgs.config.allowUnsupportedSystem = true;
+  # nixpkgs.config.allowBroken = true;
 
-  nixpkgs.config.packageOverrides = pkgs: rec {
-    aacgain = pkgs.callPackage ./aacgain.nix {};
-    beets-unstable = pkgs.beets-unstable
-    .override({
-       pluginOverrides = {
-         copyartifacts = { enable = true; propagatedBuildInputs = [ pkgs.beetsPackages.copyartifacts ]; };
-         limit = { builtin = true; };
-       };
-     });
-    keyfinder-cli = pkgs.keyfinder-cli.overrideAttrs (_: { meta.platforms = lib.platforms.darwin ++ lib.platforms.linux; });
-  };
+  # nixpkgs.config.packageOverrides = pkgs: rec {
+  #   aacgain = pkgs.callPackage ./aacgain.nix {};
+  #   beets-unstable = pkgs.beets-unstable
+  #   .override({
+  #      pluginOverrides = {
+  #        copyartifacts = { enable = true; propagatedBuildInputs = [ pkgs.beetsPackages.copyartifacts ]; };
+  #        limit = { builtin = true; };
+  #      };
+  #    });
+  #   keyfinder-cli = pkgs.keyfinder-cli.overrideAttrs (_: { meta.platforms = lib.platforms.darwin ++ lib.platforms.linux; });
+  # };
 
   users.users.jojo = {
     name = "jojo";
     home = "/Users/jojo";
   };
-  home-manager.users.jojo = { pkgs, ... }: {
-    home.packages = [
-      pkgs.iperf3
-      pkgs.go
-      pkgs.yt-dlp
-      pkgs.flyctl
-      pkgs.beets-unstable
-      (pkgs.callPackage ./tidal-dl.nix {})
-    ];
-    home.stateVersion = "22.05";
-    programs.home-manager.enable = true;
-
-    xdg.dataFile."postgresql/.keep".text = ""; # Create ~/.local/share/postgresql/
-    xdg.dataFile."redis/.keep".text = ""; # Create ~/.local/share/redis/
-  };
-  home-manager.useGlobalPkgs = true; # we may want to move away from unstable in global at some point in the future
-
   services.redis.enable = true;
   services.redis.dataDir = "/Users/jojo/.local/share/redis/";
 
