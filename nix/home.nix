@@ -21,14 +21,28 @@ let username = "jojo"; in
       nixpkgs.yt-dlp
       nixpkgs.flyctl
       nixpkgs.beets-unstable
-      #(nixpkgs.callPackage ./tidal-dl.nix {})
+      (nixpkgs.callPackage ./tidal-dl.nix {})
+      nixpkgs.fortune
+      nixpkgs.tree
+      nixpkgs.git-lfs
+      nixpkgs.fzf
+      nixpkgs.htop
+      nixpkgs.silver-searcher
+      # nixpkgs.darwin-zsh-completions
+      nixpkgs.curl
+      nixpkgs.wget
+      #nixpkgs.git
+      nixpkgs.comma
+      nixpkgs.vim
     ];
 
-  # programs.tmux = {
-  #   shell = "\${nixpkgs.zsh}/bin/zsh";
-  # };
+  programs.tmux = {
+    enable = true;
+    #shell = "\${nixpkgs.zsh}/bin/zsh";
+  };
 
-  # programs.zsh = {
+  programs.zsh = {
+    enableSyntaxHighlighting = true;
   #   enable = true;
   #   autocd = true;
   #   enableAutosuggestions = true;
@@ -48,25 +62,21 @@ let username = "jojo"; in
   #     RUSTFLAGS = "-L ${nixpkgs.libiconv}/lib";
   #     RUST_BACKTRACE = "full";
   #   };
-  #   shellAliases = {
-  #     vim = "nvim";
-  #     view = "vim -R";
-  #     nix-upgrade = "sudo -i sh -c 'nix-channel --update && nix-env -iA nixpkgs.nix && launchctl remove org.nixos.nix-daemon && launchctl load /Library/LaunchDaemons/org.nixos.nix-daemon.plist'";
-  #     cmake = "cmake -DCMAKE_MAKE_PROGRAM=${nixpkgs.gnumake}/bin/make -DCMAKE_AR=${nixpkgs.darwin.cctools}/bin/ar -DCMAKE_RANLIB=${nixpkgs.darwin.cctools}/bin/ranlib -DGMP_INCLUDE_DIR=${nixpkgs.gmp.dev}/include/ -DGMP_LIBRARIES=${nixpkgs.gmp}/lib/libgmp.10.dylib";
-  #     ar = "${nixpkgs.darwin.cctools}/bin/ar";
-  #   };
-  # };
+    shellAliases = {
+      nix-upgrade = "sudo -i sh -c 'nix-channel --update && nix-env -iA nixpkgs.nix && launchctl remove org.nixos.nix-daemon && launchctl load /Library/LaunchDaemons/org.nixos.nix-daemon.plist'";
+    };
+  };
 
-  # programs.fzf = {
-  #   enable = true;
-  #   enableZshIntegration = true;
-  # };
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 
-  # programs.git = {
-  #   package = nixpkgs.gitAndTools.gitFull;
-  #   enable = true;
-  #   userName = "Smaug123";
-  #   userEmail = "patrick+github@patrickstevens.co.uk";
+  programs.git = {
+    package = nixpkgs.gitAndTools.gitFull;
+    enable = true;
+  #   userName = "";
+  #   userEmail = "";
   #   aliases = {
   #     co = "checkout";
   #     st = "status";
@@ -97,38 +107,7 @@ let username = "jojo"; in
   #       twohead = "ort";
   #     };
   #   };
-  # };
-
-  # programs.neovim.enable = true;
-  # programs.neovim.plugins = with nixpkgs.vimPlugins; [
-  #   molokai
-  #   tagbar
-  #   {
-  #     plugin = rust-vim;
-  #     config = "let g:rustfmt_autosave = 1";
-  #   }
-  #   {
-  #     plugin = LanguageClient-neovim;
-  #     config = "let g:LanguageClient_serverCommands = { 'nix': ['rnix-lsp'] }";
-  #   }
-  #   {
-  #     plugin = syntastic;
-  #     config = ''let g:syntastic_rust_checkers = ['cargo']
-# let g:syntastic_always_populate_loc_list = 1
-# let g:syntastic_auto_loc_list = 1
-# let g:syntastic_check_on_open = 1
-# let g:syntastic_check_on_wq = 0'';
-  #   }
-
-  #   YouCompleteMe
-  #   tagbar
-  # ];
-  # programs.neovim.viAlias = true;
-  # programs.neovim.vimAlias = true;
-  # programs.neovim.vimdiffAlias = true;
-  # programs.neovim.withPython3 = true;
-
-  #programs.neovim.extraConfig = builtins.readFile ./init.vim;
+  };
 
   #home.file.".ssh/config".source = ./ssh.config;
 }

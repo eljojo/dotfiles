@@ -16,9 +16,20 @@
   outputs = { self, darwin, nixpkgs, home-manager, ... }@inputs:
     let system = "aarch64-darwin"; in
     let config = {
-      # allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
-      #   "vscode"
-      # ];
+      # necessary for beets :(
+      allowUnsupportedSystem = true;
+      allowBroken = true;
+
+      # I think I can move this to overlays.nix
+      packageOverrides = pkgs: rec {
+        beets-unstable = pkgs.beets-unstable
+        .override({
+           pluginOverrides = {
+             copyartifacts = { enable = true; propagatedBuildInputs = [ pkgs.beetsPackages.copyartifacts ]; };
+             limit = { builtin = true; };
+           };
+         });
+      };
     }; in
     let overlays = [ ] ++ import ./overlays.nix; in
     let pkgs = (import nixpkgs { inherit system config overlays; }); in

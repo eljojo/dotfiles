@@ -6,5 +6,9 @@
         doCheck = false;
       }
     );
+    aacgain = super.callPackage ./aacgain.nix {};
+    keyfinder-cli = super.keyfinder-cli.overrideAttrs (
+      _: { meta.platforms = super.lib.platforms.darwin ++ super.lib.platforms.linux; }
+    );
   })
 ]
