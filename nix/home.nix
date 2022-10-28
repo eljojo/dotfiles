@@ -66,9 +66,9 @@ let username = "jojo"; in
     enableZshIntegration = true;
   };
 
-  #programs.git = {
+  programs.git = {
   #  package = nixpkgs.gitAndTools.gitFull;
-  #  enable = true;
+    enable = true;
   #   userName = "";
   #   userEmail = "";
   #   aliases = {
@@ -101,7 +101,7 @@ let username = "jojo"; in
   #       twohead = "ort";
   #     };
   #   };
-  #};
+  };
 
   #home.file.".ssh/config".source = ./ssh.config;
 }
