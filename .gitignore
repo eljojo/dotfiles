@@ -1,3 +1,4 @@
-nix/result
+/nix/result
+/result
 
 git/gitconfig.symlink
