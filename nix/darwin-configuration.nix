@@ -30,7 +30,7 @@ in {
       pkgs.wget
       pkgs.go
       pkgs.silver-searcher
-      pkgs.gitAndTools.gitFull
+      pkgs.git
     ];
 
   homebrew = {
