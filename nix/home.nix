@@ -17,7 +17,6 @@ let username = "jojo"; in
   home.packages =
     [
       nixpkgs.iperf3
-      nixpkgs.go
       nixpkgs.yt-dlp
       nixpkgs.flyctl
       nixpkgs.beets-unstable
@@ -25,13 +24,8 @@ let username = "jojo"; in
       nixpkgs.fortune
       nixpkgs.tree
       nixpkgs.git-lfs
-      nixpkgs.fzf
       nixpkgs.htop
-      nixpkgs.silver-searcher
       # nixpkgs.darwin-zsh-completions
-      nixpkgs.curl
-      nixpkgs.wget
-      #nixpkgs.git
       nixpkgs.comma
       nixpkgs.vim
     ];
@@ -72,9 +66,9 @@ let username = "jojo"; in
     enableZshIntegration = true;
   };
 
-  programs.git = {
-    package = nixpkgs.gitAndTools.gitFull;
-    enable = true;
+  #programs.git = {
+  #  package = nixpkgs.gitAndTools.gitFull;
+  #  enable = true;
   #   userName = "";
   #   userEmail = "";
   #   aliases = {
@@ -107,7 +101,7 @@ let username = "jojo"; in
   #       twohead = "ort";
   #     };
   #   };
-  };
+  #};
 
   #home.file.".ssh/config".source = ./ssh.config;
 }

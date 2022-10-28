@@ -4,5 +4,5 @@ cd $HOME/.dotfiles/nix
 nix flake update
 darwin-rebuild switch --flake $HOME/.dotfiles/nix/#jojo
 rm result || true
-nix-index & # for , tool
 nix-collect-garbage -d
+nix-index # for , tool

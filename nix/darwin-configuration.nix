@@ -25,6 +25,12 @@ in {
   # $ nix-env -qaP | grep wget
   environment.systemPackages =
     [
+      pkgs.fzf
+      pkgs.curl
+      pkgs.wget
+      pkgs.go
+      pkgs.silver-searcher
+      pkgs.gitAndTools.gitFull
     ];
 
   homebrew = {
