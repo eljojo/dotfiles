@@ -97,7 +97,7 @@ in {
     "discord"
     "signal"
     "utm"
-    "private-internet-access"
+    # "private-internet-access" # kinda broken
   ];
 
   # Keyboard
