@@ -16,6 +16,9 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias ln='ln -i'
 
+alias youtube-audio="yt-dlp -f 'ba' -x --audio-format mp3"
+alias youtube-video='yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"'
+
 # alias deploy='rake deploy'
 # alias stage='git push --force staging HEAD:master'
 # alias deploy_and_migrate='deploy && dokku run rake db:migrate'
