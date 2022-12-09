@@ -9,7 +9,6 @@ in {
   nixpkgs.config.allowBroken = true;
 
   nixpkgs.config.packageOverrides = pkgs: rec {
-    aacgain = pkgs.callPackage ./aacgain.nix {};
     beets-unstable = pkgs.beets-unstable
     .override({
        pluginOverrides = {
