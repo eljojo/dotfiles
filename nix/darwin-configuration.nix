@@ -6,7 +6,6 @@ in {
 
   # necessary for beets :(
   nixpkgs.config.allowUnsupportedSystem = true;
-  nixpkgs.config.allowBroken = true;
 
   nixpkgs.config.packageOverrides = pkgs: rec {
     beets-unstable = pkgs.beets-unstable
