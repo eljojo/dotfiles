@@ -43,6 +43,7 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plugin 'junegunn/fzf.vim'
 Plugin 'LnL7/vim-nix'
+Plugin 'github/copilot.vim'
 
 call vundle#end()
 filetype plugin indent on
