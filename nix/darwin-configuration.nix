@@ -7,6 +7,9 @@ in {
   # necessary for beets :(
   nixpkgs.config.allowUnsupportedSystem = true;
 
+  # terraform
+  nixpkgs.config.allowUnfree = true;
+
   nixpkgs.config.packageOverrides = pkgs: rec {
     beets-unstable = pkgs.beets-unstable
     .override({
@@ -30,8 +33,10 @@ in {
       pkgs.flyctl
       pkgs.beets-unstable
       (pkgs.callPackage ./tidal-dl.nix {})
+      pkgs.terraform
+      pkgs.cf-terraforming
     ];
-    home.stateVersion = "22.05";
+    home.stateVersion = "23.05";
     programs.home-manager.enable = true;
 
     xdg.dataFile."postgresql/.keep".text = ""; # Create ~/.local/share/postgresql/
