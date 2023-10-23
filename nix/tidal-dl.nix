@@ -22,11 +22,11 @@ let
 in
   python3.pkgs.buildPythonApplication rec {
     pname = "tidal-dl";
-    version = "2022.8.29.1";
+    version = "2022.10.31.1";
 
     src = python3.pkgs.fetchPypi {
       inherit pname version;
-      sha256 = "sha256-Dvhz/fxj75z3Y9mv19gt300Ue1UYR01mn9E1F3Hm13o=";
+      sha256 = "sha256-b2AAsiI3n2/v6HC37fMI/d8UcxZxsWM+fnWvdajHrOg=";
     };
 
     doCheck = true;
