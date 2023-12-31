@@ -33,8 +33,9 @@ in {
       pkgs.flyctl
       pkgs.beets-unstable
       (pkgs.callPackage ./tidal-dl.nix {})
-      pkgs.terraform
-      pkgs.cf-terraforming
+      # pkgs.terraform
+      # pkgs.cf-terraforming
+      pkgs.kubectl
     ];
     home.stateVersion = "23.05";
     programs.home-manager.enable = true;
@@ -82,7 +83,6 @@ in {
     "Home Assistant" = 1099568401;
     "Day One" = 1055511498;
     Telegram = 747648890;
-    Tweetbot = 1384080005;
     "Microsoft Remote Desktop" = 1295203466;
     "Consent-O-Matic" = 1606897889;
     StopTheMadness = 1376402589;
@@ -99,7 +99,7 @@ in {
     "notion"
     "discord"
     "signal"
-    "utm"
+    # "utm"
     # "private-internet-access" # kinda broken
   ];
 
