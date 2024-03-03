@@ -5,5 +5,5 @@ nix-channel --add https://github.com/lnl7/nix-darwin/archive/master.tar.gz darwi
 nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 nix-channel --update
 NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 darwin-rebuild switch -I darwin-config=$HOME/.dotfiles/nix/darwin-configuration.nix
-nix-index # for , tool
+#nix-index # for , tool
 # nix-collect-garbage -d
