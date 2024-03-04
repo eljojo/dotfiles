@@ -49,9 +49,12 @@ in {
   services.redis.enable = true;
   services.redis.dataDir = "/Users/jojo/.local/share/redis/";
 
-  services.postgresql.enable = true;
-  services.postgresql.package = pkgs.postgresql_14;
-  services.postgresql.dataDir = "/Users/jojo/.local/share/postgresql/data/";
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_14.withPackages (p: [ p.postgis ]);
+    dataDir = "/Users/jojo/.local/share/postgresql/data/";
+  };
+
   # create default user with `psql -U postgres` and `CREATE USER jojo SUPERUSER;`
 
   # launchd.user.agents.postgresql.serviceConfig = {
