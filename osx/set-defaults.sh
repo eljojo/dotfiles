@@ -24,7 +24,7 @@ defaults write com.apple.dock wvous-tl-corner -int 2
 defaults write com.apple.dock wvous-ll-modifier -int 0
 
 # Disable Resume system-wide
-defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
+#defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
 
 # "Remove duplicates in the "Open With" menu"
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
@@ -45,7 +45,7 @@ defaults write com.apple.finder NewWindowTarget -string "PfHm"
 
 # Finder: "Avoiding the creation of .DS_Store files on network volumes"
 # https://support.apple.com/en-ca/HT208209
-defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+#defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
 # Desktop
 defaults write com.apple.Finder FXPreferredGroupBy Kind # group desktop icons by kind
@@ -67,12 +67,10 @@ defaults write com.apple.Finder FXPreferredGroupBy Kind # group desktop icons by
 defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 
 # Safari Privacy: don’t send search queries to Apple
-defaults write com.apple.Safari UniversalSearchEnabled -bool false
-defaults write com.apple.Safari SuppressSearchSuggestions -bool true
-
-# Safari: Prevent Safari from opening ‘safe’ files automatically after downloading
-defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
-
+# defaults write com.apple.Safari UniversalSearchEnabled -bool false
+# defaults write com.apple.Safari SuppressSearchSuggestions -bool true
+# # Safari: Prevent Safari from opening ‘safe’ files automatically after downloading
+# defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 # Safari: Show the full URL in the address bar (note: this still hides the scheme)
 # defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
 
@@ -88,7 +86,7 @@ defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 
 # Terminal: Enable Secure Keyboard Entry in Terminal.app
 # See: https://security.stackexchange.com/a/47786/8918
-defaults write com.apple.terminal SecureKeyboardEntry -bool true
+#defaults write com.apple.terminal SecureKeyboardEntry -bool true
 
 # Time Machine: Prevent Time Machine from prompting to use new hard drives as backup volume
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
@@ -98,9 +96,6 @@ defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
 # Messages: Disable smart quotes
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false
-
-# Tweetbot: Bypass the annoyingly slow t.co URL shortener
-defaults write com.tapbots.TweetbotMac OpenURLsDirectly -bool true
 
 # Finder: Default view for new windows
 # defaults write com.apple.finder FXPreferredViewStyle Clmv # for column view

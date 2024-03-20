@@ -21,25 +21,25 @@ then
   $ZSH/homebrew/install.sh 2>&1
 fi
 
-if [ -d "$HOME/.asdf" ]; then
-  echo "updating asdf"
-  cd ~/.asdf
-  git pull origin master
-  . ~/.asdf/asdf.sh
-  asdf update
-  asdf plugin update --all
-else
-  echo "installing asdf"
-  git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-  . ~/.asdf/asdf.sh
-  asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-  # asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
-  # asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
-  asdf plugin-add python https://github.com/tuvistavie/asdf-python.git
-  asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
-  # asdf plugin-add clojure https://github.com/vic/asdf-clojure.git
-  # asdf plugin-add rust https://github.com/code-lever/asdf-rust.git
-fi
+# if [ -d "$HOME/.asdf" ]; then
+#   echo "updating asdf"
+#   cd ~/.asdf
+#   git pull origin master
+#   . ~/.asdf/asdf.sh
+#   asdf update
+#   asdf plugin update --all
+# else
+#   echo "installing asdf"
+#   git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+#   . ~/.asdf/asdf.sh
+#   asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+#   # asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
+#   # asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
+#   asdf plugin-add python https://github.com/tuvistavie/asdf-python.git
+#   asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
+#   # asdf plugin-add clojure https://github.com/vic/asdf-clojure.git
+#   # asdf plugin-add rust https://github.com/code-lever/asdf-rust.git
+# fi
 
 if [ -d "$HOME/.zprezto" ]; then
   echo "updating prezto"

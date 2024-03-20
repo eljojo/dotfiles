@@ -141,7 +141,7 @@ install_dotfiles () {
   done
 }
 
-git remote set-url origin git@github.com:eljojo/dotfiles.git
+#git remote set-url origin git@github.com:eljojo/dotfiles.git
 setup_gitconfig
 install_dotfiles
 
@@ -153,7 +153,7 @@ bin/dotfile-maintenance
 if [ -d "$HOME/.vim" ]; then
   echo "upgrading vim plugins"
   cd "$HOME/.vim"
-  git remote set-url origin git@github.com:eljojo/vimfiles.git
+  #git remote set-url origin git@github.com:eljojo/vimfiles.git
   vim +PlugInstall +qall
 else
   echo "installing vimfiles"
