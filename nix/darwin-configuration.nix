@@ -177,8 +177,8 @@ in {
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
 
+  # disabled auto-optimise-store = true due to https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
   nix.extraOptions = ''
-	  auto-optimise-store = true
 	  experimental-features = nix-command flakes
 	  '' + lib.optionalString (pkgs.system == "aarch64-darwin") ''
 	  extra-platforms = x86_64-darwin aarch64-darwin
