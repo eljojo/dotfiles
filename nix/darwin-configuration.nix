@@ -37,6 +37,7 @@ in {
       # pkgs.terraform
       # pkgs.cf-terraforming
       pkgs.kubectl
+      pkgs.ffmpeg_7-headless
     ];
     home.stateVersion = "23.05";
     programs.home-manager.enable = true;
