@@ -162,7 +162,7 @@ in {
 
   fonts.packages = with pkgs; [
      meslo-lgs-nf # for iTerm
-    (nerdfonts.override { fonts = [ "Hack" ]; })
+    nerd-fonts.hack
    ];
 
   # Auto upgrade nix package and the daemon service.
