@@ -84,24 +84,22 @@ in {
   homebrew.enable = true;
   homebrew.masApps = {
     Tailscale = 1475387142;
-    Transmit = 1436522307;
+    # Transmit = 1436522307;
     "Home Assistant" = 1099568401;
     "Day One" = 1055511498;
-    Telegram = 747648890;
-    "Microsoft Remote Desktop" = 1295203466;
+    # Telegram = 747648890;
+    # "Microsoft Remote Desktop" = 1295203466;
     "Consent-O-Matic" = 1606897889;
     StopTheMadness = 1376402589;
-    NotionWebClipper = 1559269364;
-    TweaksForTwitter = 1567751529;
+    # NotionWebClipper = 1559269364;
+    # TweaksForTwitter = 1567751529;
   };
   homebrew.casks = [
     "macvim"
     "iterm2"
     "flycut"
     "syncthing"
-    "iina"
-    "skype"
-    "notion"
+    # "iina"
     "discord"
     "signal"
     # "utm"
@@ -161,12 +159,11 @@ in {
   programs.tmux.enableSensible = true;
 
   fonts.packages = with pkgs; [
-     meslo-lgs-nf # for iTerm
+    meslo-lgs-nf # for iTerm
     nerd-fonts.hack
-   ];
+  ];
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  nix.enable = true; # Auto upgrade nix package and the daemon service.
   nix.package = pkgs.nix;
   programs.nix-index.enable = true; # for comma
 
