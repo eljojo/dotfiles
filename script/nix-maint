@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -xe
-nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
-nix-channel --add https://github.com/lnl7/nix-darwin/archive/master.tar.gz darwin
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-nix-channel --update
+sudo nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+sudo nix-channel --add https://github.com/lnl7/nix-darwin/archive/master.tar.gz darwin
+sudo nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+sudo nix-channel --update
 NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 darwin-rebuild switch -I darwin-config=$HOME/.dotfiles/nix/darwin-configuration.nix
 #nix-index # for , tool
 # nix-collect-garbage -d

@@ -22,6 +22,7 @@ in {
     keyfinder-cli = pkgs.keyfinder-cli.overrideAttrs (_: { meta.platforms = lib.platforms.darwin ++ lib.platforms.linux; });
   };
 
+  system.primaryUser = "jojo";
   users.users.jojo = {
     name = "jojo";
     home = "/Users/jojo";
@@ -169,7 +170,7 @@ in {
 
   # Use a custom configuration.nix location.
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
-  environment.darwinConfig = "$HOME/.dotfiles/nix/darwin-configuration.nix";
+  environment.darwinConfig = "/Users/jojo/.dotfiles/nix/darwin-configuration.nix";
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog

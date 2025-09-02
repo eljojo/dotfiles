@@ -14,6 +14,8 @@ let
     propagatedBuildInputs = with pkgs.python3.pkgs; [ requests mutagen colorama ];
 
     doCheck = true;
+    pyproject = true;
+    build-system = with pkgs.python3.pkgs; [ setuptools ];
 
     meta = with lib; {
       description = "python common lib - lol";
