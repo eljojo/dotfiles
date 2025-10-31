@@ -37,7 +37,7 @@ in
     };
 
     dependencies = with python3Packages; [
-      toml typer rich altgraph astroid babel bandit black cachetools certifi cfgv chardet charset-normalizer click colorama tidalapi pathvalidate pbr pefile pillow pluggy dataclasses-json ffmpeg-python m3u8 pyside6 pyqtdarktheme coloredlogs pyqt6
+      toml typer rich altgraph astroid babel bandit black cachetools certifi cfgv chardet charset-normalizer click colorama tidalapi pathvalidate pbr pefile pillow pluggy dataclasses-json ffmpeg-python m3u8 pyqtdarktheme coloredlogs #pyqt6 pyside6 
     ];
 
     doCheck = true;

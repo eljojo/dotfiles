@@ -10,17 +10,17 @@ in {
   # terraform
   nixpkgs.config.allowUnfree = true;
 
-  nixpkgs.config.packageOverrides = pkgs: rec {
-    beets-unstable = pkgs.beets-unstable
-    .override({
-       pluginOverrides = {
-         copyartifacts = { enable = true; propagatedBuildInputs = [ pkgs.beetsPackages.copyartifacts ]; };
-         limit = { builtin = true; };
-         # absubmit = { builtin = true; };
-       };
-     });
-    keyfinder-cli = pkgs.keyfinder-cli.overrideAttrs (_: { meta.platforms = lib.platforms.darwin ++ lib.platforms.linux; });
-  };
+  # nixpkgs.config.packageOverrides = pkgs: rec {
+  #   beets = pkgs.beets
+  #   .override({
+  #      pluginOverrides = {
+  #        copyartifacts = { enable = true; propagatedBuildInputs = [ pkgs.beetsPackages.copyartifacts ]; };
+  #        limit = { builtin = true; };
+  #        # absubmit = { builtin = true; };
+  #      };
+  #    });
+  #   keyfinder-cli = pkgs.keyfinder-cli.overrideAttrs (_: { meta.platforms = lib.platforms.darwin ++ lib.platforms.linux; });
+  # };
 
   system.primaryUser = "jojo";
   users.users.jojo = {
@@ -33,7 +33,7 @@ in {
       pkgs.go
       pkgs.yt-dlp
       pkgs.flyctl
-      pkgs.beets-unstable
+      pkgs.beets
       (pkgs.callPackage ./tidal-dl.nix {})
       # pkgs.terraform
       # pkgs.cf-terraforming
