@@ -37,8 +37,10 @@ in {
       (pkgs.callPackage ./tidal-dl.nix {})
       # pkgs.terraform
       # pkgs.cf-terraforming
-      pkgs.kubectl
+      #pkgs.kubectl
       pkgs.ffmpeg_7-headless
+      pkgs.ripgrep
+      pkgs.nodejs
     ];
     home.stateVersion = "23.05";
     programs.home-manager.enable = true;
@@ -106,8 +108,6 @@ in {
     # "utm"
     # "private-internet-access" # kinda broken
   ];
-
-  system.primaryUser = "jojo";
 
   # Keyboard
   system.keyboard.enableKeyMapping = true;
