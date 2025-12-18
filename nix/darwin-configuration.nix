@@ -107,6 +107,8 @@ in {
     # "private-internet-access" # kinda broken
   ];
 
+  system.primaryUser = "jojo";
+
   # Keyboard
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
