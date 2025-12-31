@@ -49,6 +49,7 @@ fi
 path=(
   $HOME/.bin
   $HOME/.dotfiles/bin
+  $HOME/code/lisa/lab/
   $path
 )
 
