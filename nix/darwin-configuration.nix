@@ -41,6 +41,7 @@ in {
       pkgs.ffmpeg_7-headless
       pkgs.ripgrep
       pkgs.nodejs
+      pkgs.nixfmt-tree
     ];
     home.stateVersion = "23.05";
     programs.home-manager.enable = true;
