@@ -168,8 +168,10 @@ in {
     nerd-fonts.hack
   ];
 
-  nix.enable = true; # Auto upgrade nix package and the daemon service.
-  nix.package = pkgs.nix;
+  nix = {
+    enable = true; # manage nix through nix-darwin
+    package = pkgs.lix;
+  };
   programs.nix-index.enable = true; # for comma
 
   # Use a custom configuration.nix location.
