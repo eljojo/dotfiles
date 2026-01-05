@@ -1,7 +1,13 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
-in {
+in
+{
   imports = [ <home-manager/nix-darwin> ];
 
   # necessary for beets :(
@@ -27,29 +33,31 @@ in {
     name = "jojo";
     home = "/Users/jojo";
   };
-  home-manager.users.jojo = { pkgs, ... }: {
-    home.packages = [
-      pkgs.iperf3
-      pkgs.go
-      pkgs.yt-dlp
-      pkgs.flyctl
-      pkgs.beets
-      (pkgs.callPackage ./tidal-dl.nix {})
-      # pkgs.terraform
-      # pkgs.cf-terraforming
-      #pkgs.kubectl
-      pkgs.ffmpeg_7-headless
-      pkgs.ripgrep
-      pkgs.nodejs
-      pkgs.nixfmt-tree
-      pkgs.ragenix
-    ];
-    home.stateVersion = "23.05";
-    programs.home-manager.enable = true;
+  home-manager.users.jojo =
+    { pkgs, ... }:
+    {
+      home.packages = [
+        pkgs.iperf3
+        pkgs.go
+        pkgs.yt-dlp
+        pkgs.flyctl
+        pkgs.beets
+        (pkgs.callPackage ./tidal-dl.nix { })
+        # pkgs.terraform
+        # pkgs.cf-terraforming
+        #pkgs.kubectl
+        pkgs.ffmpeg_7-headless
+        pkgs.ripgrep
+        pkgs.nodejs
+        pkgs.nixfmt-tree
+        pkgs.ragenix
+      ];
+      home.stateVersion = "23.05";
+      programs.home-manager.enable = true;
 
-    xdg.dataFile."postgresql/.keep".text = ""; # Create ~/.local/share/postgresql/
-    xdg.dataFile."redis/.keep".text = ""; # Create ~/.local/share/redis/
-  };
+      xdg.dataFile."postgresql/.keep".text = ""; # Create ~/.local/share/postgresql/
+      xdg.dataFile."redis/.keep".text = ""; # Create ~/.local/share/redis/
+    };
   home-manager.useGlobalPkgs = true; # we may want to move away from unstable in global at some point in the future
 
   services.redis.enable = true;
@@ -70,21 +78,20 @@ in {
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages =
-    [
-      pkgs.htop
-      pkgs.silver-searcher
-      # pkgs.darwin-zsh-completions
-      pkgs.curl
-      pkgs.wget
-      pkgs.git
-      pkgs.comma
-      pkgs.vim
-      pkgs.fortune
-      pkgs.tree
-      pkgs.git-lfs
-      pkgs.fzf
-    ];
+  environment.systemPackages = [
+    pkgs.htop
+    pkgs.silver-searcher
+    # pkgs.darwin-zsh-completions
+    pkgs.curl
+    pkgs.wget
+    pkgs.git
+    pkgs.comma
+    pkgs.vim
+    pkgs.fortune
+    pkgs.tree
+    pkgs.git-lfs
+    pkgs.fzf
+  ];
 
   homebrew.enable = true;
   homebrew.masApps = {
@@ -184,8 +191,9 @@ in {
 
   # disabled auto-optimise-store = true due to https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
   nix.extraOptions = ''
-	  experimental-features = nix-command flakes
-	  '' + lib.optionalString (pkgs.system == "aarch64-darwin") ''
-	  extra-platforms = x86_64-darwin aarch64-darwin
-	  '';
+    	  experimental-features = nix-command flakes
+    	  ''
+  + lib.optionalString (pkgs.system == "aarch64-darwin") ''
+    	  extra-platforms = x86_64-darwin aarch64-darwin
+    	  '';
 }
