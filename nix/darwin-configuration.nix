@@ -8,7 +8,10 @@
 let
 in
 {
-  imports = [ <home-manager/nix-darwin> ];
+  imports = [
+    <home-manager/nix-darwin>
+    ./distributed-builds.nix
+  ];
 
   # necessary for beets :(
   nixpkgs.config.allowUnsupportedSystem = true;
