@@ -54,6 +54,7 @@ in
         pkgs.nodejs
         pkgs.nixfmt-tree
         pkgs.ragenix
+        pkgs.gh
       ];
       home.stateVersion = "23.05";
       programs.home-manager.enable = true;
