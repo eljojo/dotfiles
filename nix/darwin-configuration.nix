@@ -55,6 +55,7 @@ in
         pkgs.nixfmt-tree
         pkgs.ragenix
         pkgs.gh
+        pkgs.nix-output-monitor
       ];
       home.stateVersion = "23.05";
       programs.home-manager.enable = true;

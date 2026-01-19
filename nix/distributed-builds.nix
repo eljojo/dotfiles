@@ -24,13 +24,19 @@ in
       ];
     }
     {
-      hostName = "raccoon.eljojo.net";
+      # willie also supports aarch64-linux via binfmt emulation
+      hostName = "willie.eljojo.casa";
       sshUser = "remotebuild";
       sshKey = "/Users/jojo/.ssh/id_ecdsa";
       system = "aarch64-linux";
       protocol = "ssh-ng";
       maxJobs = 1;
       speedFactor = 2;
+      supportedFeatures = [
+        "nixos-test"
+        "big-parallel"
+      ];
+      publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUhwWDFJb1IvZjJpZThSd0lrUjVkQm10MGFpKytTNzlqeUhyMmtnU1ZKZ0Ygcm9vdEBuaXhvcwo=";
     }
   ];
   nix.distributedBuilds = true;
