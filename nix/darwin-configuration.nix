@@ -183,6 +183,7 @@ in
   nix = {
     enable = true; # manage nix through nix-darwin
     package = pkgs.lix;
+    settings.trusted-users = [ "jojo" ];
   };
   programs.nix-index.enable = true; # for comma
 
