@@ -38,6 +38,20 @@ in
       ];
       publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUhwWDFJb1IvZjJpZThSd0lrUjVkQm10MGFpKytTNzlqeUhyMmtnU1ZKZ0Ygcm9vdEBuaXhvcwo=";
     }
+    {
+      hostName = "jojo-m4-mini.local";
+      sshUser = "jojo";
+      sshKey = "/Users/jojo/.ssh/id_ecdsa";
+      system = "aarch64-darwin";
+      protocol = "ssh";
+      maxJobs = 1;
+      speedFactor = 2;
+      supportedFeatures = [
+        "nixos-test"
+        "big-parallel"
+      ];
+      publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUhVaFZaUEZuWktqcGloWHlEZml5TGZBaFlGQ1d1SXBxTTNua2pmYnZha28gCg==";
+    }
   ];
   nix.distributedBuilds = true;
   nix.settings = {
