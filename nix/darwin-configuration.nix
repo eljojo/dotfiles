@@ -2,6 +2,8 @@
   config,
   pkgs,
   lib,
+  self,
+  vimfiles,
   ...
 }:
 
@@ -9,9 +11,11 @@ let
 in
 {
   imports = [
-    <home-manager/nix-darwin>
     ./distributed-builds.nix
   ];
+
+  # Required for flakes
+  nixpkgs.hostPlatform = "aarch64-darwin";
 
   # necessary for beets :(
   nixpkgs.config.allowUnsupportedSystem = true;
@@ -30,7 +34,7 @@ in
     {
       imports = [
         ./home-shared.nix
-        /Users/jojo/code/vimfiles/module.nix  # vim/neovim configuration
+        vimfiles.homeManagerModules.vim
       ];
 
       home.packages = [
@@ -60,9 +64,9 @@ in
         youtube-audio = "yt-dlp -f 'ba' -x --audio-format mp3";
         youtube-video = "yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'";
 
-        # Darwin-specific nix commands
-        nix-rebuild = "sudo darwin-rebuild switch -I darwin-config=$HOME/.dotfiles/nix/darwin-configuration.nix";
-        nix-update = "sudo nix-channel --update && sudo darwin-rebuild switch -I darwin-config=$HOME/.dotfiles/nix/darwin-configuration.nix";
+        # Darwin-specific nix commands (flake-based)
+        nix-rebuild = "sudo darwin-rebuild switch --flake ~/.dotfiles";
+        nix-update = "nix flake update ~/.dotfiles && sudo darwin-rebuild switch --flake ~/.dotfiles";
         nix-cleanup = lib.mkForce "nix-collect-garbage -d && brew cleanup";
       };
 
@@ -280,12 +284,12 @@ in
     enable = true; # manage nix through nix-darwin
     package = pkgs.lix;
     settings.trusted-users = [ "jojo" ];
+
+    # Register the flake in the registry - this makes it a GC root
+    # so `nix-collect-garbage -d` won't nuke flake inputs
+    registry.dotfiles.flake = self;
   };
   programs.nix-index.enable = true; # for comma
-
-  # Use a custom configuration.nix location.
-  # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
-  environment.darwinConfig = "/Users/jojo/.dotfiles/nix/darwin-configuration.nix";
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog

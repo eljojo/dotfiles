@@ -2,14 +2,32 @@
   description = "jojo's dotfiles";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    vimfiles = {
+      url = "path:/Users/jojo/code/vimfiles";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }: {
+  outputs = { self, nixpkgs, nix-darwin, home-manager, vimfiles, ... }: {
+    # nix-darwin configuration for macOS
+    darwinConfigurations."jojo-m1" = nix-darwin.lib.darwinSystem {
+      system = "aarch64-darwin";
+      specialArgs = { inherit self vimfiles; };
+      modules = [
+        ./nix/darwin-configuration.nix
+        home-manager.darwinModules.home-manager
+      ];
+    };
+
     # Home-manager module that can be imported by other flakes
     homeManagerModules = {
       default = self.homeManagerModules.shared;
