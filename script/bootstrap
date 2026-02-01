@@ -107,7 +107,7 @@ echo "  Updating channels..."
 sudo nix-channel --update
 
 echo "  Building system configuration..."
-NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 sudo darwin-rebuild switch \
+sudo darwin-rebuild switch \
   -I darwin-config=$HOME/.dotfiles/nix/darwin-configuration.nix
 success "nix-darwin configuration applied"
 

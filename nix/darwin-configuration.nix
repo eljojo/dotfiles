@@ -184,6 +184,11 @@ in
         # YouTube
         youtube-audio = "yt-dlp -f 'ba' -x --audio-format mp3";
         youtube-video = "yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'";
+
+        # Nix maintenance
+        nix-rebuild = "sudo darwin-rebuild switch -I darwin-config=$HOME/.dotfiles/nix/darwin-configuration.nix";
+        nix-update = "sudo nix-channel --update && sudo darwin-rebuild switch -I darwin-config=$HOME/.dotfiles/nix/darwin-configuration.nix";
+        nix-cleanup = "nix-collect-garbage -d && brew cleanup";
       };
 
       home.sessionVariables = {
