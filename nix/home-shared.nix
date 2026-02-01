@@ -4,7 +4,6 @@
 
 {
   programs.home-manager.enable = true;
-  programs.zsh.enable = true;
 
   programs.git = {
     enable = true;

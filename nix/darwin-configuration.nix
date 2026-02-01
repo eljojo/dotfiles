@@ -263,6 +263,8 @@ in
   # Expose nix PATH to GUI apps (Neovide, etc.)
   launchd.user.envVariables.PATH = config.environment.systemPath;
 
+  programs.zsh.enable = true;
+
   programs.tmux.enable = true;
   programs.tmux.enableSensible = true;
 
