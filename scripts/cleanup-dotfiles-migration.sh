@@ -35,6 +35,21 @@ items_to_delete=()
 [ -f "$HOME/.dotfiles/install_stuff_mac.sh" ] && items_to_delete+=("~/.dotfiles/install_stuff_mac.sh (merged into bootstrap)")
 [ -f "$HOME/.dotfiles/script/setup-nix" ] && items_to_delete+=("~/.dotfiles/script/setup-nix (merged into bootstrap)")
 
+# Vim files (now managed by home-manager via vimfiles flake)
+[ -L "$HOME/.vimrc" ] && items_to_delete+=("~/.vimrc (old symlink, now managed by home-manager)")
+[ -L "$HOME/.gvimrc" ] && items_to_delete+=("~/.gvimrc (old symlink, now managed by home-manager)")
+[ -L "$HOME/.config/nvim/init.lua" ] && items_to_delete+=("~/.config/nvim/init.lua (old symlink, now managed by home-manager)")
+[ -d "$HOME/.vim/bundle" ] && items_to_delete+=("~/.vim/bundle/ (old Vundle plugins, now managed by nix)")
+
+# Vim directory needs to move out of ~/.vim so home-manager can manage it
+vim_needs_move=false
+if [ -d "$HOME/.vim/.git" ]; then
+    vim_needs_move=true
+    items_to_delete+=("~/.vim/ -> ~/code/vimfiles (move git repo, home-manager will recreate ~/.vim)")
+elif [ -d "$HOME/.vim" ] && [ ! -L "$HOME/.vim" ]; then
+    items_to_delete+=("~/.vim/ (remove so home-manager can recreate it)")
+fi
+
 if [ ${#items_to_delete[@]} -eq 0 ]; then
     echo "Nothing to clean up! All old files already removed."
     exit 0
@@ -70,6 +85,27 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     [ -d "$HOME/.dotfiles/homebrew" ] && rm -rf "$HOME/.dotfiles/homebrew" && echo "Removed ~/.dotfiles/homebrew/"
     [ -f "$HOME/.dotfiles/install_stuff_mac.sh" ] && rm "$HOME/.dotfiles/install_stuff_mac.sh" && echo "Removed ~/.dotfiles/install_stuff_mac.sh"
     [ -f "$HOME/.dotfiles/script/setup-nix" ] && rm "$HOME/.dotfiles/script/setup-nix" && echo "Removed ~/.dotfiles/script/setup-nix"
+    # Vim files
+    [ -L "$HOME/.vimrc" ] && rm "$HOME/.vimrc" && echo "Removed ~/.vimrc"
+    [ -L "$HOME/.gvimrc" ] && rm "$HOME/.gvimrc" && echo "Removed ~/.gvimrc"
+    [ -L "$HOME/.config/nvim/init.lua" ] && rm "$HOME/.config/nvim/init.lua" && echo "Removed ~/.config/nvim/init.lua"
+    [ -d "$HOME/.vim/bundle" ] && rm -rf "$HOME/.vim/bundle" && echo "Removed ~/.vim/bundle/"
+
+    # Move or remove ~/.vim
+    if [ "$vim_needs_move" = true ]; then
+        if [ -e "$HOME/code/vimfiles" ]; then
+            echo "WARNING: ~/code/vimfiles already exists, removing ~/.vim instead"
+            rm -rf "$HOME/.vim"
+            echo "Removed ~/.vim/"
+        else
+            mkdir -p "$HOME/code"
+            mv "$HOME/.vim" "$HOME/code/vimfiles"
+            echo "Moved ~/.vim/ to ~/code/vimfiles/"
+        fi
+    elif [ -d "$HOME/.vim" ] && [ ! -L "$HOME/.vim" ]; then
+        rm -rf "$HOME/.vim"
+        echo "Removed ~/.vim/"
+    fi
     echo ""
     echo "Done! Now run ./scripts/bootstrap to set up the system."
 else

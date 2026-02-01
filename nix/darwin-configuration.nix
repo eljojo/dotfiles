@@ -28,7 +28,10 @@ in
   home-manager.users.jojo =
     { pkgs, lib, ... }:
     {
-      imports = [ ./home-shared.nix ];
+      imports = [
+        ./home-shared.nix
+        /Users/jojo/code/vimfiles/module.nix  # vim/neovim configuration
+      ];
 
       home.packages = [
         pkgs.iperf3
