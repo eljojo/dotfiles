@@ -47,7 +47,6 @@ in
       ];
 
       home.stateVersion = "23.05";
-      programs.home-manager.enable = true;
 
       # macOS-specific git config
       programs.git.settings.credential.helper = "osxkeychain";
@@ -154,11 +153,6 @@ in
         def r
           reload!
         end
-      '';
-
-      # Silver searcher ignore
-      home.file.".agignore".text = ''
-        node_modules
       '';
 
       xdg.dataFile."postgresql/.keep".text = ""; # Create ~/.local/share/postgresql/
@@ -268,8 +262,6 @@ in
 
   # Expose nix PATH to GUI apps (Neovide, etc.)
   launchd.user.envVariables.PATH = config.environment.systemPath;
-
-  programs.zsh.enable = true;
 
   programs.tmux.enable = true;
   programs.tmux.enableSensible = true;

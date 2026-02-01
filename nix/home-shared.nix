@@ -3,6 +3,9 @@
 { config, lib, pkgs, ... }:
 
 {
+  programs.home-manager.enable = true;
+  programs.zsh.enable = true;
+
   programs.git = {
     enable = true;
     lfs.enable = true;
@@ -306,4 +309,9 @@
 
   # p10k config file
   home.file.".p10k.zsh".source = ./p10k.zsh;
+
+  # Silver searcher ignore
+  home.file.".agignore".text = ''
+    node_modules
+  '';
 }
