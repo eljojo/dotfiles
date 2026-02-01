@@ -198,7 +198,8 @@ in
   ];
 
   homebrew.enable = true;
-  homebrew.masApps = { # seems broken :( on m2
+  homebrew.masApps = {
+    # seems broken :( on m2
     #Tailscale = 1475387142;
     #"Home Assistant" = 1099568401;
     #"Day One" = 1055511498;

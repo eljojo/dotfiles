@@ -1,5 +1,10 @@
 # Home-manager module for vim/neovim configuration
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   # Build plugins not in nixpkgs
@@ -103,7 +108,8 @@ let
     ${vimrcContent}
   '';
 
-in {
+in
+{
   # Configure vim
   programs.vim = {
     enable = true;

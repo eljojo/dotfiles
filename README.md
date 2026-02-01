@@ -2,7 +2,7 @@
 
 Your dotfiles are how you personalize your system. These are mine.
 
-This repo has evolved over the years - originally forked from [Zach Holman's dotfiles](https://github.com/holman/dotfiles) (which itself built on [Ryan Bates'](http://github.com/ryanb/dotfiles)), it started as a symlink-based setup with topic directories. In 2026, I migrated to Nix and home-manager for declarative, reproducible configuration.
+This repo has evolved over the years - originally forked from [Zach Holman's dotfiles](https://github.com/holman/dotfiles) (which itself built on [Ryan Bates'](http://github.com/ryanb/dotfiles)), it started as a symlink-based setup with topic directories. In 2026, I migrated to Nix and home-manager for declarative, reproducible configuration. Since 2026 this repository also manages [my vim configuration](/vim).
 
 **This is shared for educational purposes.** Don't run it verbatim - fork it, read through it, take what's useful, and make it your own. That's the dotfiles way.
 
@@ -31,6 +31,7 @@ The repo is a Nix flake that exports a home-manager module. This module configur
 - **Zsh**: prezto + powerlevel10k prompt, history substring search, autosuggestions, syntax highlighting
 - **Helper functions**: `c` for quick project navigation, `extract` for archives, `gf` to checkout remote branches
 - **Session variables**: `GOPATH`, `PROJECTS`, `VISUAL`, `PAGER`
+- **Vim**: configuration and plugins according to my taste.
 
 ### Using it
 
@@ -70,11 +71,13 @@ rm -f *.itermcolors
 ## Lineage
 
 ```
-Ryan Bates' dotfiles
+Ryan Bates' dotfiles                                          Scrooloose's vimfiles
         ↓
-Zach Holman's dotfiles (topical organization, symlinks)
+Zach Holman's dotfiles (topical organization)                          ↓
         ↓
-This repo (2014: fork, customize)
+This repo (2014: fork, switch to prezto)                eljojo/vimfiles (2013: fork, customize)
         ↓
-This repo (2026: migrate to Nix/home-manager)
+This repo (2022: introduce nix-darwin, still topical)
+        ↓                                                              ↓
+    This repo (2026: remove topical organization, nix-managed prezto, nix-managed vim)
 ```

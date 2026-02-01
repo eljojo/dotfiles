@@ -13,34 +13,42 @@
     };
   };
 
-  outputs = { self, nixpkgs, nix-darwin, home-manager, ... }: {
-    # nix-darwin configuration for macOS
-    darwinConfigurations."jojo-m1" = nix-darwin.lib.darwinSystem {
-      system = "aarch64-darwin";
-      specialArgs = { inherit self; };
-      modules = [
-        ./nix/darwin-configuration.nix
-        home-manager.darwinModules.home-manager
-      ];
-    };
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nix-darwin,
+      home-manager,
+      ...
+    }:
+    {
+      # nix-darwin configuration for macOS
+      darwinConfigurations."jojo-m1" = nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        specialArgs = { inherit self; };
+        modules = [
+          ./nix/darwin-configuration.nix
+          home-manager.darwinModules.home-manager
+        ];
+      };
 
-    darwinConfigurations."jojo-m2" = nix-darwin.lib.darwinSystem {
-      system = "aarch64-darwin";
-      specialArgs = { inherit self; };
-      modules = [
-        home-manager.darwinModules.home-manager
-        ./nix/darwin-configuration.nix
-      ];
-    };
+      darwinConfigurations."jojo-m2" = nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        specialArgs = { inherit self; };
+        modules = [
+          home-manager.darwinModules.home-manager
+          ./nix/darwin-configuration.nix
+        ];
+      };
 
-    # Home-manager module that can be imported by other flakes
-    homeManagerModules = {
-      default = self.homeManagerModules.shared;
-      shared = import ./nix/home-shared.nix;
-      vim = import ./vim/module.nix;
-    };
+      # Home-manager module that can be imported by other flakes
+      homeManagerModules = {
+        default = self.homeManagerModules.shared;
+        shared = import ./nix/home-shared.nix;
+        vim = import ./vim/module.nix;
+      };
 
-    # For convenience, also expose as homeModule (singular)
-    homeModule = self.homeManagerModules.shared;
-  };
+      # For convenience, also expose as homeModule (singular)
+      homeModule = self.homeManagerModules.shared;
+    };
 }

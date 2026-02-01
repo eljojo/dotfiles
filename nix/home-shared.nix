@@ -1,6 +1,11 @@
 # Shared home-manager config for all machines (macOS + NixOS)
 # Machine-specific config should extend this
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   programs.home-manager.enable = true;
