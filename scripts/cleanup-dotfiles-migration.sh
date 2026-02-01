@@ -25,7 +25,9 @@ items_to_delete=()
 [ -L "$HOME/.agignore" ] && items_to_delete+=("~/.agignore (old symlink)")
 [ -L "$HOME/.gemrc" ] && items_to_delete+=("~/.gemrc (old symlink)")
 [ -L "$HOME/.irbrc" ] && items_to_delete+=("~/.irbrc (old symlink)")
+[ -L "$HOME/.gitconfig" ] && items_to_delete+=("~/.gitconfig (old symlink)")
 [ -L "$HOME/.tm_properties" ] && items_to_delete+=("~/.tm_properties (old symlink)")
+[ -d "$HOME/.dotfiles/git" ] && items_to_delete+=("~/.dotfiles/git/ (old git configs)")
 [ -d "$HOME/.dotfiles/ruby" ] && items_to_delete+=("~/.dotfiles/ruby/ (old ruby configs)")
 [ -d "$HOME/.dotfiles/system" ] && items_to_delete+=("~/.dotfiles/system/ (old system configs)")
 [ -d "$HOME/.dotfiles/textmate" ] && items_to_delete+=("~/.dotfiles/textmate/ (old textmate configs)")
@@ -59,7 +61,9 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     [ -L "$HOME/.agignore" ] && rm "$HOME/.agignore" && echo "Removed ~/.agignore"
     [ -L "$HOME/.gemrc" ] && rm "$HOME/.gemrc" && echo "Removed ~/.gemrc"
     [ -L "$HOME/.irbrc" ] && rm "$HOME/.irbrc" && echo "Removed ~/.irbrc"
+    [ -L "$HOME/.gitconfig" ] && rm "$HOME/.gitconfig" && echo "Removed ~/.gitconfig"
     [ -L "$HOME/.tm_properties" ] && rm "$HOME/.tm_properties" && echo "Removed ~/.tm_properties"
+    [ -d "$HOME/.dotfiles/git" ] && rm -rf "$HOME/.dotfiles/git" && echo "Removed ~/.dotfiles/git/"
     [ -d "$HOME/.dotfiles/ruby" ] && rm -rf "$HOME/.dotfiles/ruby" && echo "Removed ~/.dotfiles/ruby/"
     [ -d "$HOME/.dotfiles/system" ] && rm -rf "$HOME/.dotfiles/system" && echo "Removed ~/.dotfiles/system/"
     [ -d "$HOME/.dotfiles/textmate" ] && rm -rf "$HOME/.dotfiles/textmate" && echo "Removed ~/.dotfiles/textmate/"
@@ -67,7 +71,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     [ -f "$HOME/.dotfiles/install_stuff_mac.sh" ] && rm "$HOME/.dotfiles/install_stuff_mac.sh" && echo "Removed ~/.dotfiles/install_stuff_mac.sh"
     [ -f "$HOME/.dotfiles/script/setup-nix" ] && rm "$HOME/.dotfiles/script/setup-nix" && echo "Removed ~/.dotfiles/script/setup-nix"
     echo ""
-    echo "Done! Now run ./script/bootstrap to set up the system."
+    echo "Done! Now run ./scripts/bootstrap to set up the system."
 else
     echo "Aborted."
     exit 1

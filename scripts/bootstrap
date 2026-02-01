@@ -169,7 +169,7 @@ read -n 1 -r
 echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   info "Applying macOS defaults..."
-  "$DOTFILES_ROOT/osx/set-defaults.sh"
+  "$DOTFILES_ROOT/scripts/macos-defaults.sh"
   success "macOS defaults applied"
 else
   success "Skipped macOS defaults"
