@@ -372,6 +372,54 @@ in
         '';
       };
 
+      # Ruby config
+      home.file.".gemrc".text = ''
+        ---
+        :update_sources: true
+        :verbose: true
+        :backtrace: false
+        :benchmark: false
+        gem: --no-document
+      '';
+
+      home.file.".irbrc".text = ''
+        #!/usr/bin/ruby
+        require 'irb/completion'
+        require 'rubygems'
+
+        IRB.conf[:SAVE_HISTORY] = 1000
+        IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb_history"
+        IRB.conf[:PROMPT_MODE] = :SIMPLE
+        IRB.conf[:AUTO_INDENT] = true
+
+        class Object
+          def local_methods(obj = self)
+            (obj.methods - obj.class.superclass.instance_methods).sort
+          end
+
+          def ri(method = nil)
+            unless method && method =~ /^[A-Z]/
+              klass = self.kind_of?(Class) ? name : self.class.name
+              method = [klass, method].compact.join('#')
+            end
+            puts `ri '#{method}'`
+          end
+        end
+
+        def me
+          User.find_by_login(ENV['USER'].strip)
+        end
+
+        def r
+          reload!
+        end
+      '';
+
+      # Silver searcher ignore
+      home.file.".agignore".text = ''
+        node_modules
+      '';
+
       xdg.dataFile."postgresql/.keep".text = ""; # Create ~/.local/share/postgresql/
       xdg.dataFile."redis/.keep".text = ""; # Create ~/.local/share/redis/
     };
@@ -422,7 +470,11 @@ in
     StopTheMadness = 1376402589;
     # NotionWebClipper = 1559269364;
     # TweaksForTwitter = 1567751529;
+    "MQTT Explorer" = 1455214828;
   };
+  homebrew.brews = [
+    "borgbackup"
+  ];
   homebrew.casks = [
     "macvim"
     "neovide"
@@ -434,6 +486,8 @@ in
     "signal"
     # "utm"
     # "private-internet-access" # kinda broken
+    "vlc"
+    "vorta"
   ];
 
   # Keyboard

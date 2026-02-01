@@ -1,168 +1,246 @@
 #!/usr/bin/env bash
 #
-# bootstrap installs things.
+# bootstrap - complete setup for a new Mac
+#
+# This script is idempotent - safe to run multiple times.
 
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
 
 set -e
 
-echo ''
+# Colors
+info()    { printf "\n  [ \033[00;34m..\033[0m ] %s\n" "$1"; }
+success() { printf "  [ \033[00;32mOK\033[0m ] %s\n" "$1"; }
+warn()    { printf "  [ \033[0;33m!!\033[0m ] %s\n" "$1"; }
+fail()    { printf "  [ \033[0;31mFAIL\033[0m ] %s\n" "$1"; exit 1; }
+ask()     { printf "\n  [ \033[0;33m?\033[0m ] %s " "$1"; }
 
-info () {
-  echo ''
-  printf "  [ \033[00;34m..\033[0m ] $1"
-}
+echo ""
+echo "  ╔══════════════════════════════════════╗"
+echo "  ║       jojo's dotfiles bootstrap      ║"
+echo "  ╚══════════════════════════════════════╝"
+echo ""
 
-user () {
-  echo ''
-  printf "\r  [ \033[0;33m?\033[0m ] $1 "
-}
+# ============================================
+# Git remote
+# ============================================
+info "Setting git remote to SSH..."
+git remote set-url origin git@github.com:eljojo/dotfiles.git 2>/dev/null || true
+success "Git remote configured"
 
-success () {
-  echo ''
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
-}
-
-fail () {
-  echo '!!!!!!!!!!!!!!!!!!'
-  echo ''
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-  echo ''
-  exit
-}
-
-link_file () {
-  local src=$1 dst=$2
-
-  local overwrite= backup= skip=
-  local action=
-
-  if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
-  then
-
-    if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
-    then
-
-      local currentSrc="$(readlink $dst)"
-
-      if [ "$currentSrc" == "$src" ]
-      then
-
-        skip=true;
-
-      else
-
-        user "File already exists: $(basename "$src"), what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
-        read -n 1 action
-
-        case "$action" in
-          o )
-            overwrite=true;;
-          O )
-            overwrite_all=true;;
-          b )
-            backup=true;;
-          B )
-            backup_all=true;;
-          s )
-            skip=true;;
-          S )
-            skip_all=true;;
-          * )
-            ;;
-        esac
-
-      fi
-
-    fi
-
-    overwrite=${overwrite:-$overwrite_all}
-    backup=${backup:-$backup_all}
-    skip=${skip:-$skip_all}
-
-    if [ "$overwrite" == "true" ]
-    then
-      rm -rf "$dst"
-      success "removed $dst"
-    fi
-
-    if [ "$backup" == "true" ]
-    then
-      mv "$dst" "${dst}.backup"
-      success "moved $dst to ${dst}.backup"
-    fi
-
-    if [ "$skip" == "true" ]
-    then
-      success "skipped $src"
-    fi
-  fi
-
-  if [ "$skip" != "true" ]  # "false" or empty
-  then
-    ln -s "$1" "$2"
-    success "linked $1 to $2"
-  fi
-}
-
-install_dotfiles () {
-  info 'installing dotfiles'
-
-  local overwrite_all=false backup_all=false skip_all=false
-
-  for src in $(find "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink')
-  do
-    dst="$HOME/.$(basename "${src%.*}")"
-    link_file "$src" "$dst"
-  done
-}
-
-git remote set-url origin git@github.com:eljojo/dotfiles.git
-install_dotfiles
-
-touch ~/.env-vars
-
-# TODO: nix-darwin handles system packages now
-# Run: darwin-rebuild switch -I darwin-config=$HOME/.dotfiles/nix/darwin-configuration.nix
-
-if [ -d "$HOME/.vim" ]; then
-  echo "upgrading vim plugins"
-  cd "$HOME/.vim"
-  git remote set-url origin git@github.com:eljojo/vimfiles.git
-  vim +PlugInstall +qall
+# ============================================
+# Secrets file
+# ============================================
+if [ ! -f ~/.env-vars ]; then
+  touch ~/.env-vars
+  success "Created ~/.env-vars"
 else
-  echo "installing vimfiles"
+  success "~/.env-vars already exists"
+fi
+
+# ============================================
+# Homebrew
+# ============================================
+info "Checking Homebrew..."
+if ! command -v brew &> /dev/null; then
+  echo "  Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  # Load homebrew into current shell
+  if [ -d /opt/homebrew/bin ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  fi
+  success "Homebrew installed"
+else
+  success "Homebrew already installed"
+fi
+
+# Disable analytics
+brew analytics off 2>/dev/null || true
+
+# ============================================
+# Lix / Nix
+# ============================================
+info "Checking Nix..."
+if ! command -v nix &> /dev/null; then
+  echo "  Installing Lix (modern Nix implementation)..."
+  echo "  See: https://lix.systems/install/"
+  curl -sSf -L https://install.lix.systems/lix | sh -s -- install
+
+  echo ""
+  warn "Nix installed! Please restart your shell and re-run this script."
+  echo "  Or run: . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
+  exit 0
+else
+  success "Nix already installed: $(nix --version 2>/dev/null | head -1)"
+fi
+
+# ============================================
+# nix-darwin
+# ============================================
+info "Checking nix-darwin..."
+if ! command -v darwin-rebuild &> /dev/null; then
+  echo "  Setting up nix-darwin channels..."
+  sudo nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+  sudo nix-channel --add https://github.com/nix-darwin/nix-darwin/archive/master.tar.gz darwin
+  sudo nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+  sudo nix-channel --update
+
+  echo "  Installing nix-darwin..."
+  nix-build '<darwin>' -A installer
+  ./result/bin/darwin-installer
+  rm -rf ./result
+
+  # Remove default config (we use our own)
+  rm -f ~/.nixpkgs/darwin-configuration.nix
+  success "nix-darwin installed"
+else
+  success "nix-darwin already installed"
+fi
+
+# ============================================
+# Apply nix configuration
+# ============================================
+info "Applying nix-darwin configuration..."
+echo "  Updating channels..."
+sudo nix-channel --update
+
+echo "  Building system configuration..."
+NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 sudo darwin-rebuild switch \
+  -I darwin-config=$HOME/.dotfiles/nix/darwin-configuration.nix
+success "nix-darwin configuration applied"
+
+# ============================================
+# Vim
+# ============================================
+info "Setting up Vim..."
+if [ -d "$HOME/.vim" ]; then
+  cd "$HOME/.vim"
+  git remote set-url origin git@github.com:eljojo/vimfiles.git 2>/dev/null || true
+  echo "  Updating vim plugins..."
+  vim +PlugUpdate +qall 2>/dev/null || vim +PlugInstall +qall 2>/dev/null || true
+  cd "$DOTFILES_ROOT"
+  success "Vim plugins updated"
+else
+  echo "  Cloning vimfiles..."
   git clone https://github.com/eljojo/vimfiles.git ~/.vim
   ~/.vim/install.sh
+  success "Vim installed"
 fi
 
-if [ ! -d "$HOME/.zprezto" ]; then
-  echo "installing prezto"
-  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-fi
-
-success "dependencies installed"
-
-if [ ! -d "$HOME/.ssh" ]; then
-  echo "generating new ssh key"
+# ============================================
+# SSH key
+# ============================================
+info "Checking SSH key..."
+if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
+  echo "  Generating new SSH key..."
+  mkdir -p ~/.ssh
   ssh-keygen -t ed25519 -a 100 -C "$(whoami)@$(hostname -s)"
-  echo "Host *\n AddKeysToAgent yes\n UseKeychain yes\n IdentityFile ~/.ssh/id_ed25519">~/.ssh/config
-  if [ "$(uname -s)" == "Darwin" ]
-  then
+
+  cat > ~/.ssh/config << 'EOF'
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+EOF
+
+  if [ "$(uname -s)" == "Darwin" ]; then
     ssh-add --apple-use-keychain ~/.ssh/id_ed25519
   else
     ssh-add ~/.ssh/id_ed25519
   fi
-  echo "your new public key is:"
+
+  echo ""
+  echo "  Your new public key:"
+  echo ""
   cat ~/.ssh/id_ed25519.pub
   echo ""
+  success "SSH key generated"
+else
+  success "SSH key already exists"
 fi
 
-echo ''
-echo '  Dotfiles installed!'
-echo ''
-echo '  Next steps:'
-echo '    1. Run: ./script/nix-maint   (to set up nix-darwin)'
-echo '    2. Run: ./osx/set-defaults.sh (to configure macOS)'
-echo ''
+# ============================================
+# macOS defaults
+# ============================================
+ask "Configure macOS defaults? (Safari, Finder, etc.) [y/N]"
+read -n 1 -r
+echo ""
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  info "Applying macOS defaults..."
+  "$DOTFILES_ROOT/osx/set-defaults.sh"
+  success "macOS defaults applied"
+else
+  success "Skipped macOS defaults"
+fi
+
+# ============================================
+# Manual app installs (Firefox, Spotify, Roon)
+# ============================================
+install_dmg_app() {
+  local name=$1
+  local url=$2
+  local volume=$3
+
+  if [ -d "/Applications/$name.app" ]; then
+    success "$name already installed"
+    return 0
+  fi
+
+  echo "  Installing $name..."
+  curl -Lo "/tmp/$name.dmg" "$url"
+  hdiutil attach "/tmp/$name.dmg" -quiet
+  ditto -rsrc "/Volumes/$volume/$name.app" "/Applications/$name.app"
+  hdiutil detach "/Volumes/$volume" -quiet
+  rm "/tmp/$name.dmg"
+  success "$name installed"
+}
+
+install_zip_app() {
+  local name=$1
+  local url=$2
+
+  if [ -d "/Applications/$name.app" ]; then
+    success "$name already installed"
+    return 0
+  fi
+
+  echo "  Installing $name..."
+  curl -Lo "/tmp/$name.zip" "$url"
+  unzip -q "/tmp/$name.zip" -d /Applications/
+  rm "/tmp/$name.zip"
+  success "$name installed"
+}
+
+info "Checking manual apps..."
+
+install_dmg_app "Firefox" \
+  "https://download.mozilla.org/?product=firefox-latest&os=osx&lang=en-US" \
+  "Firefox"
+
+install_dmg_app "Spotify" \
+  "https://download.scdn.co/Spotify.dmg" \
+  "Spotify"
+
+install_dmg_app "Roon" \
+  "http://download.roonlabs.com/builds/Roon.dmg" \
+  "Roon"
+
+install_dmg_app "MQTTX" \
+  "https://www.emqx.com/en/downloads/MQTTX/v1.13.0/MQTTX-1.13.0-arm64.dmg" \
+  "MQTTX 1.13.0-arm64"
+
+install_zip_app "1Password" \
+  "https://downloads.1password.com/mac/1Password.zip"
+
+# ============================================
+# Done!
+# ============================================
+echo ""
+echo "  ╔══════════════════════════════════════╗"
+echo "  ║         Bootstrap complete!          ║"
+echo "  ╚══════════════════════════════════════╝"
+echo ""
+echo "  Your system is ready. Open a new terminal to use the new shell."
+echo ""
