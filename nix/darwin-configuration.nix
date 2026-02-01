@@ -60,6 +60,108 @@ in
       home.stateVersion = "23.05";
       programs.home-manager.enable = true;
 
+      programs.git = {
+        enable = true;
+        lfs.enable = true;
+
+        settings = {
+          user = {
+            name = "José Albornoz";
+            email = "jojo@eljojo.net";
+          };
+          alias = {
+            co = "checkout";
+            count = "shortlog -sn";
+            lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit";
+          };
+          credential.helper = "osxkeychain";
+          core = {
+            editor = "vim";
+            trustctime = false;
+            pager = "less -r";
+          };
+          color.ui = true;
+          push = {
+            default = "simple";
+            autoSetupRemote = true;
+          };
+          pull.rebase = true;
+          fetch.prune = true;
+          branch.autosetuprebase = "always";
+          rerere.enabled = true;
+          help.autocorrect = 1;
+          init.defaultBranch = "main";
+          diff.indentHeuristic = true;
+          merge.conflictstyle = "diff3";
+        };
+
+        ignores = [
+          # OS
+          ".DS_Store"
+          ".DS_Store?"
+          "._*"
+          ".Spotlight-V100"
+          ".Trashes"
+          "Thumbs.db"
+          ".AppleDouble"
+          ".LSOverride"
+          ".AppleDB"
+          ".AppleDesktop"
+          "Network Trash Folder"
+          "Temporary Items"
+          ".apdisk"
+          ".directory"
+          # Editor
+          "*~"
+          "*.swp"
+          # Compiled
+          "*.o"
+          "*.so"
+          "*.a"
+          "*.class"
+          "*.exe"
+          "*.dll"
+          "*.com"
+          # Archives
+          "*.7z"
+          "*.dmg"
+          "*.gz"
+          "*.iso"
+          "*.jar"
+          "*.rar"
+          "*.tar"
+          "*.zip"
+          # Logs/DB
+          "*.log"
+          "*.sqlite"
+          "dump.rdb"
+          # Ruby
+          "*.gem"
+          "*.rbc"
+          ".bundle/"
+          ".byebug_history"
+          # Go
+          "_obj"
+          "_test"
+          "*.test"
+          "*.prof"
+          # Elixir
+          "/_build"
+          "/deps"
+          "erl_crash.dump"
+          "*.ez"
+        ];
+      };
+
+      home.shellAliases = {
+        # Git shortcuts
+        st = "git status";
+        gd = "git diff";
+        push = "git push origin HEAD";
+        pull = "git pull";
+        co = "git checkout";
+      };
+
       xdg.dataFile."postgresql/.keep".text = ""; # Create ~/.local/share/postgresql/
       xdg.dataFile."redis/.keep".text = ""; # Create ~/.local/share/redis/
     };

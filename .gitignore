@@ -6,3 +6,4 @@ atom.symlink/storage
 atom.symlink/themes
 
 git/gitconfig.symlink
+/result
