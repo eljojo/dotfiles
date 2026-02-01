@@ -28,6 +28,15 @@
       ];
     };
 
+    darwinConfigurations."jojo-m2" = nix-darwin.lib.darwinSystem {
+      system = "aarch64-darwin";
+      specialArgs = { inherit self vimfiles; };
+      modules = [
+        home-manager.darwinModules.home-manager
+        ./nix/darwin-configuration.nix
+      ];
+    };
+
     # Home-manager module that can be imported by other flakes
     homeManagerModules = {
       default = self.homeManagerModules.shared;

@@ -81,16 +81,8 @@ fi
 # ============================================
 info "Checking nix-darwin..."
 if ! command -v darwin-rebuild &> /dev/null; then
-  echo "  Setting up nix-darwin channels..."
-  sudo nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
-  sudo nix-channel --add https://github.com/nix-darwin/nix-darwin/archive/master.tar.gz darwin
-  sudo nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-  sudo nix-channel --update
-
   echo "  Installing nix-darwin..."
-  nix-build '<darwin>' -A installer
-  ./result/bin/darwin-installer
-  rm -rf ./result
+  sudo nix run nix-darwin/nix-darwin-25.11#darwin-rebuild -- switch
 
   # Remove default config (we use our own)
   rm -f ~/.nixpkgs/darwin-configuration.nix
@@ -103,12 +95,9 @@ fi
 # Apply nix configuration
 # ============================================
 info "Applying nix-darwin configuration..."
-echo "  Updating channels..."
-sudo nix-channel --update
 
 echo "  Building system configuration..."
-sudo darwin-rebuild switch \
-  -I darwin-config=$HOME/.dotfiles/nix/darwin-configuration.nix
+sudo darwin-rebuild switch --flake ~/.dotfiles
 success "nix-darwin configuration applied"
 
 # ============================================

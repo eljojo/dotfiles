@@ -199,13 +199,13 @@ in
   ];
 
   homebrew.enable = true;
-  homebrew.masApps = {
-    Tailscale = 1475387142;
-    "Home Assistant" = 1099568401;
-    "Day One" = 1055511498;
-    "Consent-O-Matic" = 1606897889;
-    StopTheMadness = 1376402589;
-    "MQTT Explorer" = 1455214828;
+  homebrew.masApps = { # seems broken :( on m2
+    #Tailscale = 1475387142;
+    #"Home Assistant" = 1099568401;
+    #"Day One" = 1055511498;
+    #"Consent-O-Matic" = 1606897889;
+    #StopTheMadness = 1376402589;
+    # "MQTT Explorer" = 1455214828;
   };
   homebrew.brews = [
     "borgbackup"
