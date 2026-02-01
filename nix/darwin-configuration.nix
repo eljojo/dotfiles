@@ -19,26 +19,17 @@ in
   # terraform
   nixpkgs.config.allowUnfree = true;
 
-  # nixpkgs.config.packageOverrides = pkgs: rec {
-  #   beets = pkgs.beets
-  #   .override({
-  #      pluginOverrides = {
-  #        copyartifacts = { enable = true; propagatedBuildInputs = [ pkgs.beetsPackages.copyartifacts ]; };
-  #        limit = { builtin = true; };
-  #        # absubmit = { builtin = true; };
-  #      };
-  #    });
-  #   keyfinder-cli = pkgs.keyfinder-cli.overrideAttrs (_: { meta.platforms = lib.platforms.darwin ++ lib.platforms.linux; });
-  # };
-
   system.primaryUser = "jojo";
   users.users.jojo = {
     name = "jojo";
     home = "/Users/jojo";
   };
+
   home-manager.users.jojo =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
+      imports = [ ./home-shared.nix ];
+
       home.packages = [
         pkgs.iperf3
         pkgs.go
@@ -46,9 +37,6 @@ in
         pkgs.flyctl
         pkgs.beets
         (pkgs.callPackage ./tidal-dl.nix { })
-        # pkgs.terraform
-        # pkgs.cf-terraforming
-        #pkgs.kubectl
         pkgs.ffmpeg_7-headless
         pkgs.ripgrep
         pkgs.nodejs
@@ -57,268 +45,49 @@ in
         pkgs.gh
         pkgs.nix-output-monitor
       ];
+
       home.stateVersion = "23.05";
       programs.home-manager.enable = true;
 
-      programs.git = {
-        enable = true;
-        lfs.enable = true;
+      # macOS-specific git config
+      programs.git.settings.credential.helper = "osxkeychain";
 
-        settings = {
-          user = {
-            name = "José Albornoz";
-            email = "jojo@eljojo.net";
-          };
-          alias = {
-            co = "checkout";
-            count = "shortlog -sn";
-            lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit";
-          };
-          credential.helper = "osxkeychain";
-          core = {
-            editor = "vim";
-            trustctime = false;
-            pager = "less -r";
-          };
-          color.ui = true;
-          push = {
-            default = "simple";
-            autoSetupRemote = true;
-          };
-          pull.rebase = true;
-          fetch.prune = true;
-          branch.autosetuprebase = "always";
-          rerere.enabled = true;
-          help.autocorrect = 1;
-          init.defaultBranch = "main";
-          diff.indentHeuristic = true;
-          merge.conflictstyle = "diff3";
-        };
-
-        ignores = [
-          # OS
-          ".DS_Store"
-          ".DS_Store?"
-          "._*"
-          ".Spotlight-V100"
-          ".Trashes"
-          "Thumbs.db"
-          ".AppleDouble"
-          ".LSOverride"
-          ".AppleDB"
-          ".AppleDesktop"
-          "Network Trash Folder"
-          "Temporary Items"
-          ".apdisk"
-          ".directory"
-          # Editor
-          "*~"
-          "*.swp"
-          # Compiled
-          "*.o"
-          "*.so"
-          "*.a"
-          "*.class"
-          "*.exe"
-          "*.dll"
-          "*.com"
-          # Archives
-          "*.7z"
-          "*.dmg"
-          "*.gz"
-          "*.iso"
-          "*.jar"
-          "*.rar"
-          "*.tar"
-          "*.zip"
-          # Logs/DB
-          "*.log"
-          "*.sqlite"
-          "dump.rdb"
-          # Ruby
-          "*.gem"
-          "*.rbc"
-          ".bundle/"
-          ".byebug_history"
-          # Go
-          "_obj"
-          "_test"
-          "*.test"
-          "*.prof"
-          # Elixir
-          "/_build"
-          "/deps"
-          "erl_crash.dump"
-          "*.ez"
-        ];
-      };
-
+      # macOS-specific aliases (extend shared ones)
       home.shellAliases = {
-        # Git shortcuts
-        st = "git status";
-        gd = "git diff";
-        push = "git push origin HEAD";
-        pull = "git pull";
-        co = "git checkout";
-
-        # Network
-        pi = "ping 8.8.8.8";
-
-        # Typo fixes
-        sl = "ls";
-        chmdo = "chmod";
-        icfonfig = "ifconfig";
-        ifocnfig = "ifconfig";
-        mann = "man";
-        act = "cat";
-        cart = "cat";
-        grpe = "grep";
-        gpre = "grep";
-
-        # Safe defaults
-        rm = "rm -i";
-        cp = "cp -i";
-        mv = "mv -i";
-        ln = "ln -i";
-
-        # YouTube
+        # YouTube (needs yt-dlp)
         youtube-audio = "yt-dlp -f 'ba' -x --audio-format mp3";
         youtube-video = "yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'";
 
-        # Nix maintenance
+        # Darwin-specific nix commands
         nix-rebuild = "sudo darwin-rebuild switch -I darwin-config=$HOME/.dotfiles/nix/darwin-configuration.nix";
         nix-update = "sudo nix-channel --update && sudo darwin-rebuild switch -I darwin-config=$HOME/.dotfiles/nix/darwin-configuration.nix";
-        nix-cleanup = "nix-collect-garbage -d && brew cleanup";
+        nix-cleanup = lib.mkForce "nix-collect-garbage -d && brew cleanup";
       };
 
+      # macOS-specific session variables (extend shared ones)
       home.sessionVariables = {
-        GOPATH = "$HOME/.go";
-        PROJECTS = "$HOME/code";
         BROWSER = "open";
-        VISUAL = "vim";
-        PAGER = "less";
-        LESS = "-F -g -i -M -R -S -w -X -z-4";
         LSCOLORS = "ExFxCxDxBxegedabagacad";
         CLICOLOR = "true";
       };
-      home.sessionPath = [
-        "$HOME/.go/bin"
-        "$HOME/.bin"
+
+      # macOS-specific paths (extend shared ones)
+      home.sessionPath = lib.mkAfter [
         "$HOME/code/lisa/lab"
       ];
 
+      # macOS-specific zsh additions (extend shared prezto config)
       programs.zsh = {
-        enable = true;
-        enableCompletion = true;
-        syntaxHighlighting.enable = true;
-        historySubstringSearch.enable = true;
-        autosuggestion.enable = true;
+        # Add osx module to prezto
+        prezto.pmodules = lib.mkAfter [ "osx" ];
 
-        prezto = {
-          enable = true;
-          color = true;
-          pmodules = [
-            "environment"
-            "terminal"
-            "editor"
-            "history"
-            "directory"
-            "spectrum"
-            "utility"
-            "completion"
-            "prompt"
-            "osx"
-            "ssh"
-            "archive"
-            "command-not-found"
-            "history-substring-search"
-            "autosuggestions"
-          ];
-          editor = {
-            keymap = "emacs";
-            dotExpansion = true;
-          };
-          prompt.theme = "powerlevel10k";
-          terminal.autoTitle = true;
-          autosuggestions.color = "fg=6";
-        };
-
-        history = {
-          size = 10000;
-          save = 10000;
-          extended = true;
-          ignoreDups = true;
-          ignoreAllDups = true;
-          share = true;
-        };
-
-        setOptions = [
-          "NO_BG_NICE"
-          "NO_HUP"
-          "NO_LIST_BEEP"
-          "LOCAL_OPTIONS"
-          "LOCAL_TRAPS"
-          "HIST_VERIFY"
-          "PROMPT_SUBST"
-          "CORRECT"
-          "COMPLETE_IN_WORD"
-          "APPEND_HISTORY"
-          "INC_APPEND_HISTORY"
-          "HIST_REDUCE_BLANKS"
-          "complete_aliases"
-        ];
-
-        shellAliases = {
-          "reload!" = ". ~/.zshrc";
-        };
-
-        envExtra = ''
-          # Secrets
-          [ -f ~/.env-vars ] && source ~/.env-vars
-          [ -f ~/.localrc ] && source ~/.localrc
-
-          # Temp directory
-          if [[ ! -d "$TMPDIR" ]]; then
-            export TMPDIR="/tmp/$USER"
-            mkdir -p -m 700 "$TMPDIR"
-          fi
-
-          TMPPREFIX="''${TMPDIR%/}/zsh"
-          if [[ ! -d "$TMPPREFIX" ]]; then
-            mkdir -p "$TMPPREFIX"
-          fi
-        '';
-
-        initExtraFirst = ''
-          # Shadow fortune command to prevent prezto's zlogin from showing it
-          # (distracting on terminal open - only want it on logout)
-          fortune() { : ; }
-        '';
-
-        initExtra = ''
-          # Powerlevel10k instant prompt (must be near top)
-          if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-            source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-          fi
-
-          # Homebrew
+        initContent = lib.mkAfter ''
+          # Homebrew (macOS only)
           if [[ -d /opt/homebrew ]]; then
             eval "$(/opt/homebrew/bin/brew shellenv)"
           fi
 
-          # Powerlevel10k config
-          source ${./p10k.zsh}
-
-          # Custom functions
-          c() { cd $PROJECTS/''${1:-.}; }
-          _c() { _files -W $PROJECTS -/; }
-          compdef _c c
-
-          gf() {
-            local branch=$1
-            git checkout -b $branch origin/$branch
-          }
-
+          # macOS-specific extract formats (override shared extract)
           extract() {
             if [ -f $1 ]; then
               case $1 in
@@ -340,41 +109,8 @@ in
               echo "'$1' is not a valid file"
             fi
           }
-
-          # Window title function
-          title() {
-            a=''${(V)1//\%/\%\%}
-            a=$(print -Pn "%40>...>$a" | tr -d "\n")
-            case $TERM in
-              screen) print -Pn "\ek$a:$3\e\\" ;;
-              xterm*|rxvt) print -Pn "\e]2;$2\a" ;;
-            esac
-          }
-
-          # Key bindings
-          bindkey '^[^[[D' backward-word
-          bindkey '^[^[[C' forward-word
-          bindkey '^[[5D' beginning-of-line
-          bindkey '^[[5C' end-of-line
-          bindkey '^[[3~' delete-char
-          bindkey '^?' backward-delete-char
-
-          # Completion settings
-          zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-          zstyle ':completion:*' insert-tab pending
         '';
 
-        logoutExtra = ''
-          if [[ -t 0 || -t 1 ]]; then
-            ${pkgs.fortune}/bin/fortune wisdom goedel tao platitudes ascii-art 2>/dev/null || \
-            cat <<-EOF
-
-          "To be calm is the highest achievement of the self."
-            -- Zen proverb
-          EOF
-            print
-          fi
-        '';
       };
 
       # Ruby config
@@ -428,6 +164,7 @@ in
       xdg.dataFile."postgresql/.keep".text = ""; # Create ~/.local/share/postgresql/
       xdg.dataFile."redis/.keep".text = ""; # Create ~/.local/share/redis/
     };
+
   home-manager.useGlobalPkgs = true; # we may want to move away from unstable in global at some point in the future
 
   services.redis.enable = true;
@@ -446,12 +183,9 @@ in
   #   StandardOutPath = "/Users/jojo/.local/share/postgresql/postgres.out.log";
   # };
 
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
   environment.systemPackages = [
     pkgs.htop
     pkgs.silver-searcher
-    # pkgs.darwin-zsh-completions
     pkgs.curl
     pkgs.wget
     pkgs.git
@@ -466,15 +200,10 @@ in
   homebrew.enable = true;
   homebrew.masApps = {
     Tailscale = 1475387142;
-    # Transmit = 1436522307;
     "Home Assistant" = 1099568401;
     "Day One" = 1055511498;
-    # Telegram = 747648890;
-    # "Microsoft Remote Desktop" = 1295203466;
     "Consent-O-Matic" = 1606897889;
     StopTheMadness = 1376402589;
-    # NotionWebClipper = 1559269364;
-    # TweaksForTwitter = 1567751529;
     "MQTT Explorer" = 1455214828;
   };
   homebrew.brews = [
@@ -486,11 +215,8 @@ in
     "iterm2"
     "flycut"
     "syncthing"
-    # "iina"
     "discord"
     "signal"
-    # "utm"
-    # "private-internet-access" # kinda broken
     "vlc"
     "vorta"
   ];
@@ -572,7 +298,7 @@ in
   nix.extraOptions = ''
     	  experimental-features = nix-command flakes
     	  ''
-  + lib.optionalString (pkgs.system == "aarch64-darwin") ''
+  + lib.optionalString (pkgs.stdenv.hostPlatform.system == "aarch64-darwin") ''
     	  extra-platforms = x86_64-darwin aarch64-darwin
     	  '';
 }
