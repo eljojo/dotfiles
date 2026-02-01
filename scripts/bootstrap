@@ -101,24 +101,6 @@ sudo darwin-rebuild switch --flake ~/.dotfiles
 success "nix-darwin configuration applied"
 
 # ============================================
-# Vimfiles repo (vim config is managed by nix, this is just the source repo)
-# ============================================
-info "Checking vimfiles..."
-VIMFILES="$HOME/code/vimfiles"
-if [ -d "$VIMFILES" ]; then
-  cd "$VIMFILES"
-  git remote set-url origin git@github.com:eljojo/vimfiles.git 2>/dev/null || true
-  git pull --ff-only 2>/dev/null || true
-  cd "$DOTFILES_ROOT"
-  success "Vimfiles repo updated"
-else
-  echo "  Cloning vimfiles..."
-  mkdir -p "$HOME/code"
-  git clone https://github.com/eljojo/vimfiles.git "$VIMFILES"
-  success "Vimfiles cloned to ~/code/vimfiles"
-fi
-
-# ============================================
 # SSH key
 # ============================================
 info "Checking SSH key..."

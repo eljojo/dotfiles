@@ -3,7 +3,6 @@
   pkgs,
   lib,
   self,
-  vimfiles,
   ...
 }:
 
@@ -34,7 +33,7 @@ in
     {
       imports = [
         ./home-shared.nix
-        vimfiles.homeManagerModules.vim
+        self.homeManagerModules.vim
       ];
 
       home.packages = [

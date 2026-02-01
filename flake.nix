@@ -11,17 +11,13 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    vimfiles = {
-      url = "path:/Users/jojo/code/vimfiles";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, nixpkgs, nix-darwin, home-manager, vimfiles, ... }: {
+  outputs = { self, nixpkgs, nix-darwin, home-manager, ... }: {
     # nix-darwin configuration for macOS
     darwinConfigurations."jojo-m1" = nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
-      specialArgs = { inherit self vimfiles; };
+      specialArgs = { inherit self; };
       modules = [
         ./nix/darwin-configuration.nix
         home-manager.darwinModules.home-manager
@@ -30,7 +26,7 @@
 
     darwinConfigurations."jojo-m2" = nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
-      specialArgs = { inherit self vimfiles; };
+      specialArgs = { inherit self; };
       modules = [
         home-manager.darwinModules.home-manager
         ./nix/darwin-configuration.nix
@@ -41,6 +37,7 @@
     homeManagerModules = {
       default = self.homeManagerModules.shared;
       shared = import ./nix/home-shared.nix;
+      vim = import ./vim/module.nix;
     };
 
     # For convenience, also expose as homeModule (singular)

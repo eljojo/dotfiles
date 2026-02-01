@@ -44,11 +44,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1769728491,
-        "narHash": "sha256-Qx7fQdcSg9KPkbzmp/B0SJ7h92cTaplOWq6OEQLJOmw=",
+        "lastModified": 1769886448,
+        "narHash": "sha256-f8P8AcqLX+hHQLjDddaADlmHkI0G9S6OrjIF5hzHekM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "776ffbab5f72dfd55a7755d27865d5e3fcb939b9",
+        "rev": "daccb3272e1c37dd5c6281295c2300e85e2dc393",
         "type": "github"
       },
       "original": {
@@ -62,25 +62,7 @@
       "inputs": {
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
-        "nixpkgs": "nixpkgs",
-        "vimfiles": "vimfiles"
-      }
-    },
-    "vimfiles": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1769977022,
-        "narHash": "sha256-ubtHf4UErbzGNYqkpPjZru/YrLYmpseJcI3wWNjVUCg=",
-        "path": "/Users/jojo/code/vimfiles",
-        "type": "path"
-      },
-      "original": {
-        "path": "/Users/jojo/code/vimfiles",
-        "type": "path"
+        "nixpkgs": "nixpkgs"
       }
     }
   },
