@@ -160,7 +160,36 @@ in
         push = "git push origin HEAD";
         pull = "git pull";
         co = "git checkout";
+
+        # Network
+        pi = "ping 8.8.8.8";
+
+        # Typo fixes
+        sl = "ls";
+        chmdo = "chmod";
+        icfonfig = "ifconfig";
+        ifocnfig = "ifconfig";
+        mann = "man";
+        act = "cat";
+        cart = "cat";
+        grpe = "grep";
+        gpre = "grep";
+
+        # Safe defaults
+        rm = "rm -i";
+        cp = "cp -i";
+        mv = "mv -i";
+        ln = "ln -i";
+
+        # YouTube
+        youtube-audio = "yt-dlp -f 'ba' -x --audio-format mp3";
+        youtube-video = "yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'";
       };
+
+      home.sessionVariables = {
+        GOPATH = "$HOME/.go";
+      };
+      home.sessionPath = [ "$HOME/.go/bin" ];
 
       xdg.dataFile."postgresql/.keep".text = ""; # Create ~/.local/share/postgresql/
       xdg.dataFile."redis/.keep".text = ""; # Create ~/.local/share/redis/

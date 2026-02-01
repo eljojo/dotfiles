@@ -19,9 +19,7 @@ defaults write NSGlobalDomain AppleICUForce24HourTime -bool true
 # Calendar: Week starts on Monday
 defaults write com.apple.iCal "first day of week" -int 1
 
-# Top left corner → Mission Control
-defaults write com.apple.dock wvous-tl-corner -int 2
-defaults write com.apple.dock wvous-ll-modifier -int 0
+# Top left corner → Mission Control - MANAGED BY NIX (system.defaults.dock.wvous-tl-corner)
 
 # Disable Resume system-wide
 defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
@@ -98,9 +96,6 @@ defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
 # Messages: Disable smart quotes
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false
-
-# Tweetbot: Bypass the annoyingly slow t.co URL shortener
-defaults write com.tapbots.TweetbotMac OpenURLsDirectly -bool true
 
 # Finder: Default view for new windows
 # defaults write com.apple.finder FXPreferredViewStyle Clmv # for column view

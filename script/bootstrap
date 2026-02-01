@@ -123,8 +123,8 @@ install_dotfiles
 
 touch ~/.env-vars
 
-info "installing dependencies"
-bin/dotfile-maintenance
+# TODO: nix-darwin handles system packages now
+# Run: darwin-rebuild switch -I darwin-config=$HOME/.dotfiles/nix/darwin-configuration.nix
 
 if [ -d "$HOME/.vim" ]; then
   echo "upgrading vim plugins"
@@ -144,20 +144,13 @@ fi
 
 success "dependencies installed"
 
-# @see http://vim.1045645.n5.nabble.com/MacVim-and-PATH-tt3388705.html#a3392363
-# Ensure MacVim has same shell as Terminal
-# if [[ -a /etc/zshenv ]]; then
-#   echo "we're going to fix ZSH"
-#   sudo mv /etc/zshenv /etc/zprofile
-# fi
-
 if [ ! -d "$HOME/.ssh" ]; then
   echo "generating new ssh key"
   ssh-keygen -t ed25519 -a 100 -C "$(whoami)@$(hostname -s)"
   echo "Host *\n AddKeysToAgent yes\n UseKeychain yes\n IdentityFile ~/.ssh/id_ed25519">~/.ssh/config
   if [ "$(uname -s)" == "Darwin" ]
   then
-    ssh-add -K ~/.ssh/id_ed25519
+    ssh-add --apple-use-keychain ~/.ssh/id_ed25519
   else
     ssh-add ~/.ssh/id_ed25519
   fi
@@ -167,4 +160,9 @@ if [ ! -d "$HOME/.ssh" ]; then
 fi
 
 echo ''
-echo '  All installed, enjoy your new computer!'
+echo '  Dotfiles installed!'
+echo ''
+echo '  Next steps:'
+echo '    1. Run: ./script/nix-maint   (to set up nix-darwin)'
+echo '    2. Run: ./osx/set-defaults.sh (to configure macOS)'
+echo ''

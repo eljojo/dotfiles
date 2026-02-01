@@ -1,4 +1,0 @@
-echo "this will uninstall rubies and do some homebrew maintenance"
-sleep 10
-rm -rf /opt/rubies/* ~/.gem
-brew update && brew upgrade && brew cleanup -s && brew doctor
