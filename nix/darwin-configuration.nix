@@ -188,8 +188,189 @@ in
 
       home.sessionVariables = {
         GOPATH = "$HOME/.go";
+        PROJECTS = "$HOME/code";
+        BROWSER = "open";
+        VISUAL = "vim";
+        PAGER = "less";
+        LESS = "-F -g -i -M -R -S -w -X -z-4";
+        LSCOLORS = "ExFxCxDxBxegedabagacad";
+        CLICOLOR = "true";
       };
-      home.sessionPath = [ "$HOME/.go/bin" ];
+      home.sessionPath = [
+        "$HOME/.go/bin"
+        "$HOME/.bin"
+        "$HOME/code/lisa/lab"
+      ];
+
+      programs.zsh = {
+        enable = true;
+        enableCompletion = true;
+        syntaxHighlighting.enable = true;
+        historySubstringSearch.enable = true;
+        autosuggestion.enable = true;
+
+        prezto = {
+          enable = true;
+          color = true;
+          pmodules = [
+            "environment"
+            "terminal"
+            "editor"
+            "history"
+            "directory"
+            "spectrum"
+            "utility"
+            "completion"
+            "prompt"
+            "osx"
+            "ssh"
+            "archive"
+            "command-not-found"
+            "history-substring-search"
+            "autosuggestions"
+          ];
+          editor = {
+            keymap = "emacs";
+            dotExpansion = true;
+          };
+          prompt.theme = "powerlevel10k";
+          terminal.autoTitle = true;
+          autosuggestions.color = "fg=6";
+        };
+
+        history = {
+          size = 10000;
+          save = 10000;
+          extended = true;
+          ignoreDups = true;
+          ignoreAllDups = true;
+          share = true;
+        };
+
+        setOptions = [
+          "NO_BG_NICE"
+          "NO_HUP"
+          "NO_LIST_BEEP"
+          "LOCAL_OPTIONS"
+          "LOCAL_TRAPS"
+          "HIST_VERIFY"
+          "PROMPT_SUBST"
+          "CORRECT"
+          "COMPLETE_IN_WORD"
+          "APPEND_HISTORY"
+          "INC_APPEND_HISTORY"
+          "HIST_REDUCE_BLANKS"
+          "complete_aliases"
+        ];
+
+        shellAliases = {
+          "reload!" = ". ~/.zshrc";
+        };
+
+        envExtra = ''
+          # Secrets
+          [ -f ~/.env-vars ] && source ~/.env-vars
+          [ -f ~/.localrc ] && source ~/.localrc
+
+          # Temp directory
+          if [[ ! -d "$TMPDIR" ]]; then
+            export TMPDIR="/tmp/$USER"
+            mkdir -p -m 700 "$TMPDIR"
+          fi
+
+          TMPPREFIX="''${TMPDIR%/}/zsh"
+          if [[ ! -d "$TMPPREFIX" ]]; then
+            mkdir -p "$TMPPREFIX"
+          fi
+        '';
+
+        initExtraFirst = ''
+          # Shadow fortune command to prevent prezto's zlogin from showing it
+          # (distracting on terminal open - only want it on logout)
+          fortune() { : ; }
+        '';
+
+        initExtra = ''
+          # Powerlevel10k instant prompt (must be near top)
+          if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+            source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+          fi
+
+          # Homebrew
+          if [[ -d /opt/homebrew ]]; then
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+          fi
+
+          # Powerlevel10k config
+          source ${./p10k.zsh}
+
+          # Custom functions
+          c() { cd $PROJECTS/''${1:-.}; }
+          _c() { _files -W $PROJECTS -/; }
+          compdef _c c
+
+          gf() {
+            local branch=$1
+            git checkout -b $branch origin/$branch
+          }
+
+          extract() {
+            if [ -f $1 ]; then
+              case $1 in
+                *.tar.bz2) tar -jxvf $1 ;;
+                *.tar.gz)  tar -zxvf $1 ;;
+                *.bz2)     bunzip2 $1 ;;
+                *.dmg)     hdiutil mount $1 ;;
+                *.gz)      gunzip $1 ;;
+                *.tar)     tar -xvf $1 ;;
+                *.tbz2)    tar -jxvf $1 ;;
+                *.tgz)     tar -zxvf $1 ;;
+                *.zip|*.ZIP) unzip $1 ;;
+                *.pax)     cat $1 | pax -r ;;
+                *.pax.Z)   uncompress $1 --stdout | pax -r ;;
+                *.Z)       uncompress $1 ;;
+                *)         echo "'$1' cannot be extracted via extract()" ;;
+              esac
+            else
+              echo "'$1' is not a valid file"
+            fi
+          }
+
+          # Window title function
+          title() {
+            a=''${(V)1//\%/\%\%}
+            a=$(print -Pn "%40>...>$a" | tr -d "\n")
+            case $TERM in
+              screen) print -Pn "\ek$a:$3\e\\" ;;
+              xterm*|rxvt) print -Pn "\e]2;$2\a" ;;
+            esac
+          }
+
+          # Key bindings
+          bindkey '^[^[[D' backward-word
+          bindkey '^[^[[C' forward-word
+          bindkey '^[[5D' beginning-of-line
+          bindkey '^[[5C' end-of-line
+          bindkey '^[[3~' delete-char
+          bindkey '^?' backward-delete-char
+
+          # Completion settings
+          zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+          zstyle ':completion:*' insert-tab pending
+        '';
+
+        logoutExtra = ''
+          if [[ -t 0 || -t 1 ]]; then
+            ${pkgs.fortune}/bin/fortune wisdom goedel tao platitudes ascii-art 2>/dev/null || \
+            cat <<-EOF
+
+          "To be calm is the highest achievement of the self."
+            -- Zen proverb
+          EOF
+            print
+          fi
+        '';
+      };
 
       xdg.dataFile."postgresql/.keep".text = ""; # Create ~/.local/share/postgresql/
       xdg.dataFile."redis/.keep".text = ""; # Create ~/.local/share/redis/
@@ -304,8 +485,6 @@ in
   launchd.user.envVariables.PATH = config.environment.systemPath;
 
   programs.zsh.enable = true;
-  programs.zsh.enableSyntaxHighlighting = true;
-  programs.zsh.enableFzfHistory = true;
 
   programs.tmux.enable = true;
   programs.tmux.enableSensible = true;
