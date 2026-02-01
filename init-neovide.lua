@@ -1,15 +1,6 @@
--- Set up runtimepath for ~/.vim
-vim.opt.runtimepath:prepend('~/.vim')
-vim.opt.runtimepath:append('~/.vim/after')
-vim.opt.packpath = vim.opt.runtimepath:get()
+-- Neovide-specific configuration
+-- Note: vimrc is loaded via programs.neovim.extraConfig in home-manager
 
--- Add Vundle to runtimepath
-vim.opt.runtimepath:append('~/.vim/bundle/Vundle.vim')
-
--- Source the main vimrc
-vim.cmd('source ~/.vimrc')
-
--- Neovide-specific config
 if vim.g.neovide then
   -- Enable Cmd key
   vim.g.neovide_input_use_logo = true

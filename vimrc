@@ -1,52 +1,6 @@
 "Use Vim settings, rather then Vi settings (much better!).
 "This must be first, because it changes other options as a side effect.
 set nocompatible
-filetype off " required for Vundle
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-Plugin 'tpope/vim-sensible'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'scrooloose/syntastic'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'scrooloose/nerdtree'
-Plugin 'tpope/vim-rails'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-endwise'
-Plugin 'vim-scripts/delimitMate.vim'
-" Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-bundler'
-Plugin 'rking/ag.vim'
-Plugin 'tpope/vim-rhubarb'
-Plugin 'tpope/vim-fugitive'
-Plugin 'fatih/vim-go'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'tpope/vim-commentary'
-" Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'tpope/vim-surround'
-Plugin 'bkad/CamelCaseMotion'
-" Plugin 'derekwyatt/vim-scala'
-Plugin 'ngmy/vim-rubocop'
-Plugin 'eapache/rainbow_parentheses.vim'
-Plugin 'maxbrunsfeld/vim-yankstack'
-Plugin 'pangloss/vim-javascript'
-" Plugin 'mxw/vim-jsx'
-" Plugin 'janko-m/vim-test'
-Plugin 'Yggdroot/indentLine'
-Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-Plugin 'junegunn/fzf.vim'
-Plugin 'LnL7/vim-nix'
-Plugin 'github/copilot.vim'
-Plugin 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm install' }
-
-call vundle#end()
 filetype plugin indent on
 
 "allow backspacing over everything in insert mode
