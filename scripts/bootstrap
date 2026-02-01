@@ -112,21 +112,21 @@ sudo darwin-rebuild switch \
 success "nix-darwin configuration applied"
 
 # ============================================
-# Vim
+# Vimfiles repo (vim config is managed by nix, this is just the source repo)
 # ============================================
-info "Setting up Vim..."
-if [ -d "$HOME/.vim" ]; then
-  cd "$HOME/.vim"
+info "Checking vimfiles..."
+VIMFILES="$HOME/code/vimfiles"
+if [ -d "$VIMFILES" ]; then
+  cd "$VIMFILES"
   git remote set-url origin git@github.com:eljojo/vimfiles.git 2>/dev/null || true
-  echo "  Updating vim plugins..."
-  vim +PlugUpdate +qall 2>/dev/null || vim +PlugInstall +qall 2>/dev/null || true
+  git pull --ff-only 2>/dev/null || true
   cd "$DOTFILES_ROOT"
-  success "Vim plugins updated"
+  success "Vimfiles repo updated"
 else
   echo "  Cloning vimfiles..."
-  git clone https://github.com/eljojo/vimfiles.git ~/.vim
-  ~/.vim/install.sh
-  success "Vim installed"
+  mkdir -p "$HOME/code"
+  git clone https://github.com/eljojo/vimfiles.git "$VIMFILES"
+  success "Vimfiles cloned to ~/code/vimfiles"
 fi
 
 # ============================================
