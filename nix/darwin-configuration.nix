@@ -113,6 +113,7 @@ in
   };
   homebrew.casks = [
     "macvim"
+    "neovide"
     "iterm2"
     "flycut"
     "syncthing"
@@ -167,6 +168,9 @@ in
   system.defaults.dock.wvous-bl-corner = 4; # Bottom left screen corner → Desktop
 
   environment.variables.EDITOR = "${pkgs.vim}/bin/vim";
+
+  # Expose nix PATH to GUI apps (Neovide, etc.)
+  launchd.user.envVariables.PATH = config.environment.systemPath;
 
   programs.zsh.enable = true;
   programs.zsh.enableSyntaxHighlighting = true;
