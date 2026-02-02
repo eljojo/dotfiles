@@ -3,6 +3,7 @@
   pkgs,
   lib,
   self,
+  unstable,
   ...
 }:
 
@@ -28,8 +29,12 @@ in
     home = "/Users/jojo";
   };
 
+  home-manager.extraSpecialArgs = {
+    inherit unstable self;
+  };
+
   home-manager.users.jojo =
-    { pkgs, lib, ... }:
+    { pkgs, lib, unstable, ... }:
     {
       imports = [
         ./home-shared.nix
@@ -37,16 +42,11 @@ in
       ];
 
       home.packages = [
-        pkgs.iperf3
-        pkgs.go
-        pkgs.yt-dlp
         pkgs.flyctl
         pkgs.beets
         (pkgs.callPackage ./tidal-dl.nix { })
         pkgs.ffmpeg_7-headless
-        pkgs.ripgrep
         pkgs.nodejs
-        pkgs.nixfmt-tree
         pkgs.ragenix
         pkgs.gh
         pkgs.nix-output-monitor
@@ -59,10 +59,6 @@ in
 
       # macOS-specific aliases (extend shared ones)
       home.shellAliases = {
-        # YouTube (needs yt-dlp)
-        youtube-audio = "yt-dlp -f 'ba' -x --audio-format mp3";
-        youtube-video = "yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'";
-
         # Darwin-specific nix commands (flake-based)
         nix-rebuild = "sudo darwin-rebuild switch --flake ~/.dotfiles";
         nix-update = "nix flake update ~/.dotfiles && sudo darwin-rebuild switch --flake ~/.dotfiles";
@@ -184,14 +180,10 @@ in
   # };
 
   environment.systemPackages = [
-    pkgs.htop
-    pkgs.silver-searcher
     pkgs.curl
     pkgs.wget
     pkgs.git
-    pkgs.comma
     pkgs.vim
-    pkgs.fortune
     pkgs.tree
     pkgs.git-lfs
     pkgs.fzf

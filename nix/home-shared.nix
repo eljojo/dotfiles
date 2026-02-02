@@ -4,11 +4,28 @@
   config,
   lib,
   pkgs,
+  unstable,
   ...
 }:
 
 {
   programs.home-manager.enable = true;
+
+  home.packages = [
+    pkgs.iperf3
+    unstable.yt-dlp
+    unstable.claude-code
+    pkgs.nixfmt-tree
+    pkgs.ripgrep
+    pkgs.go
+    pkgs.comma
+    pkgs.fortune
+  ];
+
+  home.shellAliases = {
+    youtube-audio = "yt-dlp -f 'ba' -x --audio-format mp3";
+    youtube-video = "yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'";
+  };
 
   programs.git = {
     enable = true;
