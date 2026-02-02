@@ -43,7 +43,7 @@
 
       darwinConfigurations."jojo-m4-mini" = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        specialArgs = { inherit self vimfiles; };
+        specialArgs = { inherit self; };
         modules = [
           ./nix/darwin-configuration.nix
           home-manager.darwinModules.home-manager
