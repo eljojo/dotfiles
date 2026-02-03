@@ -50,6 +50,7 @@ in
         pkgs.ragenix
         pkgs.gh
         pkgs.nix-output-monitor
+        #unstable.macvim
       ];
 
       home.stateVersion = "23.05";

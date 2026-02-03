@@ -137,3 +137,6 @@ nmap <silent> <leader>g :TestVisit<CR>
 
 " disable ctags
 set tags="";
+
+" disable annoying markdown stuff
+set nofoldenable
