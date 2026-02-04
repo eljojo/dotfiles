@@ -20,6 +20,7 @@
     pkgs.go
     pkgs.comma
     pkgs.fortune
+    pkgs.silver-searcher
   ];
 
   home.shellAliases = {
