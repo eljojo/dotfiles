@@ -25,7 +25,7 @@ in
     }
     {
       # willie also supports aarch64-linux via binfmt emulation
-      hostName = "willie.eljojo.casa";
+      hostName = "raccoon.eljojo.net";
       sshUser = "remotebuild";
       sshKey = "/Users/jojo/.ssh/id_ecdsa";
       system = "aarch64-linux";
@@ -36,7 +36,7 @@ in
         "nixos-test"
         "big-parallel"
       ];
-      publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUhwWDFJb1IvZjJpZThSd0lrUjVkQm10MGFpKytTNzlqeUhyMmtnU1ZKZ0Ygcm9vdEBuaXhvcwo=";
+      publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU1PKy9DTm1PSlhnZlQ3cmY0YWNBZDhpS3pRWlpZWFRxVUxjQUc1S3g0WmUgcm9vdEByYWNvb24tMwo=";
     }
     {
       hostName = "jojo-m4-mini.local";
