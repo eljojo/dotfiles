@@ -39,7 +39,7 @@ in
       publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU1PKy9DTm1PSlhnZlQ3cmY0YWNBZDhpS3pRWlpZWFRxVUxjQUc1S3g0WmUgcm9vdEByYWNvb24tMwo=";
     }
     {
-      hostName = "jojo-m4-mini.local";
+      hostName = "100.120.142.98"; # jojo-m4-mini
       sshUser = "jojo";
       sshKey = "/Users/jojo/.ssh/id_ecdsa";
       system = "aarch64-darwin";
