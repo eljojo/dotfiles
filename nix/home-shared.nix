@@ -13,7 +13,6 @@
 
   home.packages = [
     pkgs.iperf3
-    unstable.yt-dlp
     #unstable.claude-code
     pkgs.nixfmt-tree
     pkgs.ripgrep

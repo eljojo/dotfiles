@@ -50,6 +50,7 @@ in
         pkgs.ragenix
         pkgs.gh
         pkgs.nix-output-monitor
+        unstable.yt-dlp
         #unstable.macvim
       ];
 
