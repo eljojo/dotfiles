@@ -11,7 +11,7 @@ let
 in
 {
   imports = [
-    ./distributed-builds.nix
+    # ./distributed-builds.nix
   ];
 
   # Required for flakes
