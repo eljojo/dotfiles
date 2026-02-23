@@ -4,6 +4,7 @@
   lib,
   self,
   unstable,
+  hostName,
   ...
 }:
 
@@ -11,7 +12,7 @@ let
 in
 {
   imports = [
-    # ./distributed-builds.nix
+    ./distributed-builds.nix
   ];
 
   # Required for flakes
@@ -35,6 +36,9 @@ in
 
   home-manager.users.jojo =
     { pkgs, lib, unstable, ... }:
+    let
+      isM4 = hostName == "jojo-m4-mini";
+    in
     {
       imports = [
         ./home-shared.nix
@@ -55,6 +59,10 @@ in
       ];
 
       home.stateVersion = "23.05";
+
+      # Ollama service (M4 only)
+      services.ollama.enable = isM4;
+      services.ollama.host = "0.0.0.0";
 
       # macOS-specific git config
       programs.git.settings.credential.helper = "osxkeychain";
@@ -287,7 +295,9 @@ in
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
-  system.stateVersion = 6;
+  # M4 had lix from the start (stateVersion 6),
+  # older Macs (M1, M2) migrated to lix later (stateVersion 4).
+  system.stateVersion = if hostName == "jojo-m4-mini" then 6 else 4;
 
   # disabled auto-optimise-store = true due to https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
   nix.extraOptions = ''

@@ -30,8 +30,7 @@
         nix-darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           specialArgs = {
-            inherit inputs;
-            inherit self;
+            inherit inputs self hostName;
 
             unstable = import nixpkgs-unstable {
               system = "aarch64-darwin";

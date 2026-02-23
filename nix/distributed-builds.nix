@@ -2,10 +2,12 @@
   config,
   pkgs,
   lib,
+  hostName,
   ...
 }:
 
 let
+  isM4 = hostName == "jojo-m4-mini";
 in
 {
   nix.buildMachines = [
@@ -38,6 +40,7 @@ in
       ];
       publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU1PKy9DTm1PSlhnZlQ3cmY0YWNBZDhpS3pRWlpZWFRxVUxjQUc1S3g0WmUgcm9vdEByYWNvb24tMwo=";
     }
+  ] ++ lib.optionals (!isM4) [
     {
       hostName = "100.120.142.98"; # jojo-m4-mini
       sshUser = "jojo";
