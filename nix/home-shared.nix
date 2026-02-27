@@ -335,4 +335,12 @@
   home.file.".agignore".text = ''
     node_modules
   '';
+
+  # Claude Code global settings
+  home.file.".claude/CLAUDE.md".text = ''
+    # Global Settings
+
+    ## Git
+    - Never include `Co-Authored-By` lines in commit messages
+  '';
 }
