@@ -59,12 +59,5 @@ in
   nix.distributedBuilds = true;
   nix.settings = {
     builders-use-substitutes = true;
-
-    extra-substituters = [
-      "https://cache.saumon.network/proxmox-nixos"
-    ];
-    extra-trusted-public-keys = [
-      "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
-    ];
   };
 }
