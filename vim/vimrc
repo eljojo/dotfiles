@@ -143,3 +143,6 @@ set nofoldenable
 
 " don't fold markdown
 let g:vim_markdown_folding_disabled = 1
+
+" leader m to toggle conceal level for markdown files (,m)
+nnoremap <leader>m :let &conceallevel = &conceallevel ? 0 : 2<CR>
