@@ -57,10 +57,12 @@
       fetch.prune = true;
       branch.autosetuprebase = "always";
       rerere.enabled = true;
+      rerere.autoupdate = true;
       help.autocorrect = 1;
       init.defaultBranch = "main";
       diff.indentHeuristic = true;
-      merge.conflictstyle = "diff3";
+      merge.tool = "vimdiff";
+      merge.conflictstyle = "zdiff3";
     };
 
     ignores = [
