@@ -48,7 +48,7 @@ in
       home.packages = [
         pkgs.flyctl
         pkgs.beets
-        (pkgs.callPackage ./tidal-dl.nix { })
+        # (pkgs.callPackage ./tidal-dl.nix { })
         pkgs.ffmpeg_7-headless
         pkgs.nodejs
         pkgs.ragenix
