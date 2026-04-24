@@ -3,6 +3,7 @@
   pkgs,
   lib,
   self,
+  inputs,
   unstable,
   hostName,
   ...
@@ -56,6 +57,7 @@ in
         pkgs.nix-output-monitor
         unstable.yt-dlp
         #unstable.macvim
+        inputs.nix-claude-code.packages.${pkgs.stdenv.hostPlatform.system}.default
       ];
 
       home.stateVersion = "23.05";
@@ -73,6 +75,7 @@ in
         nix-rebuild = "sudo darwin-rebuild switch --flake ~/.dotfiles";
         nix-update = "nix flake update ~/.dotfiles && sudo darwin-rebuild switch --flake ~/.dotfiles";
         nix-cleanup = lib.mkForce "nix-collect-garbage -d && brew cleanup";
+        fix-audio = "sudo pkill coreaudiod";
       };
 
       # macOS-specific session variables (extend shared ones)
