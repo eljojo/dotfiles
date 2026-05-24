@@ -65,10 +65,6 @@ in
 
       home.stateVersion = "23.05";
 
-      # Ollama service (M4 only)
-      services.ollama.enable = isM4;
-      services.ollama.host = "0.0.0.0";
-
       # macOS-specific git config
       programs.git.settings.credential.helper = "osxkeychain";
 
