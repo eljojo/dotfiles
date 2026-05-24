@@ -21,6 +21,9 @@ in
 
   # necessary for beets :(
   nixpkgs.config.allowUnsupportedSystem = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "python3.13-beets-2.5.1"
+  ];
 
   # terraform
   nixpkgs.config.allowUnfree = true;
