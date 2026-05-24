@@ -74,7 +74,7 @@ in
         # Darwin-specific nix commands (flake-based)
         nix-rebuild = "sudo darwin-rebuild switch --flake ~/.dotfiles";
         nix-update = "nix flake update ~/.dotfiles && sudo darwin-rebuild switch --flake ~/.dotfiles";
-        nix-cleanup = lib.mkForce "nix-collect-garbage -d && brew cleanup";
+        nix-cleanup = lib.mkForce "sudo nix-collect-garbage -d && nix-collect-garbage -d && brew cleanup";
         fix-audio = "sudo pkill coreaudiod";
       };
 
@@ -287,7 +287,7 @@ in
 
   nix = {
     enable = true; # manage nix through nix-darwin
-    package = pkgs.lix;
+    package = pkgs.lixPackageSets.stable.lix;
     settings.trusted-users = [ "jojo" ];
 
     # Register the flake in the registry - this makes it a GC root
