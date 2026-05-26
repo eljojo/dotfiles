@@ -292,6 +292,12 @@ in
     # Register the flake in the registry - this makes it a GC root
     # so `nix-collect-garbage -d` won't nuke flake inputs
     registry.dotfiles.flake = self;
+
+    gc = {
+      automatic = true
+      interval = { Weekday = 7; Hour = 2; Minute = 0; }
+      options = "--delete-older-than 30d"
+    }
   };
   programs.nix-index.enable = true; # for comma
 
