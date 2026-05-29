@@ -294,10 +294,10 @@ in
     registry.dotfiles.flake = self;
 
     gc = {
-      automatic = true
+      automatic = true;
       interval = { Weekday = 7; Hour = 2; Minute = 0; };
-      options = "--delete-older-than 30d"
-    }
+      options = "--delete-older-than 30d";
+    };
   };
   programs.nix-index.enable = true; # for comma
 
