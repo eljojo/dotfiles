@@ -79,7 +79,7 @@ let
     vim-yankstack
     vim-javascript
     indentLine
-    fzfWrapper
+    fzf-wrapper
     fzf-vim
     vim-nix
     copilot-vim
@@ -123,10 +123,16 @@ in
     viAlias = false;
     vimAlias = false;
 
+    # Neovim is only used for Neovide here; no ruby/python remote plugins.
+    # Adopt the new 26.05 defaults explicitly to silence the deprecation
+    # warning (the old default was true while stateVersion < 26.05).
+    withRuby = false;
+    withPython3 = false;
+
     plugins = sharedPlugins;
 
     extraConfig = vimrcContent;
-    extraLuaConfig = neovideConfig;
+    initLua = neovideConfig;
   };
 
   # Vimrc that works for all vims (including MacVim)
