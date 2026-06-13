@@ -76,7 +76,29 @@ let
     # Treesitter — better highlighting for code (rust/go/ts/tsx/js/nix/ruby/lua/sh).
     # withAllGrammars ships prebuilt parsers from nix (no :TSInstall, no compiler).
     nvim-treesitter.withAllGrammars
+    # Indent guides via virtual text (replaces indentLine on nvim; no conceal abuse).
+    indent-blankline-nvim
+    # Fuzzy finder. <C-p> opens files (same key as fzf.vim); ,f live-greps. fzf.vim
+    # stays loaded as a fallback (:Files / :Ag still work).
+    fzf-lua
+    # Solarized dark for neovim: truecolor + treesitter-aware. The classic vimscript
+    # solarized renders wrong under termguicolors, so use a Lua one on nvim. MacVim
+    # keeps its own working classic solarized via gvimrc — untouched.
+    nvim-solarized-lua
   ];
+
+  # Classic plugins replaced by an nvim-native equivalent above — dropped from the
+  # NEOVIM set so both don't load. MacVim's packDir keeps the full sharedPlugins.
+  #   indentLine           -> indent-blankline-nvim
+  #   vim-commentary       -> neovim 0.10+ built-in gc/gcc commenting (no plugin)
+  #   vim-colors-solarized -> nvim-solarized-lua (avoids a duplicate `solarized`
+  #                           colorscheme on nvim's path; MacVim still uses the classic)
+  nvimReplaced = with pkgs.vimPlugins; [ indentLine vim-commentary vim-colors-solarized ];
+
+  # The neovim plugin set: shared minus the replaced classics, plus the nvim-only ones.
+  neovimPlugins =
+    builtins.filter (p: !(builtins.elem p nvimReplaced)) sharedPlugins
+    ++ neovimOnlyPlugins;
 
   # Shared vimrc content (stripped of Vundle)
   vimrcContent = builtins.readFile ./vimrc;
@@ -131,7 +153,7 @@ in
     # remote display); the fix is an OSC52 clipboard provider (neovim >=0.10 can
     # emit OSC52, terminal-emulator permitting). Deferred for now.
 
-    plugins = sharedPlugins ++ neovimOnlyPlugins;
+    plugins = neovimPlugins;
 
     extraConfig = vimrcContent;
     initLua = neovideConfig + "\n" + nvimLuaConfig;
