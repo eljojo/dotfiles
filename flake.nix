@@ -64,5 +64,9 @@
 
       # For convenience, also expose as homeModule (singular)
       homeModule = self.homeManagerModules.shared;
+
+      # NixOS module: jojo's configured neovim installed system-wide (root + all
+      # users), no home-manager. Import on a host: imports = [ self.nixosModules.neovim ];
+      nixosModules.neovim = import ./vim/nixos.nix;
     };
 }

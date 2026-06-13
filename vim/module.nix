@@ -1,4 +1,5 @@
-# Home-manager module for vim/neovim configuration
+# Home-manager module for vim/neovim on the Mac.
+# Plugin sets + config live in ./neovim.nix, shared with the NixOS module (./nixos.nix).
 {
   config,
   lib,
@@ -7,173 +8,64 @@
 }:
 
 let
-  # Build plugins not in nixpkgs
-  # vim-yankstack: currently DISABLED in sharedPlugins below (jojo wasn't using
-  # the <M-p>/<M-P> yank-ring cycling); kept here so re-enabling is one uncomment.
-  vim-yankstack = pkgs.vimUtils.buildVimPlugin {
-    pname = "vim-yankstack";
-    version = "2021-01-01";
-    src = pkgs.fetchFromGitHub {
-      owner = "maxbrunsfeld";
-      repo = "vim-yankstack";
-      rev = "157a659c1b101c899935d961774fb5c8f0775370";
-      sha256 = "sha256-lBMfOxUF6vykuVPmqZ3rsy6ryyprui8+dHpuKepXXp8=";
-    };
-  };
+  nvim = import ./neovim.nix { inherit pkgs lib; };
 
-  ag-vim = pkgs.vimUtils.buildVimPlugin {
-    pname = "ag.vim";
-    version = "2021-01-01";
-    src = pkgs.fetchFromGitHub {
-      owner = "rking";
-      repo = "ag.vim";
-      rev = "4a0dd6e190f446e5a016b44fdaa2feafc582918e";
-      sha256 = "sha256-IheUi3ishLP8VxUZHBoGtrm2OCxAVwwSCIP3sXHN57c=";
-    };
-  };
-
-  # Common plugins for both vim and neovim
-  sharedPlugins =
-    (with pkgs.vimPlugins; [
-      vim-sensible
-      vim-ruby
-      syntastic
-      vim-easymotion
-      nerdtree
-      vim-markdown
-      vim-endwise
-      delimitMate
-      ag-vim
-      vim-rhubarb
-      vim-fugitive
-      vim-go
-      rust-vim
-      vim-colors-solarized
-      vim-commentary
-      vim-surround
-      camelcasemotion
-      rainbow_parentheses-vim
-      # vim-yankstack  # disabled 2026-06-12 — wasn't using the <M-p>/<M-P> yank-ring
-      #                # cycling. Uncomment to restore (derivation defined above;
-      #                # MacVim also relies on `:set macmeta` in gvimrc, still present).
-      vim-javascript
-      yats-vim # TypeScript + .tsx syntax
-      indentLine
-      fzf-wrapper
-      fzf-vim
-      vim-nix
-      copilot-vim
-    ])
-    # markdown-preview: jojo only uses :MarkdownPreview on the Mac. The Linux box is
-    # headless SSH with no browser, so don't ship it there.
-    ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
-      pkgs.vimPlugins.markdown-preview-nvim
-    ];
-
-  # Plugins that load ONLY in terminal neovim (Lua-native; deliberately NOT added to
-  # packDir, so MacVim never sees them and stays on the classic vimscript set above).
-  neovimOnlyPlugins = with pkgs.vimPlugins; [
-    # Treesitter — better highlighting for code (rust/go/ts/tsx/js/nix/ruby/lua/sh).
-    # withAllGrammars ships prebuilt parsers from nix (no :TSInstall, no compiler).
-    nvim-treesitter.withAllGrammars
-    # Indent guides via virtual text (replaces indentLine on nvim; no conceal abuse).
-    indent-blankline-nvim
-    # Fuzzy finder. <C-p> opens files (same key as fzf.vim); ,f live-greps. fzf.vim
-    # stays loaded as a fallback (:Files / :Ag still work).
-    fzf-lua
-    # Solarized dark for neovim: truecolor + treesitter-aware. The classic vimscript
-    # solarized renders wrong under termguicolors, so use a Lua one on nvim. MacVim
-    # keeps its own working classic solarized via gvimrc — untouched.
-    nvim-solarized-lua
-  ];
-
-  # Classic plugins replaced by an nvim-native equivalent above — dropped from the
-  # NEOVIM set so both don't load. MacVim's packDir keeps the full sharedPlugins.
-  #   indentLine           -> indent-blankline-nvim
-  #   vim-commentary       -> neovim 0.10+ built-in gc/gcc commenting (no plugin)
-  #   vim-colors-solarized -> nvim-solarized-lua (avoids a duplicate `solarized`
-  #                           colorscheme on nvim's path; MacVim still uses the classic)
-  nvimReplaced = with pkgs.vimPlugins; [ indentLine vim-commentary vim-colors-solarized ];
-
-  # The neovim plugin set: shared minus the replaced classics, plus the nvim-only ones.
-  neovimPlugins =
-    builtins.filter (p: !(builtins.elem p nvimReplaced)) sharedPlugins
-    ++ neovimOnlyPlugins;
-
-  # Shared vimrc content (stripped of Vundle)
-  vimrcContent = builtins.readFile ./vimrc;
-
-  # Neovide-specific lua config
-  neovideConfig = builtins.readFile ./init-neovide.lua;
-
-  # Neovim-only Lua layer (plugin setup + nvim-specific tweaks). Loaded after the
-  # shared vimrc is sourced, so anything here wins on nvim; MacVim never reads it.
-  nvimLuaConfig = builtins.readFile ./init-nvim.lua;
-
-  # Build pack directory for all plugins (used by MacVim)
+  # Pack directory for the shared (classic) plugins — used by MacVim only. Note this
+  # uses sharedPlugins, NOT the nvim-only set, so MacVim never gets the Lua plugins.
   packDir = pkgs.vimUtils.packDir {
     home-manager = {
-      start = sharedPlugins;
+      start = nvim.sharedPlugins;
     };
   };
 
-  # Vimrc that sets up packpath for MacVim compatibility
+  # Vimrc that prepends the nix pack dir to packpath so MacVim finds the plugins.
   vimrcFull = pkgs.writeText "vimrc" ''
     " Load plugins from nix pack directory
     set packpath^=~/.vim/nix-pack
     set runtimepath^=~/.vim/nix-pack
 
-    ${vimrcContent}
+    ${nvim.vimrcContent}
   '';
-
 in
 {
-  # No programs.vim: neovim provides the `vim`/`vi` commands via viAlias/vimAlias
-  # below, so it's the single terminal editor. MacVim is unaffected — it reads
-  # ~/.vimrc + ~/.vim/nix-pack directly (generated further down), not this binary.
-
-  # Configure neovim as the terminal editor (and for Neovide)
+  # No programs.vim: neovim provides the `vim`/`vi` commands via viAlias/vimAlias, so
+  # it's the single terminal editor. MacVim is unaffected — it reads ~/.vimrc +
+  # ~/.vim/nix-pack directly (generated below), not this binary.
   programs.neovim = {
     enable = true;
     viAlias = true;
     vimAlias = true;
 
-    # No ruby/python remote-plugin hosts needed (none of jojo's plugins use them).
-    # Adopt the new 26.05 defaults explicitly to silence the deprecation
-    # warning (the old default was true while stateVersion < 26.05).
+    # No ruby/python remote-plugin hosts (none of jojo's plugins use them); adopt the
+    # 26.05 defaults explicitly to silence the deprecation warning.
     withRuby = false;
     withPython3 = false;
 
-    # copilot.vim needs `node` on PATH. Guarantee it for nvim everywhere,
-    # including the headless Linux box which doesn't install nodejs globally.
-    extraPackages = [ pkgs.nodejs ];
+    # copilot.vim needs `node` on PATH (also covers the headless Linux box).
+    extraPackages = nvim.extraPackages;
 
-    # NOTE(clipboard-over-ssh): yanking to the *local* machine's clipboard from
-    # nvim on the Linux box isn't wired up. xclip/wl-copy don't help over SSH (no
-    # remote display); the fix is an OSC52 clipboard provider (neovim >=0.10 can
-    # emit OSC52, terminal-emulator permitting). Deferred for now.
+    # NOTE(clipboard-over-ssh): yanking to the *local* machine's clipboard from nvim
+    # on the Linux box isn't wired up — xclip/wl-copy don't help over SSH. The fix is
+    # an OSC52 clipboard provider (neovim >=0.10 can emit OSC52). Deferred for now.
 
-    plugins = neovimPlugins;
-
-    extraConfig = vimrcContent;
-    initLua = neovideConfig + "\n" + nvimLuaConfig;
+    plugins = nvim.neovimPlugins;
+    extraConfig = nvim.vimrcContent;
+    initLua = nvim.initLua;
   };
 
-  # Vimrc that works for all vims (including MacVim)
+  # Vimrc + gvimrc for MacVim.
   home.file.".vimrc".source = vimrcFull;
-
-  # MacVim uses ~/.gvimrc directly
   home.file.".gvimrc".source = ./gvimrc;
 
-  # Link nix plugin pack directory (for MacVim compatibility)
+  # Nix plugin pack directory (for MacVim).
   home.file.".vim/nix-pack".source = packDir;
 
-  # Link colorschemes, syntax, and ftdetect
+  # Colorschemes, syntax, and ftdetect.
   home.file.".vim/colors".source = ./colors;
   home.file.".vim/ftdetect".source = ./ftdetect;
   home.file.".vim/syntax".source = ./syntax;
 
-  # Create writable directories for vim state
+  # Writable directories for vim state.
   home.activation.createVimDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p $HOME/.vim/undofiles
     mkdir -p $HOME/.vim/backup
