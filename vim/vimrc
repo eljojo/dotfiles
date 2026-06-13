@@ -106,11 +106,13 @@ nnoremap <leader>n :NERDTreeFind<CR>
 " fixes editing the crontab
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
 
-" Enable RainbowParentheses
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+" Enable RainbowParentheses (guarded so the slim/root build can omit the plugin)
+if exists(':RainbowParenthesesToggle')
+  au VimEnter * RainbowParenthesesToggle
+  au Syntax * RainbowParenthesesLoadRound
+  au Syntax * RainbowParenthesesLoadSquare
+  au Syntax * RainbowParenthesesLoadBraces
+endif
 
 " Enable CamelCaseMotion
 call camelcasemotion#CreateMotionMappings('<Leader>')

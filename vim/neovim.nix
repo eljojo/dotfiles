@@ -119,6 +119,7 @@ let
   mkPackage =
     {
       plugins,
+      luaInit,
       extraBin ? [ ],
     }:
     let
@@ -132,7 +133,7 @@ let
     pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (
       cfg
       // {
-        luaRcContent = cfg.luaRcContent + "\nvim.cmd.source('${vimrcFile}')\n" + initLua;
+        luaRcContent = cfg.luaRcContent + "\nvim.cmd.source('${vimrcFile}')\n" + luaInit;
         wrapperArgs =
           cfg.wrapperArgs
           ++ lib.optionals (extraBin != [ ]) [
@@ -144,21 +145,53 @@ let
       }
     );
 
-  # Slim neovim set for root on servers: the common plugins (NOT vim-ruby/copilot)
-  # minus the nvim-replaced classics, plus the nvim-only Lua plugins. Built from
-  # sharedPluginsCommon so it never references the unfree vim-ruby.
-  slimPlugins =
-    builtins.filter (p: !(builtins.elem p nvimReplaced)) sharedPluginsCommon
-    ++ neovimOnlyPlugins;
-
-  # Full package (everything; node on PATH for copilot).
+  # Full package (the Mac terminal nvim, self-contained): everything + node for copilot.
   package = mkPackage {
     plugins = neovimPlugins;
+    luaInit = initLua;
     extraBin = [ pkgs.nodejs ];
   };
 
-  # Lightweight package for root on servers: no ruby, no copilot, no node, no unfree.
-  slimPackage = mkPackage { plugins = slimPlugins; };
+  # --- Slim build for root on servers: "a step up above vanilla, not an IDE" ---------
+  # Lean & fast: your shortcuts + NERDTree, fzf.vim for <C-p>, and treesitter for ONLY
+  # the file types root edits. No fzf-lua/ibl/copilot/node, no all-grammars (262 MB),
+  # no dev-language plugins.
+  slimTreesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (
+    p: with p; [
+      nix
+      bash
+      yaml
+      lua
+      json
+      markdown
+      markdown-inline
+    ]
+  );
+  slimPlugins =
+    (with pkgs.vimPlugins; [
+      vim-sensible
+      nerdtree
+      fzf-wrapper
+      fzf-vim
+      vim-easymotion
+      camelcasemotion # required: the shared vimrc calls camelcasemotion#CreateMotionMappings
+      vim-surround
+      vim-nix
+      nvim-solarized-lua
+    ])
+    ++ [ slimTreesitter ];
+
+  # Slim Lua layer: solarized + treesitter for the few server languages. Keymaps come
+  # from the shared vimrc (<C-p> stays :Files, <C-n>/,n stay NERDTree); gc/gcc is
+  # neovim's built-in. No fzf-lua/ibl require() here, so nothing errors when absent.
+  slimInitLua = builtins.readFile ./init-slim.lua;
+
+  # Lightweight package for root: step-up-above-vanilla. fzf on PATH for <C-p>; no node.
+  slimPackage = mkPackage {
+    plugins = slimPlugins;
+    luaInit = slimInitLua;
+    extraBin = [ pkgs.fzf ];
+  };
 
 in
 {

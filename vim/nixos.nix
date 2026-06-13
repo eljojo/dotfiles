@@ -3,14 +3,12 @@
 #
 #   imports = [ inputs.dotfiles.nixosModules.neovim ];
 #
-# It provides the `nvim` command with the lightweight (slim) config: same editor
-# experience as the Mac (treesitter, solarized dark, fzf-lua, etc.) but WITHOUT ruby,
-# copilot, or node — a ~390 MB smaller closure. It does NOT set $EDITOR or alias
-# vim/vi — do that yourself if you want it as the default editor.
-#
-# The host still needs `nixpkgs.config.allowUnfree = true;` — several of these vim
-# plugins (delimitMate, etc.) carry nixpkgs' "unfree" placeholder license; it's a
-# metadata quirk, not actually proprietary software.
+# It provides the `nvim` command with the lightweight (slim) config: "a step up above
+# vanilla" for quick root edits — your shortcuts + NERDTree, fzf.vim for <C-p>, and
+# treesitter + solarized for the file types root touches (nix/bash/yaml/lua/json/md).
+# No fzf-lua / copilot / node / dev-language plugins. ~135 MB closure, and all-free —
+# the host does NOT need allowUnfree. It does NOT set $EDITOR or alias vim/vi; do that
+# yourself if you want it as the default editor.
 {
   pkgs,
   lib,
