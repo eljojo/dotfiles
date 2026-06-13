@@ -122,28 +122,19 @@ let
       luaInit,
       extraBin ? [ ],
     }:
-    let
-      cfg = pkgs.neovimUtils.makeNeovimConfig {
-        withRuby = false;
-        withPython3 = false;
-        withNodeJs = false; # any extras go on PATH via extraBin, not as provider hosts
-        plugins = map (p: { plugin = p; }) plugins;
-      };
-    in
-    pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (
-      cfg
-      // {
-        luaRcContent = cfg.luaRcContent + "\nvim.cmd.source('${vimrcFile}')\n" + luaInit;
-        wrapperArgs =
-          cfg.wrapperArgs
-          ++ lib.optionals (extraBin != [ ]) [
-            "--suffix"
-            "PATH"
-            ":"
-            (lib.makeBinPath extraBin)
-          ];
-      }
-    );
+    pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped {
+      withRuby = false;
+      withPython3 = false;
+      withNodeJs = false; # any extras go on PATH via extraBin, not as provider hosts
+      plugins = map (p: { plugin = p; }) plugins;
+      luaRcContent = "vim.cmd.source('${vimrcFile}')\n" + luaInit;
+      wrapperArgs = lib.optionals (extraBin != [ ]) [
+        "--suffix"
+        "PATH"
+        ":"
+        (lib.makeBinPath extraBin)
+      ];
+    };
 
   # Full package (the Mac terminal nvim, self-contained): everything + node for copilot.
   package = mkPackage {
