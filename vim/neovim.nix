@@ -33,36 +33,49 @@ let
     };
   };
 
-  # Plugins for BOTH MacVim and neovim (classic vimscript, work everywhere).
+  # Plugins common to BOTH editors AND the slim server build. Deliberately EXCLUDES
+  # vim-ruby + copilot-vim (those live in fullOnlyPlugins) so the slim set can be
+  # built without ever referencing them — vim-ruby is nixpkgs-unfree, and merely
+  # referencing an unfree derivation triggers the unfree check even to filter it out.
+  sharedPluginsCommon = with pkgs.vimPlugins; [
+    vim-sensible
+    syntastic
+    vim-easymotion
+    nerdtree
+    vim-markdown
+    vim-endwise
+    delimitMate
+    ag-vim
+    vim-rhubarb
+    vim-fugitive
+    vim-go
+    rust-vim
+    vim-colors-solarized
+    vim-commentary
+    vim-surround
+    camelcasemotion
+    rainbow_parentheses-vim
+    # vim-yankstack  # disabled 2026-06-12 — see derivation note above.
+    vim-javascript
+    yats-vim # TypeScript + .tsx syntax
+    indentLine
+    fzf-wrapper
+    fzf-vim
+    vim-nix
+  ];
+
+  # Plugins the full (Mac) build adds but the slim server build drops:
+  #   vim-ruby    - ruby ftplugin/syntax (also the only nixpkgs-unfree plugin here)
+  #   copilot-vim - AI completion (the only reason node is needed)
+  fullOnlyPlugins = with pkgs.vimPlugins; [
+    vim-ruby
+    copilot-vim
+  ];
+
+  # Full shared set for BOTH editors (MacVim packDir + Mac neovim).
   sharedPlugins =
-    (with pkgs.vimPlugins; [
-      vim-sensible
-      vim-ruby
-      syntastic
-      vim-easymotion
-      nerdtree
-      vim-markdown
-      vim-endwise
-      delimitMate
-      ag-vim
-      vim-rhubarb
-      vim-fugitive
-      vim-go
-      rust-vim
-      vim-colors-solarized
-      vim-commentary
-      vim-surround
-      camelcasemotion
-      rainbow_parentheses-vim
-      # vim-yankstack  # disabled 2026-06-12 — see derivation note above.
-      vim-javascript
-      yats-vim # TypeScript + .tsx syntax
-      indentLine
-      fzf-wrapper
-      fzf-vim
-      vim-nix
-      copilot-vim
-    ])
+    sharedPluginsCommon
+    ++ fullOnlyPlugins
     # markdown-preview: only on macOS (the Linux box is headless SSH, no browser).
     ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
       pkgs.vimPlugins.markdown-preview-nvim
@@ -99,32 +112,53 @@ let
   # copilot.vim needs node on PATH.
   extraPackages = [ pkgs.nodejs ];
 
-  # Self-contained configured neovim (no home-manager). Used by the NixOS module.
-  # The vimscript rc is sourced explicitly FROM lua so it loads before the lua
-  # layer (whose keymaps must win) — wrapNeovim's own rc ordering is the reverse
-  # of home-manager's, so we don't rely on it.
+  # Self-contained configured neovim (no home-manager). The vimscript rc is sourced
+  # explicitly FROM lua so it loads before the lua layer (whose keymaps must win) —
+  # wrapNeovim's own rc ordering is the reverse of home-manager's, so don't rely on it.
   vimrcFile = pkgs.writeText "init-shared.vim" vimrcContent;
-  neovimConfig = pkgs.neovimUtils.makeNeovimConfig {
-    withRuby = false;
-    withPython3 = false;
-    withNodeJs = false; # node is added to PATH below, not as a provider host
-    plugins = map (p: { plugin = p; }) neovimPlugins;
+  mkPackage =
+    {
+      plugins,
+      extraBin ? [ ],
+    }:
+    let
+      cfg = pkgs.neovimUtils.makeNeovimConfig {
+        withRuby = false;
+        withPython3 = false;
+        withNodeJs = false; # any extras go on PATH via extraBin, not as provider hosts
+        plugins = map (p: { plugin = p; }) plugins;
+      };
+    in
+    pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (
+      cfg
+      // {
+        luaRcContent = cfg.luaRcContent + "\nvim.cmd.source('${vimrcFile}')\n" + initLua;
+        wrapperArgs =
+          cfg.wrapperArgs
+          ++ lib.optionals (extraBin != [ ]) [
+            "--suffix"
+            "PATH"
+            ":"
+            (lib.makeBinPath extraBin)
+          ];
+      }
+    );
+
+  # Slim neovim set for root on servers: the common plugins (NOT vim-ruby/copilot)
+  # minus the nvim-replaced classics, plus the nvim-only Lua plugins. Built from
+  # sharedPluginsCommon so it never references the unfree vim-ruby.
+  slimPlugins =
+    builtins.filter (p: !(builtins.elem p nvimReplaced)) sharedPluginsCommon
+    ++ neovimOnlyPlugins;
+
+  # Full package (everything; node on PATH for copilot).
+  package = mkPackage {
+    plugins = neovimPlugins;
+    extraBin = [ pkgs.nodejs ];
   };
-  package = pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (
-    neovimConfig
-    // {
-      luaRcContent =
-        neovimConfig.luaRcContent
-        + "\nvim.cmd.source('${vimrcFile}')\n"
-        + initLua;
-      wrapperArgs = neovimConfig.wrapperArgs ++ [
-        "--suffix"
-        "PATH"
-        ":"
-        (lib.makeBinPath [ pkgs.nodejs ])
-      ];
-    }
-  );
+
+  # Lightweight package for root on servers: no ruby, no copilot, no node, no unfree.
+  slimPackage = mkPackage { plugins = slimPlugins; };
 
 in
 {
@@ -136,5 +170,6 @@ in
     initLua
     extraPackages
     package
+    slimPackage
     ;
 }

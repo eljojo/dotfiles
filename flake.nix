@@ -48,6 +48,9 @@
             home-manager.darwinModules.home-manager
           ];
         };
+
+      # Systems we expose checks for (the Mac + the lisa NixOS hosts).
+      forAllSystems = nixpkgs.lib.genAttrs [ "aarch64-darwin" "x86_64-linux" ];
     in
     {
       # nix-darwin configuration for macOS
@@ -68,5 +71,17 @@
       # NixOS module: jojo's configured neovim installed system-wide (root + all
       # users), no home-manager. Import on a host: imports = [ self.nixosModules.neovim ];
       nixosModules.neovim = import ./vim/nixos.nix;
+
+      # `nix flake check` builds each configured neovim and asserts its invariants
+      # (colorscheme/treesitter/keymaps; slim has no copilot/node). See vim/checks.nix.
+      checks = forAllSystems (
+        system:
+        import ./vim/checks.nix {
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        }
+      );
     };
 }
