@@ -195,7 +195,6 @@ in
     pkgs.curl
     pkgs.wget
     pkgs.git
-    pkgs.vim
     pkgs.tree
     pkgs.git-lfs
     pkgs.fzf
@@ -269,7 +268,7 @@ in
   system.defaults.dock.wvous-tl-corner = 2; # Top left corner → Mission Control
   system.defaults.dock.wvous-bl-corner = 4; # Bottom left screen corner → Desktop
 
-  environment.variables.EDITOR = "${pkgs.vim}/bin/vim";
+  environment.variables.EDITOR = "nvim";
 
   # Expose nix PATH to GUI apps (Neovide, etc.)
   launchd.user.envVariables.PATH = config.environment.systemPath;

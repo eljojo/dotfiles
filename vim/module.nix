@@ -8,28 +8,8 @@
 
 let
   # Build plugins not in nixpkgs
-  vim-bundler = pkgs.vimUtils.buildVimPlugin {
-    pname = "vim-bundler";
-    version = "2024-01-01";
-    src = pkgs.fetchFromGitHub {
-      owner = "tpope";
-      repo = "vim-bundler";
-      rev = "c261509e78fc8dc55ad1fcf3cd7cdde49f35435c";
-      sha256 = "sha256-z8ZQhCITVxW+RShX5drAQm4aKFWT5K3yw72nBcwVGa4=";
-    };
-  };
-
-  vim-rubocop = pkgs.vimUtils.buildVimPlugin {
-    pname = "vim-rubocop";
-    version = "2024-01-01";
-    src = pkgs.fetchFromGitHub {
-      owner = "ngmy";
-      repo = "vim-rubocop";
-      rev = "1c57918086d22cc9db829125f6b78226feae86a3";
-      sha256 = "sha256-p7GaFu6gVIDT6OI0VmHfXefbzX/Q9G1Ec7BUN88eW0Y=";
-    };
-  };
-
+  # vim-yankstack: currently DISABLED in sharedPlugins below (jojo wasn't using
+  # the <M-p>/<M-P> yank-ring cycling); kept here so re-enabling is one uncomment.
   vim-yankstack = pkgs.vimUtils.buildVimPlugin {
     pname = "vim-yankstack";
     version = "2021-01-01";
@@ -53,37 +33,49 @@ let
   };
 
   # Common plugins for both vim and neovim
-  sharedPlugins = with pkgs.vimPlugins; [
-    vim-sensible
-    vim-ruby
-    syntastic
-    vim-easymotion
-    nerdtree
-    vim-rails
-    vim-coffee-script
-    vim-markdown
-    vim-endwise
-    delimitMate
-    vim-bundler
-    ag-vim
-    vim-rhubarb
-    vim-fugitive
-    vim-go
-    vim-colors-solarized
-    vim-commentary
-    vim-elixir
-    vim-surround
-    camelcasemotion
-    vim-rubocop
-    rainbow_parentheses-vim
-    vim-yankstack
-    vim-javascript
-    indentLine
-    fzf-wrapper
-    fzf-vim
-    vim-nix
-    copilot-vim
-    markdown-preview-nvim
+  sharedPlugins =
+    (with pkgs.vimPlugins; [
+      vim-sensible
+      vim-ruby
+      syntastic
+      vim-easymotion
+      nerdtree
+      vim-markdown
+      vim-endwise
+      delimitMate
+      ag-vim
+      vim-rhubarb
+      vim-fugitive
+      vim-go
+      rust-vim
+      vim-colors-solarized
+      vim-commentary
+      vim-surround
+      camelcasemotion
+      rainbow_parentheses-vim
+      # vim-yankstack  # disabled 2026-06-12 — wasn't using the <M-p>/<M-P> yank-ring
+      #                # cycling. Uncomment to restore (derivation defined above;
+      #                # MacVim also relies on `:set macmeta` in gvimrc, still present).
+      vim-javascript
+      yats-vim # TypeScript + .tsx syntax
+      indentLine
+      fzf-wrapper
+      fzf-vim
+      vim-nix
+      copilot-vim
+    ])
+    # markdown-preview: jojo only uses :MarkdownPreview on the Mac. The Linux box is
+    # headless SSH with no browser, so don't ship it there.
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
+      pkgs.vimPlugins.markdown-preview-nvim
+    ];
+
+  # Plugins that load ONLY in terminal neovim (Lua-native; deliberately NOT added to
+  # packDir, so MacVim never sees them and stays on the classic vimscript set above).
+  neovimOnlyPlugins = with pkgs.vimPlugins; [
+    # Treesitter — better highlighting for code (rust/go/ts/tsx/js/nix/ruby/lua/sh).
+    # withAllGrammars ships prebuilt parsers from nix (no :TSInstall, no compiler).
+    nvim-treesitter.withAllGrammars
   ];
 
   # Shared vimrc content (stripped of Vundle)
@@ -91,6 +83,10 @@ let
 
   # Neovide-specific lua config
   neovideConfig = builtins.readFile ./init-neovide.lua;
+
+  # Neovim-only Lua layer (plugin setup + nvim-specific tweaks). Loaded after the
+  # shared vimrc is sourced, so anything here wins on nvim; MacVim never reads it.
+  nvimLuaConfig = builtins.readFile ./init-nvim.lua;
 
   # Build pack directory for all plugins (used by MacVim)
   packDir = pkgs.vimUtils.packDir {
@@ -110,29 +106,35 @@ let
 
 in
 {
-  # Configure vim
-  programs.vim = {
-    enable = true;
-    plugins = sharedPlugins;
-    extraConfig = vimrcContent;
-  };
+  # No programs.vim: neovim provides the `vim`/`vi` commands via viAlias/vimAlias
+  # below, so it's the single terminal editor. MacVim is unaffected — it reads
+  # ~/.vimrc + ~/.vim/nix-pack directly (generated further down), not this binary.
 
-  # Configure neovim (for Neovide)
+  # Configure neovim as the terminal editor (and for Neovide)
   programs.neovim = {
     enable = true;
-    viAlias = false;
-    vimAlias = false;
+    viAlias = true;
+    vimAlias = true;
 
-    # Neovim is only used for Neovide here; no ruby/python remote plugins.
+    # No ruby/python remote-plugin hosts needed (none of jojo's plugins use them).
     # Adopt the new 26.05 defaults explicitly to silence the deprecation
     # warning (the old default was true while stateVersion < 26.05).
     withRuby = false;
     withPython3 = false;
 
-    plugins = sharedPlugins;
+    # copilot.vim needs `node` on PATH. Guarantee it for nvim everywhere,
+    # including the headless Linux box which doesn't install nodejs globally.
+    extraPackages = [ pkgs.nodejs ];
+
+    # NOTE(clipboard-over-ssh): yanking to the *local* machine's clipboard from
+    # nvim on the Linux box isn't wired up. xclip/wl-copy don't help over SSH (no
+    # remote display); the fix is an OSC52 clipboard provider (neovim >=0.10 can
+    # emit OSC52, terminal-emulator permitting). Deferred for now.
+
+    plugins = sharedPlugins ++ neovimOnlyPlugins;
 
     extraConfig = vimrcContent;
-    initLua = neovideConfig;
+    initLua = neovideConfig + "\n" + nvimLuaConfig;
   };
 
   # Vimrc that works for all vims (including MacVim)

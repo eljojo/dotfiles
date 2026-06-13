@@ -44,7 +44,7 @@
       };
 
       core = {
-        editor = "vim";
+        editor = "nvim";
         trustctime = false;
         pager = "less -r";
       };
@@ -158,7 +158,7 @@
   home.sessionVariables = {
     GOPATH = "$HOME/.go";
     PROJECTS = "$HOME/code";
-    VISUAL = "vim";
+    VISUAL = "nvim";
     PAGER = "less";
     LESS = "-F -g -i -M -R -S -w -X -z-4";
   };

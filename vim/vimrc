@@ -100,12 +100,11 @@ set directory=~/.vim/backup
 " load NERDTree with ctrl+n
 map <C-n> :NERDTreeToggle<CR>
 
+" reveal the current file in NERDTree (,n)
+nnoremap <leader>n :NERDTreeFind<CR>
+
 " fixes editing the crontab
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
-
-" Run Rubocop with Leader+r
-let g:vimrubocop_keymap = 0
-nmap <Leader>r :RuboCop<CR>
 
 " Enable RainbowParentheses
 au VimEnter * RainbowParenthesesToggle

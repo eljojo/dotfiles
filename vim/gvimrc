@@ -22,7 +22,8 @@ if has("gui_macvim")
 endif
 
 
-" vim-yankstack
+" macmeta: make Option act as Meta in MacVim. Originally added for vim-yankstack's
+" <M-p>/<M-P> (now disabled) — kept because other <M-...> mappings may rely on it.
 if has("gui_macvim")
   :set macmeta
 endif
