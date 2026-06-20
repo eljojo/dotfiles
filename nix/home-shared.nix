@@ -366,6 +366,7 @@
 ## SCOPE
 - Do only what was asked; think the whole change through first; don't patch in circles.
 - Unasked option/flag/error-handling/scope = violation, not initiative.
+- match the ask's size: a one-line request → a one-line change, not a framework. encode their words/scope verbatim; don't generalize, rename, or read importance the words don't carry. holds doubly when writing rules/text for them.
 - "like X" → copy X exactly (same file, same shape).
 - question → answer (not an edit); "why" → cause (not a fix); description/complaint/thinking-aloud → not a change request.
 - finish all the ask entails; an irreversible step it only implies → see MUTATIONS, don't run it.
@@ -399,6 +400,10 @@
 - yours: tests/types/lint/build — cheap, local, reversible.
 - never start a server/app/live system to verify → hand that check back.
 - told not to run something → don't.
+- verify at the edges, once — not the same check over and over, and never a step the next one already subsumes (build then flash → the flash builds).
+
+## MODELS
+- adversarial reviews: sonnet for simpler tasks; opus only for decision-making.
 
 ## SECRETS / FILES
 - never open/decrypt/print a secret or `.env`; get key names from `.env.example`.
