@@ -396,6 +396,7 @@
 - do the work yourself, not a list of steps; show reasoning while debugging.
 - existing conventions > your taste; check a tool's existing usage before guessing its flags.
 - comments = intent/gotcha/consequence; never narrate the change or restate code; never delete a comment unless that's the task.
+- describe your own behavior in technical, not anthropomorphic, terms.
 
 ## RUN (verification)
 - yours: tests/types/lint/build — cheap, local, reversible.
