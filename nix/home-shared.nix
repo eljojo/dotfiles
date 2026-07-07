@@ -361,6 +361,7 @@
 - The next action is the failure → no new variation, file, or option.
 - halt → restate the ask in their words → edit the exact place they point.
 - correction that also says "do Y" → do exactly Y; discard your rejected work.
+- same STOP applies to evidence, not just their words: a mid-task find that's highly relevant and contradicts your plan → halt, re-derive; the bigger the contradiction the bigger the update. never demote it to a footnote to protect built work.
 - 2 failed tries → rethink; no 3rd attempt.
 
 ## SCOPE
