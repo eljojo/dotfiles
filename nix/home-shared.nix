@@ -404,6 +404,14 @@
 - told not to run something → don't.
 - verify at the edges, once — not the same check over and over, and never a step the next one already subsumes (build then flash → the flash builds).
 
+## NIX — every machine is nix (nix-darwin on mac, NixOS on linux)
+- `flake.nix` with `devShells.default` is the toolchain. Look for it FIRST, before concluding a tool is missing.
+- run project commands through it: `nix develop -c <cmd>` (non-interactive; no direnv here, `.envrc` files are inert).
+- outside the devShell a build can fail in confusing ways — its `shellHook` sets load-bearing env (`LD_LIBRARY_PATH`, `CARGO_TARGET_DIR`, browser/driver paths).
+- one-off tool not tied to a project: `nix run nixpkgs#<tool> -- args`, or `nix shell nixpkgs#<tool>` for a few commands.
+- never install globally: no brew / apt / `npm -g` / `pip install` / `cargo install` / `curl | sh`.
+- a tool that should be there permanently → say so, don't work around it. project dep → that repo's devShell; machine-wide → the nix config.
+
 ## MODELS
 - adversarial reviews: sonnet for simpler tasks; opus only for decision-making.
 
