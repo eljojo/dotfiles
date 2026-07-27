@@ -8,6 +8,11 @@
   ...
 }:
 
+let
+  # The claude account's shell is driven by an agent that has no way to answer a
+  # prompt: there, `-i` turns a copy into a command that hangs until it's killed.
+  humanAccount = config.home.username != "claude";
+in
 {
   programs.home-manager.enable = true;
 
@@ -146,10 +151,10 @@
     gpre = "grep";
 
     # Safe defaults
-    rm = "rm -i";
-    cp = "cp -i";
-    mv = "mv -i";
-    ln = "ln -i";
+    rm = lib.mkIf humanAccount "rm -i";
+    cp = lib.mkIf humanAccount "cp -i";
+    mv = lib.mkIf humanAccount "mv -i";
+    ln = lib.mkIf humanAccount "ln -i";
 
     # Nix
     nix-cleanup = "nix-collect-garbage -d";
