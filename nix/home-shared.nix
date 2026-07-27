@@ -231,6 +231,14 @@ in
       "INC_APPEND_HISTORY"
       "HIST_REDUCE_BLANKS"
       "complete_aliases"
+    ]
+    ++ lib.optionals (!humanAccount) [
+      # A failed expansion aborts the whole command line in zsh, where bash —
+      # which is what the agent's commands are written for — leaves the word
+      # alone: `echo ===` looks up a command named `==`, and a glob that matches
+      # nothing is fatal rather than literal.
+      "NO_EQUALS"
+      "NO_NOMATCH"
     ];
 
     shellAliases = {
