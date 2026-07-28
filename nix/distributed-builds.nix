@@ -12,7 +12,9 @@ in
 {
   nix.buildMachines = [
     {
-      hostName = "willie.eljojo.casa";
+      # bart, not willie: willie is a hypervisor whose guests pin 44 of its
+      # 62.7 GiB, and build load there was competing with guest memory.
+      hostName = "bart.eljojo.casa";
       sshUser = "remotebuild";
       sshKey = "/Users/jojo/.ssh/id_ecdsa";
       system = "x86_64-linux";
@@ -24,6 +26,8 @@ in
         "big-parallel"
         "kvm"
       ];
+      # obtained with `base64 -w0 /etc/ssh/ssh_host_ed25519_key.pub`
+      publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSU5WT1B4QjV6bGFqR1ozK3gyVEc3RUxWempDRURTTytSYXovOWdxYmN2QnEgcm9vdEBiYXJ0Cg==";
     }
     {
       # willie also supports aarch64-linux via binfmt emulation
