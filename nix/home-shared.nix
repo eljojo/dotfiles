@@ -150,11 +150,9 @@ in
     grpe = "grep";
     gpre = "grep";
 
-    # Safe defaults
-    rm = lib.mkIf humanAccount "rm -i";
-    cp = lib.mkIf humanAccount "cp -i";
-    mv = lib.mkIf humanAccount "mv -i";
-    ln = lib.mkIf humanAccount "ln -i";
+    # rm/cp/mv/ln -i come from prezto's utility module (safeOps, below) rather
+    # than from here — it provides the same four and composes with any alias
+    # already set, so defining them in both places only made them fight.
 
     # Nix
     nix-cleanup = "nix-collect-garbage -d";
@@ -206,6 +204,14 @@ in
       prompt.theme = "powerlevel10k";
       terminal.autoTitle = true;
       autosuggestions.color = "fg=6";
+
+      # cp/mv/rm/ln -i. On for a human, OFF for the claude account: a
+      # confirmation prompt needs somebody at the keyboard, and an agent cannot
+      # tell a blocked prompt from a slow command — it waits until the command
+      # times out. This module sets the aliases at runtime, after
+      # home.shellAliases and without consulting it, so guarding them there did
+      # nothing; the condition has to live here.
+      utility.safeOps = humanAccount;
     };
 
     history = {
