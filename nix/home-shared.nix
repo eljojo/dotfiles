@@ -275,6 +275,16 @@ in
         fortune() { : ; }
       '')
       ''
+        # prezto's directory module unsets CLOBBER, which is what you want with
+        # somebody at the keyboard. For an agent it is a trap: the redirect is
+        # refused, so the command never runs, $? is the redirect's status rather
+        # than the command's, and the log file from an earlier run is still
+        # sitting there to be grepped — a green bar for a run that did not
+        # happen. Claude Code snapshots this shell's options and replays them
+        # into every tool call, so the exemption has to be made here, where the
+        # snapshot will pick it up, rather than in the agent's own shell.
+        [[ -n $CLAUDECODE ]] && setopt CLOBBER
+
         # Powerlevel10k instant prompt (must be near top)
         if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
           source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
