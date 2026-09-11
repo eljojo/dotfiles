@@ -451,4 +451,8 @@ in
 - never create files or save memories unasked.
 - plans/specs/scratch artifacts ≠ project source → never commit them.
   '';
+
+  # Codex global instructions share Claude Code's exact generated source.
+  home.file.".codex/AGENTS.md".source =
+    config.home.file.".claude/CLAUDE.md".source;
 }
