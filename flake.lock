@@ -28,11 +28,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791680327,
-        "narHash": "sha256-Z7LPg8EMOJhr6+FhfdOf+D1fdli/cTmQ5wciM3UyRss=",
+        "lastModified": 1791681891,
+        "narHash": "sha256-Of60U4Owj56zmgkay+EmmMOiOWfqQWw/x8VLHKQFeRQ=",
         "owner": "eljojo",
         "repo": "komorebi-render",
-        "rev": "f0dce2eb3be589133ae75f2652e1e597f35b815c",
+        "rev": "20b2fefec5343fffa20db934e9225575b376adc4",
         "type": "github"
       },
       "original": {
