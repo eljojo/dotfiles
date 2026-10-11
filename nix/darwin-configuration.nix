@@ -15,7 +15,13 @@ in
   imports = [
     ./distributed-builds.nix
     ./r2d2-mount.nix
+    inputs.komorebi-render.darwinModules.default
   ];
+
+  services.komorebi-render = lib.mkIf (hostName == "jojo-m4-mini") {
+    enable = true;
+    outDir = "/Volumes/home/komorebi/jobs";
+  };
 
   # Required for flakes
   nixpkgs.hostPlatform = "aarch64-darwin";

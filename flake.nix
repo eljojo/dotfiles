@@ -12,6 +12,10 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    komorebi-render = {
+      url = "github:eljojo/komorebi-render";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Claude Code CLI - pre-built binaries from official Anthropic releases
     nix-claude-code = {
