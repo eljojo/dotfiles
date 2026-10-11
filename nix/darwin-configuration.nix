@@ -14,6 +14,7 @@ in
 {
   imports = [
     ./distributed-builds.nix
+    ./r2d2-mount.nix
   ];
 
   # Required for flakes
