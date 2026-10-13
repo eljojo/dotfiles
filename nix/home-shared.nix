@@ -125,6 +125,8 @@ in
       "/deps"
       "erl_crash.dump"
       "*.ez"
+      # Python
+      "__pycache__/"
     ];
   };
 
