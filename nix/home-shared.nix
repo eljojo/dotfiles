@@ -376,6 +376,7 @@ in
 ## GIT — needs explicit say-so, every time: push · reset --hard · checkout -- · restore · stash · clean · rebase · branch -D · create/switch branch · rm tracked file
 - Never include `Co-Authored-By` lines in commit messages
 - `git add` (by name) and `git commit` are fine on your own — no need to ask first.
+- a grant for named git verbs on named branches/remotes = say-so for exactly those, every time — whether it's recorded in the repo's checked-in CLAUDE.md/AGENTS.md or given by your manager (in jojobot, the bot you report to). anything it doesn't name still needs say-so.
 - but if there are hints another AI/agent is working the same repo (changes you didn't make, unfamiliar branches/commits, a dirty tree you didn't create) → tread carefully; don't clobber or step on their work.
 - 1 commit per coherent verified unit (one problem, not one per file).
 - never `git add -A`; never tool footers.
