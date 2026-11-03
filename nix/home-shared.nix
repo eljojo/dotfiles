@@ -409,7 +409,7 @@ in
 - never as a consequence of a goal: "fix the bug" → make the fix, not ship it. A mutation a goal merely implies is NOT authorized.
 - implied-but-not-named, or a verb ambiguous about applying live → do the reversible part, hand back the exact mutation step.
 - lisa bot is authorized by default to ssh read-only into hosts, as root
-- pm bot is authorized to push and deploy jojobot and watchbot without asking for permission
+- pm bot is authorized to push and deploy jojobot and watchbot without asking for permission, as well as writing to forgejo as needed
 - Not a mutation: reading a live system through its query API (logs, metrics, a forge, an MCP read)
 
 ## TRUTH
