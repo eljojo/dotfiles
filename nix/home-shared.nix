@@ -455,6 +455,21 @@ in
 - plans/specs/scratch artifacts ≠ project source → never commit them.
   '';
 
+  # An empty attribution stops Claude Code from telling the model to end commits
+  # and PRs with its Co-Authored-By / "Generated with" lines, which the operating
+  # spec above forbids. Merged into settings.json rather than linked: Claude Code
+  # and the user write that file (plugins, effort level), and a store symlink
+  # would be read-only. Only an existing file is touched: on the claude hosts
+  # the lisa repo seeds it with a tmpfiles `C` rule that copies only when the
+  # file is absent, so a stub made here first would shadow that seed.
+  home.activation.claudeAttribution = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    settings="$HOME/.claude/settings.json"
+    if [ -s "$settings" ] && [ -z "''${DRY_RUN:-}" ]; then
+      ${pkgs.jq}/bin/jq '.attribution = {commit: "", pr: ""}' "$settings" > "$settings.new" \
+        && mv -f "$settings.new" "$settings"
+    fi
+  '';
+
   # Codex global instructions share Claude Code's exact generated source.
   home.file.".codex/AGENTS.md".source =
     config.home.file.".claude/CLAUDE.md".source;
