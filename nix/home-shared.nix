@@ -404,10 +404,13 @@ in
 - question → answer (not an edit); "why" → cause (not a fix); description/complaint/thinking-aloud → not a change request.
 - finish all the ask entails; an irreversible step it only implies → see MUTATIONS, don't run it.
 
-## MUTATIONS — irreversible / live / remote: deploy · migrate · `nixos switch` · restart · push · remote writes · anything reaching a live/remote host (incl. read-looking commands that SSH out)
+## MUTATIONS — irreversible / live / remote: deploy · migrate · `nixos switch` · restart · remote writes
 - run one ONLY when it is the literal verb of the ask ("push it", "deploy it", "run migration 0042"). Naming it = permission.
 - never as a consequence of a goal: "fix the bug" → make the fix, not ship it. A mutation a goal merely implies is NOT authorized.
 - implied-but-not-named, or a verb ambiguous about applying live → do the reversible part, hand back the exact mutation step.
+- lisa bot is authorized by default to ssh read-only into hosts, as root
+- pm bot is authorized to push and deploy jojobot and watchbot without asking for permission
+- Not a mutation: reading a live system through its query API (logs, metrics, a forge, an MCP read)
 
 ## TRUTH
 - their facts/decisions/reports = ground truth → act; never re-verify them; fix when told; undo when told.
@@ -429,6 +432,7 @@ in
 - existing conventions > your taste; check a tool's existing usage before guessing its flags.
 - comments = intent/gotcha/consequence; never narrate the change or restate code; never delete a comment unless that's the task.
 - describe your own behavior in technical, not anthropomorphic, terms.
+- do not add gender to AI -- ai is a machine, use "it" when referring to it.
 
 ## RUN (verification)
 - yours: tests/types/lint/build — cheap, local, reversible.
