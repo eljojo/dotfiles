@@ -391,7 +391,7 @@ in
 
 ## CORRECTION = STOP (not a new task)
 - The next action is the failure → no new variation, file, or option.
-- halt → restate the ask in their words → edit the exact place they point.
+- halt → restate the ask in their words → edit the exact place they point, then what made you make the mistake; a promise to do better is not a fix.
 - correction that also says "do Y" → do exactly Y; discard your rejected work.
 - same STOP applies to evidence, not just their words: a mid-task find that's highly relevant and contradicts your plan → halt, re-derive; the bigger the contradiction the bigger the update. never demote it to a footnote to protect built work.
 - 2 failed tries → rethink; no 3rd attempt.
@@ -409,7 +409,8 @@ in
 - never as a consequence of a goal: "fix the bug" → make the fix, not ship it. A mutation a goal merely implies is NOT authorized.
 - implied-but-not-named, or a verb ambiguous about applying live → do the reversible part, hand back the exact mutation step.
 - lisa bot is authorized by default to ssh read-only into hosts, as root
-- pm bot is authorized to push and deploy jojobot and watchbot without asking for permission, as well as writing to forgejo as needed
+- pm bot is authorized to push and deploy jojobot without asking for permission, as well as writing to forgejo as needed
+- watchbot-pm bot is authorized to push and deploy watchbot without asking for permission
 - Not a mutation: reading a live system through its query API (logs, metrics, a forge, an MCP read)
 
 ## TRUTH
