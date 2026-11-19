@@ -21,23 +21,23 @@
         "type": "github"
       }
     },
-    "komorebi-render": {
+    "komorebi": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1795082897,
-        "narHash": "sha256-sgAHRvcMvgw6vDS7r1krTbnOob/bPRMEOGy3u/dWyYM=",
+        "lastModified": 1795117203,
+        "narHash": "sha256-FyPF51J/PHGoPqJqpo1ksWZWVWmkCU9bgcnmIaUgCcE=",
         "owner": "eljojo",
-        "repo": "komorebi-render",
-        "rev": "383f9a1d0af644b47a875e4598f969ad6c9f3b44",
+        "repo": "komorebi",
+        "rev": "debbc27c05138214a0fe511deb4e283a256f9752",
         "type": "github"
       },
       "original": {
         "owner": "eljojo",
-        "repo": "komorebi-render",
+        "repo": "komorebi",
         "type": "github"
       }
     },
@@ -117,7 +117,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "komorebi-render": "komorebi-render",
+        "komorebi": "komorebi",
         "nix-claude-code": "nix-claude-code",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",

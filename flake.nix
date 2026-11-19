@@ -12,8 +12,9 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    komorebi-render = {
-      url = "github:eljojo/komorebi-render";
+    # komorebi, for its render server (darwinModules.komorebi-render)
+    komorebi = {
+      url = "github:eljojo/komorebi";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

@@ -15,7 +15,7 @@ in
   imports = [
     ./distributed-builds.nix
     ./r2d2-mount.nix
-    inputs.komorebi-render.darwinModules.default
+    inputs.komorebi.darwinModules.komorebi-render
   ];
 
   services.komorebi-render = lib.mkIf (hostName == "jojo-m4-mini") {
