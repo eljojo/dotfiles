@@ -23,6 +23,14 @@ in
     outDir = "/Volumes/home/komorebi/jobs";
   };
 
+  launchd.daemons.node-exporter = lib.mkIf (hostName == "jojo-m4-mini") {
+    command = "${lib.getExe pkgs.prometheus-node-exporter} --web.listen-address=100.120.142.98:9100";
+    serviceConfig = {
+      KeepAlive = true;
+      UserName = "nobody";
+    };
+  };
+
   # Required for flakes
   nixpkgs.hostPlatform = "aarch64-darwin";
 
