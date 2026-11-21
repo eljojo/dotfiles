@@ -28,11 +28,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795118203,
-        "narHash": "sha256-mxQwjvq/DwSjfAs2In8eDKUAnFF8fOAjXpl4cJBcWzo=",
+        "lastModified": 1795247969,
+        "narHash": "sha256-etb8JcXqyYOx4eMOutacTeOPuMCB6W7TPLFDD5gvRus=",
         "owner": "eljojo",
         "repo": "komorebi",
-        "rev": "a1cb3f9bf872605ac351a7c720128ab418db2a94",
+        "rev": "ab1575c2cc34f1e46fab49228df0ee2e476096c9",
         "type": "github"
       },
       "original": {
